@@ -1,0 +1,10 @@
+{
+  "title": "📜 履歴レポート",
+  "filename": "ファイル名",
+  "healthScore": "スコア",
+  "alertCount": "アラート数",
+  "completedTime": "完了時刻",
+  "action": "アクション",
+  "viewDetail": "詳細を表示",
+  "loadHistoryFailed": "履歴レコードの読み込みに失敗しました"
+}

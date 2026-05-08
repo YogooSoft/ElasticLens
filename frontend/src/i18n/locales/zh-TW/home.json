@@ -1,0 +1,35 @@
+{
+  "title": "📊 ES 叢集巡檢系統",
+  "subtitle": "上傳診斷包，自動生成巡檢報告",
+  "uploadSection": {
+    "title": "📤 上傳診斷包"
+  },
+  "downloadToolSection": {
+    "title": "🛠️ 下載官方診斷工具",
+    "description": "請下載並運行 ES 叢集診斷工具，生成的 ZIP 文件可直接在此頁面上傳。",
+    "downloadButton": "下載官方診斷工具(v9.1.0) (ZIP)"
+  },
+  "usageGuideSection": {
+    "title": "📖 診斷工具使用說明",
+    "step1": {
+      "title": "1. 環境準備",
+      "content": "確保伺服器已安裝 Java 8 或以上版本。"
+    },
+    "step2": {
+      "title": "2. 獲取工具",
+      "content": "點擊上方的\"下載診斷工具\"按鈕，解壓下載的 ZIP 包。"
+    },
+    "step3": {
+      "title": "3. 執行診斷",
+      "content": "進入解壓後的目錄，在終端執行以下命令（密碼將在執行後互動式輸入）："
+    },
+    "command": "./diagnostics.sh --host <ES地址> --type remote -u <ES用戶> -p --port <端口> --remoteUser <遠程用戶> --remotePass --trustRemote",
+    "step4": {
+      "title": "4. 上傳報告",
+      "content": "將生成的 ZIP 診斷包拖拽或點擊上傳到左側區域，系統將自動分析並生成巡檢報告。"
+    }
+  },
+  "taskListSection": {
+    "title": "📋 任務列表"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "title": "📜 History Reports",
+  "filename": "Filename",
+  "healthScore": "Health Score",
+  "alertCount": "Alert Count",
+  "completedTime": "Completed Time",
+  "action": "Action",
+  "viewDetail": "View Details",
+  "loadHistoryFailed": "Failed to load history records"
+}

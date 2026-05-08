@@ -1,0 +1,9 @@
+{
+  "title": "⚙️ Paramètres système",
+  "apiConfig": "Configuration API",
+  "apiUrl": "Adresse API",
+  "apiUrlRequired": "Veuillez saisir l'adresse API",
+  "saveConfig": "Enregistrer la configuration",
+  "saveSuccess": "Configuration enregistrée avec succès",
+  "saveFailed": "Échec de l'enregistrement"
+}

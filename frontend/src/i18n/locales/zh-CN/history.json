@@ -1,0 +1,10 @@
+{
+  "title": "📜 历史报告",
+  "filename": "文件名",
+  "healthScore": "健康评分",
+  "alertCount": "告警数",
+  "completedTime": "完成时间",
+  "action": "操作",
+  "viewDetail": "查看详情",
+  "loadHistoryFailed": "加载历史记录失败"
+}

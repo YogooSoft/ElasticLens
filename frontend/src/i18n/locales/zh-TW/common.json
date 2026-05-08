@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "ES 叢集巡檢系統",
+    "subtitle": "上傳診斷包，自動生成巡檢報告",
+    "copyright": "版權所有 © 上海悅高軟件股份有限公司",
+    "version": "版本號"
+  },
+  "common": {
+    "upload": "上傳",
+    "download": "下載",
+    "view": "查看",
+    "delete": "刪除",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "確認",
+    "loading": "載入中...",
+    "success": "成功",
+    "error": "錯誤",
+    "backToHome": "返回首頁",
+    "uploadSuccess": "上傳成功，開始處理...",
+    "uploadFailed": "上傳失敗",
+    "onlyZipFiles": "只能上傳 ZIP 格式的文件",
+    "fileSizeExceeded": "文件大小不能超過 2GB",
+    "noTasks": "暫無任務",
+    "completed": "完成",
+    "failed": "失敗",
+    "processing": "處理中",
+    "pending": "等待中",
+    "healthScore": "健康評分",
+    "alertCount": "告警總數",
+    "level1Alerts": "一級告警數",
+    "level2Alerts": "二級告警數",
+    "level3Alerts": "三級告警數",
+    "viewDetail": "查看詳情",
+    "downloadWord": "下載 Word",
+    "generatingWord": "正在生成 Word 報告...",
+    "wordDownloadSuccess": "Word 報告下載成功",
+    "wordFeatureUnavailable": "Word 生成功能暫不可用。請點擊\"查看\"按鈕打開報告，然後使用瀏覽器列印功能（Ctrl+P）保存為 PDF。",
+    "downloadFailed": "下載失敗",
+    "errorPrefix": "錯誤"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "ES-Cluster-Inspektionssystem",
+    "subtitle": "Diagnosepaket hochladen, Inspektionsbericht automatisch generieren",
+    "copyright": "Urheberrecht © Yogoo Software Co., Ltd.",
+    "version": "Version"
+  },
+  "common": {
+    "upload": "Hochladen",
+    "download": "Herunterladen",
+    "view": "Ansehen",
+    "delete": "Löschen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "loading": "Wird geladen...",
+    "success": "Erfolg",
+    "error": "Fehler",
+    "backToHome": "Zurück zur Startseite",
+    "uploadSuccess": "Upload erfolgreich, Verarbeitung läuft...",
+    "uploadFailed": "Upload fehlgeschlagen",
+    "onlyZipFiles": "Nur ZIP-Dateien sind erlaubt",
+    "fileSizeExceeded": "Dateigröße darf 2 GB nicht überschreiten",
+    "noTasks": "Keine Aufgaben",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen",
+    "processing": "In Bearbeitung",
+    "pending": "Ausstehend",
+    "healthScore": "Gesundheitsbewertung",
+    "alertCount": "Gesamtzahl der Warnungen",
+    "level1Alerts": "Warnungen Stufe 1",
+    "level2Alerts": "Warnungen Stufe 2",
+    "level3Alerts": "Warnungen Stufe 3",
+    "viewDetail": "Details anzeigen",
+    "downloadWord": "Word herunterladen",
+    "generatingWord": "Word-Bericht wird generiert...",
+    "wordDownloadSuccess": "Word-Bericht erfolgreich heruntergeladen",
+    "wordFeatureUnavailable": "Word-Generierungsfunktion ist nicht verfügbar. Bitte klicken Sie auf \"Ansehen\", um den Bericht zu öffnen, und verwenden Sie dann die Druckfunktion des Browsers (Strg+P), um als PDF zu speichern.",
+    "downloadFailed": "Download fehlgeschlagen",
+    "errorPrefix": "Fehler"
+  }
+}

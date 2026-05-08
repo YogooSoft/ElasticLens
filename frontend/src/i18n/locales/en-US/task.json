@@ -1,0 +1,20 @@
+{
+  "completed": "Completed",
+  "failed": "Failed",
+  "processing": "Processing",
+  "pending": "Pending",
+  "healthScore": "Health Score",
+  "alertCount": "Total Alerts",
+  "level1Alerts": "Level 1 Alerts",
+  "level2Alerts": "Level 2 Alerts",
+  "level3Alerts": "Level 3 Alerts",
+  "view": "View",
+  "downloadWord": "Download Word",
+  "error": "Error",
+  "generatingWord": "Generating Word report...",
+  "wordDownloadSuccess": "Word report downloaded successfully",
+  "wordFeatureUnavailable": "Word generation feature is temporarily unavailable. Please click \"View\" button to open the report, then use browser print function (Ctrl+P) to save as PDF.",
+  "downloadFailed": "Failed to download Word report",
+  "deleteTaskFailed": "Failed to delete task",
+  "fetchTasksFailed": "Failed to fetch task list"
+}

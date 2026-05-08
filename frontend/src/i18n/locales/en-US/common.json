@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "ES Cluster Inspection System",
+    "subtitle": "Upload diagnostic packages to automatically generate inspection reports",
+    "copyright": "Copyright © Yogoo Software Co., Ltd.",
+    "version": "Version"
+  },
+  "common": {
+    "upload": "Upload",
+    "download": "Download",
+    "view": "View",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "backToHome": "Back to Home",
+    "uploadSuccess": "Upload successful, processing started...",
+    "uploadFailed": "Upload failed",
+    "onlyZipFiles": "Only ZIP format files are allowed",
+    "fileSizeExceeded": "File size cannot exceed 2GB",
+    "noTasks": "No tasks",
+    "completed": "Completed",
+    "failed": "Failed",
+    "processing": "Processing",
+    "pending": "Pending",
+    "healthScore": "Health Score",
+    "alertCount": "Total Alerts",
+    "level1Alerts": "Level 1 Alerts",
+    "level2Alerts": "Level 2 Alerts",
+    "level3Alerts": "Level 3 Alerts",
+    "viewDetail": "View Details",
+    "downloadWord": "Download Word",
+    "generatingWord": "Generating Word report...",
+    "wordDownloadSuccess": "Word report downloaded successfully",
+    "wordFeatureUnavailable": "Word generation feature is temporarily unavailable. Please click \"View\" button to open the report, then use browser print function (Ctrl+P) to save as PDF.",
+    "downloadFailed": "Download failed",
+    "errorPrefix": "Error"
+  }
+}

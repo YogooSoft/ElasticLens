@@ -1,0 +1,63 @@
+services:
+  # 后端服务
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: elasticlens-backend
+    ports:
+      - "5001:5000"
+    volumes:
+      # 数据持久化 - 上传文件
+      - ./volumes/uploads:/app/uploads
+      # 数据持久化 - 分析输出
+      - ./volumes/out:/app/out
+      # 数据持久化 - 报告文件
+      - ./volumes/reports:/app/reports
+      # 数据持久化 - 仅映射数据库文件（不覆盖 db_server 目录）
+      - ./volumes/db/es_insight.db:/app/backend/es_insight.db
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+      # 可选：配置日志级别
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    networks:
+      - elasticlens-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: elasticlens-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - elasticlens-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+networks:
+  elasticlens-network:
+    driver: bridge
+
+volumes:
+  uploads:
+  out:
+  reports:
+  db:

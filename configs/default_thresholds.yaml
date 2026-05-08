@@ -1,0 +1,165 @@
+# 默认阈值配置
+
+cluster:
+  status:
+    yellow: warning
+    red: critical
+    green: info
+  
+  unassigned_shards:
+    warning: 1
+    critical: 10
+    
+  active_shards_percent:
+    warning: 95
+    critical: 90
+
+node:
+  disk_usage_percent:
+    warning: 70
+    alert: 80
+    critical: 85
+    emergency: 90
+  
+  heap_used_percent:
+    warning: 70
+    alert: 75
+    critical: 85
+    emergency: 90
+  
+  cpu_percent:
+    warning: 60
+    alert: 75
+    critical: 90
+  
+  load_average:
+    warning_multiplier: 1.5
+    alert_multiplier: 2.0
+    critical_multiplier: 3.0
+  
+  shards_per_node:
+    warning: 500
+    critical: 1000
+  
+  connections:
+    warning: 1000
+    critical: 5000
+
+thread_pool:
+  search:
+    queue_size_warning: 1000
+    queue_size_critical: 5000
+    rejected_warning: 10
+    rejected_critical: 100
+  write:
+    queue_size_warning: 500
+    queue_size_critical: 2000
+    rejected_warning: 10
+    rejected_critical: 100
+  bulk:
+    queue_size_warning: 1000
+    queue_size_critical: 5000
+    rejected_warning: 10
+    rejected_critical: 100
+  get:
+    queue_size_warning: 500
+    queue_size_critical: 2000
+    rejected_warning: 10
+    rejected_critical: 100
+  analyze:
+    queue_size_warning: 100
+    queue_size_critical: 500
+    rejected_warning: 10
+    rejected_critical: 100
+
+index:
+  health:
+    red: critical
+    yellow: warning
+  
+  size_gb:
+    warning: 50
+    critical: 100
+  
+  segments_count:
+    warning: 100
+    critical: 500
+  
+  docs_count:
+    warning: 100000000
+    critical: 500000000
+  
+  deleted_docs_ratio:
+    warning: 0.1
+    critical: 0.2
+  
+  shards_per_index:
+    warning: 50
+    critical: 100
+
+shard:
+  size_gb:
+    warning: 30
+    critical: 50
+  
+  docs_count:
+    warning: 50000000
+    critical: 200000000
+  
+  balance_std_dev:
+    warning: 15
+    critical: 30
+  
+  imbalance_ratio:
+    warning: 0.2
+    critical: 0.3
+
+recovery:
+  progress_percent:
+    warning: 50
+  
+  speed_mbps:
+    warning: 10
+  
+  concurrent_shards:
+    warning: 10
+    critical: 20
+
+ilm:
+  status:
+    error: critical
+    failure: warning
+  
+  failures:
+    warning: 1
+    critical: 10
+  
+  managed_ratio:
+    warning: 0.5
+    critical: 0.9
+
+snapshot:
+  latest_status:
+    failed: critical
+    partial: warning
+  
+  interval_hours:
+    warning: 48
+    critical: 168
+  
+  retention_count:
+    warning: 3
+    critical: 7
+
+security:
+  xpack_enabled:
+    enabled: info
+    disabled: warning
+  
+  default_users:
+    elastic_password: warning
+    anonymous_access: warning
+  
+  ssl:
+    http_ssl: info
+    transport_ssl: info

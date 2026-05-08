@@ -1,0 +1,10 @@
+{
+  "title": "📜 Historische Berichte",
+  "filename": "Dateiname",
+  "healthScore": "Gesundheitsbewertung",
+  "alertCount": "Anzahl der Warnungen",
+  "completedTime": "Abschlusszeit",
+  "action": "Aktion",
+  "viewDetail": "Details anzeigen",
+  "loadHistoryFailed": "Laden des Verlaufs fehlgeschlagen"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "⚙️ Настройки системы",
+  "apiConfig": "Конфигурация API",
+  "apiUrl": "URL API",
+  "apiUrlRequired": "Введите URL API",
+  "saveConfig": "Сохранить конфигурацию",
+  "saveSuccess": "Конфигурация успешно сохранена",
+  "saveFailed": "Ошибка сохранения"
+}

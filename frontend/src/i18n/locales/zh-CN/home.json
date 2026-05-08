@@ -1,0 +1,35 @@
+{
+  "title": "📊 ES 集群巡检系统",
+  "subtitle": "上传诊断包，自动生成巡检报告",
+  "uploadSection": {
+    "title": "📤 上传诊断包"
+  },
+  "downloadToolSection": {
+    "title": "🛠️ 下载官方诊断工具",
+    "description": "请下载并运行 ES 集群诊断工具，生成的 ZIP 文件可直接在此页面上传。",
+    "downloadButton": "下载官方诊断工具(v9.1.0) (ZIP)"
+  },
+  "usageGuideSection": {
+    "title": "📖 诊断工具使用说明",
+    "step1": {
+      "title": "1. 环境准备",
+      "content": "确保服务器已安装 Java 8 或以上版本。"
+    },
+    "step2": {
+      "title": "2. 获取工具",
+      "content": "点击上方的\"下载诊断工具\"按钮，解压下载的 ZIP 包。"
+    },
+    "step3": {
+      "title": "3. 执行诊断",
+      "content": "进入解压后的目录，在终端执行以下命令（密码将在执行后交互式输入）："
+    },
+    "command": "./diagnostics.sh --host <ES地址> --type remote -u <ES用户> -p --port <端口> --remoteUser <远程用户> --remotePass --trustRemote",
+    "step4": {
+      "title": "4. 上传报告",
+      "content": "将生成的 ZIP 诊断包拖拽或点击上传到左侧区域，系统将自动分析并生成巡检报告。"
+    }
+  },
+  "taskListSection": {
+    "title": "📋 任务列表"
+  }
+}

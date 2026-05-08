@@ -1,0 +1,6 @@
+{
+  "dragText": "Click or drag file to this area to upload",
+  "hint": "Support single ZIP file, file size not exceeding 2GB",
+  "uploadSuccess": "Upload successful, processing started...",
+  "uploadFailed": "Upload failed"
+}

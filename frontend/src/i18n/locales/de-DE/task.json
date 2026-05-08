@@ -1,0 +1,20 @@
+{
+  "completed": "Abgeschlossen",
+  "failed": "Fehlgeschlagen",
+  "processing": "In Bearbeitung",
+  "pending": "Ausstehend",
+  "healthScore": "Gesundheitsbewertung",
+  "alertCount": "Gesamtzahl der Warnungen",
+  "level1Alerts": "Warnungen Stufe 1",
+  "level2Alerts": "Warnungen Stufe 2",
+  "level3Alerts": "Warnungen Stufe 3",
+  "view": "Ansehen",
+  "downloadWord": "Word herunterladen",
+  "error": "Fehler",
+  "generatingWord": "Word-Bericht wird generiert...",
+  "wordDownloadSuccess": "Word-Bericht erfolgreich heruntergeladen",
+  "wordFeatureUnavailable": "Word-Generierungsfunktion ist nicht verfügbar. Bitte klicken Sie auf \"Ansehen\", um den Bericht zu öffnen, und verwenden Sie dann die Druckfunktion des Browsers (Strg+P), um als PDF zu speichern.",
+  "downloadFailed": "Download des Word-Berichts fehlgeschlagen",
+  "deleteTaskFailed": "Aufgabe konnte nicht gelöscht werden",
+  "fetchTasksFailed": "Abrufen der Aufgabenliste fehlgeschlagen"
+}

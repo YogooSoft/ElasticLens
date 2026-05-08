@@ -1,0 +1,9 @@
+{
+  "title": "⚙️ 系統設置",
+  "apiConfig": "API 配置",
+  "apiUrl": "API 地址",
+  "apiUrlRequired": "請輸入 API 地址",
+  "saveConfig": "保存配置",
+  "saveSuccess": "配置保存成功",
+  "saveFailed": "保存失敗"
+}

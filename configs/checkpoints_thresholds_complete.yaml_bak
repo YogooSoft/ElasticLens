@@ -1,0 +1,422 @@
+# ES 集群巡检检查项及阈值配置（完整版）
+# 基于实际诊断数据（81 文件，51.49MB）和最佳实践设计
+# 版本：v2.0 | 更新日期：2026-03-30
+
+# ============================================================================
+# 一、集群健康检查 (Cluster Health) - 权重 30%
+# ============================================================================
+
+cluster:
+  # 1.1 集群状态 - 最核心指标
+  status:
+    # 正常状态
+    green: normal
+    # 警告 - 副本分片未分配，但主分片正常
+    yellow: warning
+    # 严重 - 主分片未分配，数据不可用
+    red: critical
+  
+  # 1.2 活跃分片比例
+  active_shards_percent:
+    # >= 95% 优秀
+    warning: 95      # 低于 95% 警告
+    critical: 90     # 低于 90% 严重
+  
+  # 1.3 未分配分片数
+  unassigned_shards:
+    warning: 1       # 有未分配分片
+    critical: 10     # 大量未分配
+  
+  # 1.4 初始化中分片数
+  initializing_shards:
+    warning: 10      # 正在恢复
+    critical: 50     # 大量初始化
+  
+  # 1.5 迁移中分片数
+  relocating_shards:
+    warning: 10      # 正在迁移
+    critical: 50     # 大量迁移
+  
+  # 1.6 延迟未分配分片
+  delayed_unassigned_shards:
+    warning: 1       # 有延迟分配
+    critical: 10     # 大量延迟
+  
+  # 1.7 集群任务队列
+  pending_tasks:
+    warning: 50      # 队列较长
+    critical: 100    # 队列拥堵
+  
+  # 1.8 集群中节点总数
+  nodes:
+    total_warning: 100    # 节点过多（管理复杂）
+    data_nodes_warning: 50  # 数据节点过多
+
+# ============================================================================
+# 二、节点资源检查 (Node Resources) - 权重 25%
+# ============================================================================
+
+node:
+  # 2.1 磁盘使用率 (%)
+  disk_usage_percent:
+    warning: 70      # 需要关注
+    alert: 80        # 触发水位线警告
+    critical: 85     # 拒绝写入（flood stage）
+    emergency: 90    # 只读模式
+  
+  # 2.2 JVM 堆内存使用率 (%)
+  heap_used_percent:
+    warning: 70      # 较高
+    alert: 75        # GC 频繁
+    critical: 85     # OOM 风险
+    emergency: 90    # 立即处理
+  
+  # 2.3 CPU 使用率 (%)
+  cpu_percent:
+    warning: 60      # 较高负载
+    alert: 75        # 高负载
+    critical: 90     # 严重过载
+  
+  # 2.4 系统负载 (相对于 CPU 核心数)
+  load_average:
+    warning_multiplier: 1.5   # 1.5 倍 CPU 核心数
+    alert_multiplier: 2.0     # 2 倍
+    critical_multiplier: 3.0  # 3 倍
+  
+  # 2.5 单节点分片数
+  shards_per_node:
+    warning: 500     # 偏多
+    critical: 1000   # 过多（影响稳定性）
+  
+  # 2.6 节点连接数
+  connections:
+    warning: 1000    # 连接数过多
+    critical: 5000   # 连接爆炸
+
+# ============================================================================
+# 三、线程池检查 (Thread Pool) - 权重 10%
+# ============================================================================
+
+thread_pool:
+  # 3.1 Search 线程池
+  search:
+    queue_size_warning: 100    # 队列长度警告
+    queue_size_critical: 500   # 队列过长
+    rejected_warning: 1        # 有拒绝
+    rejected_critical: 100     # 大量拒绝
+  
+  # 3.2 Write 线程池
+  write:
+    queue_size_warning: 50
+    queue_size_critical: 200
+    rejected_warning: 1
+    rejected_critical: 100
+  
+  # 3.3 Bulk 线程池
+  bulk:
+    queue_size_warning: 100
+    queue_size_critical: 500
+    rejected_warning: 1
+    rejected_critical: 100
+  
+  # 3.4 Get 线程池
+  get:
+    queue_size_warning: 50
+    queue_size_critical: 200
+    rejected_warning: 1
+    rejected_critical: 50
+  
+  # 3.5 Analyze 线程池
+  analyze:
+    queue_size_warning: 20
+    queue_size_critical: 100
+    rejected_warning: 1
+    rejected_critical: 20
+
+# ============================================================================
+# 四、索引健康检查 (Index Health) - 权重 20%
+# ============================================================================
+
+index:
+  # 4.1 索引状态
+  health:
+    green: normal
+    yellow: warning
+    red: critical
+  
+  # 4.2 单索引大小 (GB)
+  size_gb:
+    warning: 30      # 偏大
+    critical: 50     # 过大
+  
+  # 4.3 单索引文档数
+  docs_count:
+    warning: 100000000    # 1 亿
+    critical: 500000000   # 5 亿
+  
+  # 4.4 删除文档占比 (%)
+  deleted_docs_ratio:
+    warning: 10      # 10% 以上
+    critical: 20     # 20% 以上
+  
+  # 4.5 段数量 per 索引
+  segments_count:
+    warning: 100     # 需要 merge
+    critical: 500    # 严重影响性能
+  
+  # 4.6 分片数量 per 索引
+  shards_per_index:
+    warning: 50      # 分片偏多
+    critical: 100    # 分片过多
+
+# ============================================================================
+# 五、分片检查 (Shard) - 权重 5%
+# ============================================================================
+
+shard:
+  # 5.1 单分片大小 (GB)
+  size_gb:
+    min_warning: 10        # 太小（浪费资源）
+    max_warning: 30        # 偏大
+    critical: 50           # 过大
+  
+  # 5.2 单分片文档数
+  docs_count:
+    warning: 50000000      # 5000 万
+    critical: 200000000    # 2 亿
+  
+  # 5.3 分片分布均衡度 (标准差)
+  balance_std_dev:
+    warning: 15      # 不均衡
+    critical: 30     # 严重不均衡
+  
+  # 5.4 分片imbalance 比率
+  imbalance_ratio:
+    warning: 0.2     # 20% 差异
+    critical: 0.3    # 30% 差异
+
+# ============================================================================
+# 六、恢复检查 (Recovery) - 权重 5%
+# ============================================================================
+
+recovery:
+  # 6.1 恢复进度 (%)
+  progress_percent:
+    warning_threshold: 50    # 低于 50% 且长时间
+    timeout_hours: 24        # 超过 24 小时未完成
+  
+  # 6.2 恢复速度 (MB/s)
+  speed_mbps:
+    warning: 10      # 恢复缓慢
+    critical: 1      # 极慢
+  
+  # 6.3 同时恢复的分片数
+  concurrent_shards:
+    warning: 10      # 并发过多影响性能
+    critical: 20
+
+# ============================================================================
+# 七、性能检查 (Performance) - 权重 5%
+# ============================================================================
+
+performance:
+  # 7.1 查询延迟 (ms)
+  search_latency_ms:
+    p50_warning: 50
+    p50_critical: 100
+    p95_warning: 200
+    p95_critical: 500
+    p99_warning: 500
+    p99_critical: 1000
+  
+  # 7.2 写入延迟 (ms)
+  indexing_latency_ms:
+    p50_warning: 20
+    p50_critical: 50
+    p95_warning: 100
+    p95_critical: 200
+  
+  # 7.3 Bulk 请求大小 (MB)
+  bulk_size_mb:
+    warning: 20
+    critical: 50
+  
+  # 7.4 查询 QPS
+  qps:
+    warning: 1000    # 根据实际场景调整
+    critical: 5000
+
+# ============================================================================
+# 八、ILM 策略检查 (Index Lifecycle Management) - 权重 3%
+# ============================================================================
+
+ilm:
+  # 8.1 ILM 状态
+  status:
+    running: normal
+    warning: warning
+    error: critical
+  
+  # 8.2 策略执行失败数
+  failures:
+    warning: 1
+    critical: 10
+  
+  # 8.3 托管索引占比
+  managed_ratio:
+    warning: 0.5     # 50% 以下未托管
+    target: 0.9      # 目标 90% 托管
+
+# ============================================================================
+# 九、快照检查 (Snapshot) - 权重 3%
+# ============================================================================
+
+snapshot:
+  # 9.1 最新快照状态
+  latest_status:
+    SUCCESS: normal
+    IN_PROGRESS: info
+    PARTIAL: warning
+    FAILED: critical
+  
+  # 9.2 快照间隔时间 (小时)
+  interval_hours:
+    warning: 48      # 超过 2 天未备份
+    critical: 168    # 超过 1 周未备份
+  
+  # 9.3 快照保留数量
+  retention_count:
+    warning: 3       # 少于 3 个
+    minimum: 7       # 至少保留 7 个
+
+# ============================================================================
+# 十、安全配置检查 (Security) - 权重 3%
+# ============================================================================
+
+security:
+  # 10.1 X-Pack 启用状态
+  xpack_enabled:
+    required: true   # 生产环境必须启用
+  
+  # 10.2 默认用户检查
+  default_users:
+    elastic_password_changed: warning  # 默认密码未改
+    anonymous_access: critical         # 匿名访问开启
+  
+  # 10.3 SSL/TLS 配置
+  ssl:
+    http_ssl: warning      # HTTP 应启用 SSL
+    transport_ssl: warning # 节点间通信应加密
+
+# ============================================================================
+# 十一、模板与映射检查 (Templates & Mappings) - 权重 3%
+# ============================================================================
+
+template_mapping:
+  # 11.1 索引模板存在性
+  index_templates:
+    missing: warning       # 无模板
+    invalid: warning       # 模板配置不当
+  
+  # 11.2 字段数量
+  fields_per_index:
+    warning: 100     # 字段偏多
+    critical: 500    # 字段爆炸
+  
+  # 11.3 嵌套字段数量
+  nested_fields:
+    warning: 10      # 嵌套过多
+    critical: 50
+
+# ============================================================================
+# 十二、日志与错误检查 (Logs & Errors) - 权重 2%
+# ============================================================================
+
+logs_errors:
+  # 12.1 GC 频率
+  gc_frequency:
+    warning: 10      # 每 10 分钟一次 GC
+    critical: 1      # 每分钟都在 GC
+  
+  # 12.2 GC 持续时间 (ms)
+  gc_duration_ms:
+    warning: 5000    # 5 秒以上
+    critical: 30000  # 30 秒以上
+  
+  # 12.3 错误日志数量 (每小时)
+  error_logs:
+    warning: 10
+    critical: 100
+
+# ============================================================================
+# 综合评分配置
+# ============================================================================
+
+scoring:
+  # 各类别权重
+  weights:
+    cluster_health: 0.30      # 30%
+    node_resources: 0.25      # 25%
+    index_health: 0.20        # 20%
+    thread_pool: 0.10         # 10%
+    performance: 0.05         # 5%
+    shard_balance: 0.05       # 5%
+    recovery: 0.05            # 5%
+    ilm: 0.03                 # 3%
+    snapshot: 0.03            # 3%
+    security: 0.03            # 3%
+    template_mapping: 0.03    # 3%
+    logs_errors: 0.02         # 2%
+  
+  # 得分计算
+  score_values:
+    normal: 100
+    info: 80
+    warning: 60
+    critical: 0
+  
+  # 等级划分
+  grades:
+    A: 90    # 优秀
+    B: 80    # 良好
+    C: 70    # 一般
+    D: 60    # 较差
+    F: 0     # 危险
+
+# ============================================================================
+# 告警升级配置
+# ============================================================================
+
+alert_escalation:
+  # Warning 级别
+  warning:
+    duration_minutes: 5      # 持续 5 分钟
+    action: notify_chat      # 通知运维群
+  
+  # Alert 级别
+  alert:
+    duration_minutes: 2      # 持续 2 分钟
+    action: phone_call       # 电话通知
+  
+  # Critical 级别
+  critical:
+    immediate: true          # 立即通知
+    action: escalate         # 升级处理
+
+# ============================================================================
+# 自动化处理配置
+# ============================================================================
+
+automation:
+  # 自动 force_merge
+  force_merge:
+    trigger_segments: 500    # segments > 500
+    trigger_deleted_ratio: 0.2  # deleted > 20%
+  
+  # 自动 reroute
+  reroute:
+    trigger_imbalance: 0.3   # imbalance > 30%
+  
+  # 自动清理
+  cleanup:
+    trigger_disk: 0.85       # disk > 85%

@@ -1,0 +1,35 @@
+{
+  "title": "📊 Système d'inspection de cluster ES",
+  "subtitle": "Téléchargez le package de diagnostic, générez automatiquement le rapport d'inspection",
+  "uploadSection": {
+    "title": "📤 Télécharger le package de diagnostic"
+  },
+  "downloadToolSection": {
+    "title": "🛠️ Télécharger l'outil de diagnostic officiel",
+    "description": "Veuillez télécharger et exécuter l'outil de diagnostic de cluster ES. Le fichier ZIP généré peut être directement téléchargé sur cette page.",
+    "downloadButton": "Télécharger l'outil de diagnostic officiel (v9.1.0) (ZIP)"
+  },
+  "usageGuideSection": {
+    "title": "📖 Instructions d'utilisation de l'outil de diagnostic",
+    "step1": {
+      "title": "1. Préparation de l'environnement",
+      "content": "Assurez-vous que Java 8 ou une version supérieure est installé sur le serveur."
+    },
+    "step2": {
+      "title": "2. Obtenir l'outil",
+      "content": "Cliquez sur le bouton \"Télécharger l'outil de diagnostic\" ci-dessus, décompressez le package ZIP téléchargé."
+    },
+    "step3": {
+      "title": "3. Exécuter le diagnostic",
+      "content": "Accédez au répertoire décompressé, exécutez la commande suivante dans le terminal (le mot de passe sera saisi de manière interactive après l'exécution) :"
+    },
+    "command": "./diagnostics.sh --host <Adresse ES> --type remote -u <Utilisateur ES> -p --port <Port> --remoteUser <Utilisateur distant> --remotePass --trustRemote",
+    "step4": {
+      "title": "4. Télécharger le rapport",
+      "content": "Faites glisser ou cliquez pour télécharger le package de diagnostic ZIP généré dans la zone de gauche. Le système analysera automatiquement et générera un rapport d'inspection."
+    }
+  },
+  "taskListSection": {
+    "title": "📋 Liste des tâches"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "completed": "完了",
+  "failed": "失敗",
+  "processing": "処理中",
+  "pending": "保留中",
+  "healthScore": "スコア",
+  "alertCount": "アラート",
+  "level1Alerts": "L1",
+  "level2Alerts": "L2",
+  "level3Alerts": "L3",
+  "view": "表示",
+  "downloadWord": "Wordをダウンロード",
+  "error": "エラー",
+  "generatingWord": "Wordレポートを生成中...",
+  "wordDownloadSuccess": "Wordレポートのダウンロードに成功しました",
+  "wordFeatureUnavailable": "Word生成機能は一時的に利用できません。「表示」ボタンをクリックしてレポートを開き、ブラウザの印刷機能（Ctrl+P）を使用してPDFとして保存してください。",
+  "downloadFailed": "Wordレポートのダウンロードに失敗しました",
+  "deleteTaskFailed": "タスクの削除に失敗しました",
+  "fetchTasksFailed": "タスクリストの取得に失敗しました"
+}

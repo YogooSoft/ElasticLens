@@ -1,0 +1,7 @@
+{
+  "backToHome": "Zurück zur Startseite",
+  "loadingReport": "Bericht wird geladen...",
+  "loadError": "Bericht konnte nicht geladen werden, bitte überprüfen Sie, ob der Bericht existiert",
+  "loadFailed": "Laden fehlgeschlagen",
+  "reportTitle": "Inspektionsbericht"
+}

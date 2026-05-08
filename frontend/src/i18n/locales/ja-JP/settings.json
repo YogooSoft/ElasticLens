@@ -1,0 +1,9 @@
+{
+  "title": "⚙️ システム設定",
+  "apiConfig": "API設定",
+  "apiUrl": "API URL",
+  "apiUrlRequired": "API URLを入力してください",
+  "saveConfig": "設定を保存",
+  "saveSuccess": "設定が正常に保存されました",
+  "saveFailed": "保存に失敗しました"
+}

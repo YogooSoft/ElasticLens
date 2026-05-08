@@ -1,0 +1,399 @@
+# 指标权重配置
+# 定义每个维度下各个检查项的权重、类型和阈值
+
+indicators:
+  # ==================== 集群健康维度 (25%) ====================
+  cluster_health:
+    status:
+      weight: 0.30
+      type: enum
+      direction: higher
+      values:
+        GREEN: 100
+        YELLOW: 60
+        RED: 0
+    
+    active_shards_percent:
+      weight: 0.15
+      type: numeric
+      direction: higher
+      thresholds:
+        normal: 95
+        warning: 90
+        critical: 80
+    
+    unassigned_shards:
+      weight: 0.10
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 5
+        critical: 10
+    
+    initializing_shards:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 5
+        critical: 10
+    
+    relocating_shards:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 5
+        critical: 10
+    
+    delayed_unassigned_shards:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 1
+        critical: 5
+    
+    pending_tasks:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 25
+        critical: 50
+    
+    nodes_total:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 50
+        warning: 75
+        critical: 100
+    
+    nodes_data:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 25
+        warning: 40
+        critical: 50
+  
+  cluster_roles:
+    independent_master:
+      weight: 0.05
+      type: boolean
+      severity: warning
+    
+    has_ingest:
+      weight: 0.03
+      type: boolean
+      severity: warning
+    
+    has_coordinator:
+      weight: 0.02
+      type: boolean
+      severity: warning
+  
+  cluster_destructive:
+    destructive_requires_name:
+      weight: 0.05
+      type: boolean
+      severity: warning
+  
+  cluster_settings:
+    watermarks:
+      weight: 0.03
+      type: boolean
+      severity: warning
+    
+    recoveries:
+      weight: 0.02
+      type: boolean
+      severity: warning
+
+  # ==================== 节点性能维度 (25%) ====================
+  node_performance:
+    disk_usage_percent:
+      weight: 0.20
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 70
+        warning: 85
+        critical: 95
+    
+    heap_used_percent:
+      weight: 0.20
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 70
+        warning: 85
+        critical: 95
+    
+    cpu_percent:
+      weight: 0.15
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 60
+        warning: 75
+        critical: 90
+    
+    load_average:
+      weight: 0.10
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 1.5
+        warning: 2.5
+        critical: 3.0
+    
+    shards_per_node:
+      weight: 0.10
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 300
+        warning: 500
+        critical: 800
+    
+    connections:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 500
+        warning: 750
+        critical: 1000
+  
+  jvm_consistency:
+    master:
+      weight: 0.05
+      type: boolean
+      severity: warning
+    
+    data:
+      weight: 0.05
+      type: boolean
+      severity: warning
+    
+    coordinator:
+      weight: 0.03
+      type: boolean
+      severity: warning
+  
+  swap_partition:
+    swap_status:
+      weight: 0.03
+      type: boolean
+      severity: warning
+  
+  breaker_status:
+    tripped:
+      weight: 0.02
+      type: boolean
+      severity: warning
+  
+  search_failure:
+    missing:
+      weight: 0.01
+      type: boolean
+      severity: warning
+  
+  performance_stability:
+    gc_status:
+      weight: 0.01
+      type: boolean
+      severity: warning
+
+  # ==================== 索引状态维度 (20%) ====================
+  index_status:
+    health_distribution:
+      weight: 0.25
+      type: boolean
+      severity: critical
+    
+    large_indices:
+      weight: 0.10
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 2
+        critical: 5
+    
+    high_segments:
+      weight: 0.08
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 2
+        critical: 5
+    
+    high_shards_per_index:
+      weight: 0.07
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 2
+        critical: 5
+    
+    large_docs_count:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 2
+        critical: 5
+    
+    high_deleted_docs_ratio:
+      weight: 0.05
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 2
+        critical: 5
+  
+  primary_shard_rationality:
+    shard_size_rationality:
+      weight: 0.08
+      type: boolean
+      severity: warning
+  
+  replica_rationality:
+    replica_count:
+      weight: 0.07
+      type: boolean
+      severity: warning
+  
+  write_optimization:
+    refresh_interval:
+      weight: 0.05
+      type: boolean
+      severity: warning
+  
+  mapping_count:
+    field_count:
+      weight: 0.05
+      type: boolean
+      severity: warning
+  
+  mapping_text_type:
+    string_type:
+      weight: 0.05
+      type: boolean
+      severity: warning
+  
+  segment_overload:
+    segment_count:
+      weight: 0.05
+      type: boolean
+      severity: warning
+  
+  empty_shards:
+    empty_indices:
+      weight: 0.03
+      type: boolean
+      severity: warning
+  
+  index_rejection:
+    write_rejected:
+      weight: 0.02
+      type: boolean
+      severity: warning
+  
+  delayed_allocation:
+    settings:
+      weight: 0.05
+      type: boolean
+      severity: warning
+
+  # ==================== 性能指标维度 (15%) ====================
+  thread_pool_status:
+    overall:
+      weight: 0.25
+      type: boolean
+      severity: critical
+  
+  shards:
+    size_gb:
+      weight: 0.15
+      type: boolean
+      severity: warning
+    
+    docs_count:
+      weight: 0.10
+      type: boolean
+      severity: warning
+    
+    balance_std_dev:
+      weight: 0.15
+      type: boolean
+      severity: warning
+    
+    nodes_shards:
+      weight: 0.10
+      type: boolean
+      severity: warning
+  
+  recovery:
+    recovering_shards:
+      weight: 0.15
+      type: numeric
+      direction: lower
+      thresholds:
+        normal: 0
+        warning: 5
+        critical: 10
+    
+    average_recovery_percent:
+      weight: 0.10
+      type: numeric
+      direction: higher
+      thresholds:
+        normal: 100
+        warning: 90
+        critical: 80
+  
+  performance:
+    total_docs:
+      weight: 0.0
+      type: boolean
+      severity: warning
+    
+    total_storage:
+      weight: 0.0
+      type: boolean
+      severity: warning
+
+  # ==================== 安全配置维度 (10%) ====================
+  security:
+    xpack_enabled:
+      weight: 1.0
+      type: boolean
+      severity: critical
+
+  # ==================== 运维状态维度 (5%) ====================
+  ilm:
+    status:
+      weight: 0.60
+      type: boolean
+      severity: warning
+  
+  snapshot:
+    latest_snapshot:
+      weight: 0.40
+      type: boolean
+      severity: warning

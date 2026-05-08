@@ -1,0 +1,46 @@
+# 默认报告配置
+
+output:
+  formats:
+    - html
+    - markdown
+    - json
+  
+  directory: ./reports
+  filename_pattern: "inspection_report_{timestamp}"
+  
+html:
+  include_charts: true
+  chart_library: echarts
+  theme: light
+  
+markdown:
+  include_raw_data: false
+  table_format: github
+  
+pdf:
+  page_size: A4
+  orientation: portrait
+  include_cover: true
+
+content:
+  show_overview: true
+  show_health_details: true
+  show_node_analysis: true
+  show_index_analysis: true
+  show_performance_analysis: true
+  show_issues: true
+  show_recommendations: true
+  show_appendix: false
+  
+scoring:
+  weights:
+    cluster_status: 0.4
+    shard_allocation: 0.3
+    node_availability: 0.2
+    shard_migration: 0.1
+    
+  levels:
+    excellent: 90
+    good: 75
+    warning: 60

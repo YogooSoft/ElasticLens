@@ -1,0 +1,10 @@
+{
+  "title": "📜 Rapports historiques",
+  "filename": "Nom de fichier",
+  "healthScore": "Score de santé",
+  "alertCount": "Nombre d'alertes",
+  "completedTime": "Heure d'achèvement",
+  "action": "Action",
+  "viewDetail": "Voir les détails",
+  "loadHistoryFailed": "Échec du chargement de l'historique"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "📊 ES Cluster Inspection System",
+  "subtitle": "Upload diagnostic packages to automatically generate inspection reports",
+  "uploadSection": {
+    "title": "📤 Upload Diagnostic Package"
+  },
+  "downloadToolSection": {
+    "title": "🛠️ Download Official Diagnostic Tool",
+    "description": "Please download and run the ES cluster diagnostic tool. The generated ZIP file can be uploaded directly on this page.",
+    "downloadButton": "Download Official Diagnostic Tool (v9.1.0) (ZIP)"
+  },
+  "usageGuideSection": {
+    "title": "📖 Diagnostic Tool Usage Guide",
+    "step1": {
+      "title": "1. Environment Preparation",
+      "content": "Ensure Java 8 or higher version is installed on the server."
+    },
+    "step2": {
+      "title": "2. Get the Tool",
+      "content": "Click the \"Download Diagnostic Tool\" button above and extract the downloaded ZIP package."
+    },
+    "step3": {
+      "title": "3. Execute Diagnosis",
+      "content": "Enter the extracted directory and execute the following command in the terminal (password will be entered interactively after execution):"
+    },
+    "command": "./diagnostics.sh --host <ES_Address> --type remote -u <ES_User> -p --port <Port> --remoteUser <Remote_User> --remotePass --trustRemote",
+    "step4": {
+      "title": "4. Upload Report",
+      "content": "Drag and drop or click to upload the generated ZIP diagnostic package to the left area. The system will automatically analyze and generate an inspection report."
+    }
+  },
+  "taskListSection": {
+    "title": "📋 Task List"
+  }
+}

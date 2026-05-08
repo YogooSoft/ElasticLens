@@ -1,0 +1,18 @@
+.language-switcher {
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.language-option .flag {
+  font-size: 16px;
+}
+
+.language-option .name {
+  font-size: 14px;
+}

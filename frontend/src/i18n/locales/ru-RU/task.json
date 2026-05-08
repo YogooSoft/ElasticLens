@@ -1,0 +1,20 @@
+{
+  "completed": "Завершено",
+  "failed": "Не удалось",
+  "processing": "В обработке",
+  "pending": "В ожидании",
+  "healthScore": "Оценка здоровья",
+  "alertCount": "Общее количество предупреждений",
+  "level1Alerts": "Предупреждения уровня 1",
+  "level2Alerts": "Предупреждения уровня 2",
+  "level3Alerts": "Предупреждения уровня 3",
+  "view": "Просмотр",
+  "downloadWord": "Скачать Word",
+  "error": "Ошибка",
+  "generatingWord": "Генерация отчета Word...",
+  "wordDownloadSuccess": "Отчет Word успешно скачан",
+  "wordFeatureUnavailable": "Функция генерации Word недоступна. Нажмите \"Просмотр\", чтобы открыть отчет, затем используйте функцию печати браузера (Ctrl+P) для сохранения в PDF.",
+  "downloadFailed": "Ошибка скачивания отчета Word",
+  "deleteTaskFailed": "Ошибка удаления задачи",
+  "fetchTasksFailed": "Ошибка получения списка задач"
+}

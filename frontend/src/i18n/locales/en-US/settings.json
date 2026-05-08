@@ -1,0 +1,9 @@
+{
+  "title": "⚙️ System Settings",
+  "apiConfig": "API Configuration",
+  "apiUrl": "API URL",
+  "apiUrlRequired": "Please enter API URL",
+  "saveConfig": "Save Configuration",
+  "saveSuccess": "Configuration saved successfully",
+  "saveFailed": "Save failed"
+}

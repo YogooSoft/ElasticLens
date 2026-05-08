@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "Système d'inspection de cluster ES",
+    "subtitle": "Téléchargez le package de diagnostic, générez automatiquement le rapport d'inspection",
+    "copyright": "Copyright © Yogoo Software Co., Ltd.",
+    "version": "Version"
+  },
+  "common": {
+    "upload": "Télécharger",
+    "download": "Télécharger",
+    "view": "Voir",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "loading": "Chargement...",
+    "success": "Succès",
+    "error": "Erreur",
+    "backToHome": "Retour à l'accueil",
+    "uploadSuccess": "Téléchargement réussi, traitement en cours...",
+    "uploadFailed": "Échec du téléchargement",
+    "onlyZipFiles": "Seuls les fichiers au format ZIP sont acceptés",
+    "fileSizeExceeded": "La taille du fichier ne peut pas dépasser 2 Go",
+    "noTasks": "Aucune tâche",
+    "completed": "Terminé",
+    "failed": "Échoué",
+    "processing": "En cours de traitement",
+    "pending": "En attente",
+    "healthScore": "Score de santé",
+    "alertCount": "Nombre total d'alertes",
+    "level1Alerts": "Alertes de niveau 1",
+    "level2Alerts": "Alertes de niveau 2",
+    "level3Alerts": "Alertes de niveau 3",
+    "viewDetail": "Voir les détails",
+    "downloadWord": "Télécharger Word",
+    "generatingWord": "Génération du rapport Word en cours...",
+    "wordDownloadSuccess": "Rapport Word téléchargé avec succès",
+    "wordFeatureUnavailable": "La fonction de génération Word n'est pas disponible. Veuillez cliquer sur \"Voir\" pour ouvrir le rapport, puis utiliser la fonction d'impression du navigateur (Ctrl+P) pour enregistrer en PDF.",
+    "downloadFailed": "Échec du téléchargement",
+    "errorPrefix": "Erreur"
+  }
+}

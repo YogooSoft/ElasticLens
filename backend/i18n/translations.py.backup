@@ -1,0 +1,2235 @@
+"""报告国际化翻译资源"""
+
+TRANSLATIONS = {
+    'zh-CN': {
+        # 报告基本信息
+        'report.title': 'ES 集群巡检报告',
+        'report.generated_at': '生成时间',
+        
+        # 章节标题
+        'report.sections.health_assessment': '一、健康评估',
+        'report.sections.cluster_basic_info': '二、集群基本信息',
+        'report.sections.node_basic_info': '三、节点基本信息',
+        'report.sections.shard_basic_info': '四、分片基本信息',
+        'report.sections.inspection_results': '五、巡检结果',
+        
+        # 健康评估
+        'report.health.score': '健康评分',
+        'report.health.level_1_alerts': '一级告警数',
+        'report.health.level_2_alerts': '二级告警数',
+        'report.health.level_3_alerts': '三级告警数',
+        
+        # 集群基本信息表格
+        'report.cluster.cluster_name': '集群名称',
+        'report.cluster.status': '集群状态',
+        'report.cluster.nodes_count': '节点数量',
+        'report.cluster.data_nodes': '数据节点数量',
+        'report.cluster.master_nodes': '主节点数量',
+        'report.cluster.indices_count': '索引数量',
+        'report.cluster.shards_total': '分片数量',
+        'report.cluster.version': '集群版本',
+        'report.cluster.license': '许可证书',
+        'report.cluster.security': '访问加密认证',
+        'report.cluster.hot_cold': '冷热分布',
+        'report.cluster.hot_cold_ratio': '冷热分布比例',
+        
+        # 节点基本信息表格列名
+        'report.nodes.headers.seq': '序号',
+        'report.nodes.headers.name': '节点名称',
+        'report.nodes.headers.version': '版本',
+        'report.nodes.headers.cpu': 'CPU占用率',
+        'report.nodes.headers.memory': '总内存',
+        'report.nodes.headers.jvm_heap': 'JVM堆',
+        'report.nodes.headers.jvm_heap_usage': 'JVM堆使用率',
+        'report.nodes.headers.roles': '角色',
+        'report.nodes.headers.uptime': '启动时长',
+        'report.nodes.headers.shards': '分片数',
+        'report.nodes.headers.disk_space': '数据盘空间',
+        'report.nodes.headers.disk_usage': '盘使用率',
+        
+        # 分片基本信息表格列名
+        'report.shards.headers.seq': '序号',
+        'report.shards.headers.index_name': '索引名',
+        'report.shards.headers.shard_count': '分片数',
+        'report.shards.headers.shard_size': '分片大小（精确到GB）',
+        
+        # 状态文本
+        'report.status.green': '绿色',
+        'report.status.yellow': '黄色',
+        'report.status.red': '红色',
+        'report.status.enabled': '开启',
+        'report.status.disabled': '未开启',
+        'report.status.yes': '有',
+        'report.status.no': '无',
+        
+        # 通用
+        'report.common.unknown': '未知',
+        'report.common.na': 'N/A',
+        'report.common.days': '天',
+        
+        # HTML报告特有
+        'report.html.diagnosis_time': '诊断时间',
+        'report.html.health_score_label': '健康评分',
+        'report.html.alerts.total': '告警总数',
+        'report.html.alerts.level_1': '一级告警数',
+        'report.html.alerts.level_2': '二级告警数',
+        'report.html.alerts.level_3': '三级告警数',
+        'report.html.alerts.title': '告警信息',
+        'report.html.alerts.critical': '三级告警（必须处理）',
+        'report.html.alerts.warning': '二级告警（建议处理）',
+        'report.html.alerts.info': '一级告警（优化建议）',
+        'report.html.alerts.no_alerts': '无告警，系统运行正常',
+        'report.html.alerts.suggestion': '建议',
+        'report.html.alerts.current_value': '当前值',
+        'report.html.thread_pool.title': '线程池队列堆积告警',
+        'report.html.thread_pool.node_name': '节点名称',
+        'report.html.thread_pool.pool_name': '线程池',
+        'report.html.thread_pool.queue_size': '队列大小',
+        'report.html.thread_pool.rejected': '拒绝数',
+        'report.html.thread_pool.status': '状态',
+        'report.html.thread_pool.overloaded': '过载',
+        'report.html.thread_pool.normal': '正常',
+        'report.html.thread_pool.all_normal': '所有线程池运行正常，无队列堆积',
+        'report.html.thread_pool.no_data': '暂无线程池数据（诊断包未包含 nodes_stats 数据）',
+        'report.html.cluster.basic_info': '集群基本信息',
+        'report.html.cluster.name': '集群名称',
+        'report.html.cluster.status': '集群状态',
+        'report.html.cluster.version': '集群版本',
+        'report.html.cluster.license': '许可证书',
+        'report.html.cluster.nodes_total': '节点总数',
+        'report.html.cluster.data_nodes': '数据节点',
+        'report.html.cluster.master_nodes': '主节点',
+        'report.html.cluster.shards': '分片数量',
+        'report.html.cluster.indices': '索引总数',
+        'report.html.cluster.security': '访问加密认证',
+        'report.html.cluster.hot_cold': '冷热分布',
+        'report.html.cluster.hot_cold_ratio': '冷热分布比例',
+        'report.html.cluster.has_hot_cold': '有',
+        'report.html.cluster.no_hot_cold': '无',
+        'report.html.health_summary.title': '健康摘要',
+        'report.html.health_summary.active_shards': '活跃分片',
+        'report.html.health_summary.active_primary': '活跃主分片',
+        'report.html.health_summary.unassigned_shards': '未分配分片',
+        'report.html.health_summary.active_ratio': '活跃比例',
+        'report.html.check_results.title': '详细检查结果',
+        'report.html.check_results.no_data': '暂无详细检查数据',
+        'report.html.footer.generated_by': '由 ES 巡检工具生成',
+        
+        # 通用词汇
+        'report.common.unassigned_reason': '未分配原因',
+        'report.common.unknown_issue': '未知问题',
+        'report.common.current_value_label': '当前值',
+        'report.common.suggestion_label': '建议',
+        'report.common.index': '索引',
+        'report.common.shard': '分片',
+        'report.common.node': '节点',
+        'report.common.all': '所有',
+        'report.common.normal': '正常',
+        'report.common.enabled_status': '开启',
+        'report.common.disabled_status': '关闭',
+        'report.common.yes_status': '是',
+        'report.common.no_status': '否',
+        'report.common.has_data': '有',
+        'report.common.no_data': '无',
+        'report.common.not_configured': '未配置',
+        'report.common.default_value': '默认值',
+        'report.common.threshold': '阈值',
+        'report.common.count': '数量',
+        'report.common.total': '总计',
+        'report.common.average': '平均',
+        'report.common.max': '最大',
+        'report.common.min': '最小',
+        'report.common.percentage': '百分比',
+        
+        # 分片分配
+        'report.shard_allocation.title': '分片分配状态',
+        'report.shard_allocation.all_normal': '所有分片分配正常，无未分配分片',
+        'report.shard_allocation.all_normal_or_no_data': '所有分片分配正常（或诊断包未包含 allocation_explain 数据）',
+        'report.shard_allocation.failure_title': '失败原因',
+        'report.shard_allocation.index_label': '索引',
+        'report.shard_allocation.shard_label': '分片',
+        
+        # 配置漂移
+        'report.config_drift.title': '配置漂移检测',
+        'report.config_drift.all_consistent': '所有节点配置一致',
+        'report.config_drift.no_data': '暂无节点配置数据（诊断包未包含 nodes 配置信息）',
+        'report.config_drift.inconsistent_nodes': '不一致节点',
+        
+        # 检查项详情
+        'report.sections.check_details': '五、检查项详情',
+        'report.check_details.title': '全部检查项详情',
+        'report.check_details.critical_issues': '严重问题',
+        'report.check_details.warning_issues': '警告问题',
+        'report.check_details.cluster_health': 'cluster health',
+        'report.check_details.cluster_role': '集群角色分配',
+        'report.check_details.delete_protection': '集群索引删除保护配置',
+        'report.check_details.jvm_consistency': '各同类型节点JVM堆大小设置一致性检查',
+        'report.check_details.cluster_params': '集群参数配置',
+        'report.check_details.thread_pool_usage': '集群线程池使用情况',
+        'report.check_details.gc_status': '各节点JVM垃圾回收情况',
+        'report.check_details.primary_shard_rationality': '主分片数合理性检查',
+        'report.check_details.replica_rationality': '副本数量合理性检查',
+        'report.check_details.write_optimization': '写优化基础配置检查',
+        'report.check_details.delayed_allocation': '分片延迟分配设置合理性检查',
+        'report.check_details.mapping_fields': '索引字段mappings数合理性检查',
+        'report.check_details.mapping_string_type': '索引mapping字符串类型设定检查',
+        'report.check_details.segment_overload': 'Segment数量过载检查',
+        'report.check_details.swap_partition': '服务器swap分区检查',
+        'report.check_details.index_rejection': '索引拒绝情形检查',
+        'report.check_details.search_failure': '搜索失败情形检查',
+        'report.check_details.parent_circuit_breaker': '父级熔断情形检查',
+        'report.check_details.empty_shards': '空分片情形检查',
+        'report.check_details.node_resources': 'node_resources检查',
+        'report.check_details.index_health': 'index_health检查',
+        'report.check_details.shards_check': 'shards检查',
+        'report.check_details.recovery': 'recovery检查',
+        'report.check_details.ilm': 'ilm检查',
+        'report.check_details.snapshot': 'snapshot检查',
+        'report.check_details.security': 'security检查',
+        
+        # 检查类别
+        'report.check_categories.cluster_health': '1、cluster health',
+        'report.check_categories.cluster_roles': '2、集群角色分配',
+        'report.check_categories.cluster_destructive': '3、集群索引删除保护配置',
+        'report.check_categories.jvm_consistency': '4、各同类型节点JVM堆大小设置一致性检查',
+        'report.check_categories.cluster_settings': '5、集群参数配置',
+        'report.check_categories.thread_pool_status': '6、集群线程池使用情况',
+        'report.check_categories.performance_stability': '7、性能稳定性检查',
+        'report.check_categories.index_advanced': '8、索引高级配置',
+        'report.check_categories.write_optimization': '9、写入优化配置',
+        'report.check_categories.network': '10、网络配置',
+        'report.check_categories.security': '11、安全配置',
+        'report.check_categories.license': '12、许可证状态',
+        'report.check_categories.node_resources': '13、节点资源使用',
+        'report.check_categories.node_consistency': '14、节点一致性',
+        'report.check_categories.index_health': '15、索引健康状态',
+        'report.check_categories.index_settings': '16、索引设置',
+        'report.check_categories.ilm': '17、ILM 管理',
+        'report.check_categories.snapshot': '18、快照备份',
+        'report.check_categories.primary_shard_rationality': '主分片合理性',
+        'report.check_categories.replica_rationality': '副本合理性',
+        'report.check_categories.delayed_allocation': '延迟分配',
+        'report.check_categories.mapping_count': 'Mapping数量',
+        'report.check_categories.mapping_text_type': 'Mapping text类型',
+        'report.check_categories.segment_overload': 'Segment过载',
+        'report.check_categories.swap_partition': 'Swap分区',
+        'report.check_categories.index_rejection': '索引拒绝',
+        'report.check_categories.search_failure': '搜索失败',
+        'report.check_categories.breaker_status': '断路器状态',
+        'report.check_categories.empty_shards': '空分片',
+        'report.check_categories.shards': '分片',
+        'report.check_categories.recovery': '恢复',
+        'report.check_categories.thread_pools': '线程池',
+        
+        # 检查项详情表头
+        'report.check_details.check_item': '检查项',
+        'report.check_details.status': '状态',
+        'report.check_details.details': '详情',
+        'report.check_details.value': '值',
+        'report.check_details.threshold': '阈值',
+        
+        # 检查项状态
+        'report.check.status.pass': '通过',
+        'report.check.status.fail': '失败',
+        
+        # 检查项状态
+        'report.check.status.ok': '✅',
+        'report.check.status.fail': '❌',
+        'report.check.status.normal': '正常',
+        'report.check.status.abnormal': '异常',
+        
+        # 分片相关章节标题
+        'report.shards.distribution_title': '4.1 主分片分布',
+        'report.shards.large_shards_title': '4.2 单个分片大于40GB索引',
+        'report.shards.small_shards_title': '4.3 单个分片小于500MB并且主分片数大于1的索引',
+        'report.shards.headers.shard_count': '分片数',
+        'report.shards.headers.index_count': '索引数',
+        'report.shards.headers.seq': '序号',
+        'report.shards.headers.index_name': '索引名称',
+        'report.shards.headers.shard_size': '分片大小',
+        'report.shards.no_data': '无数据',
+        
+        # 告警信息章节
+        'report.alerts.title': '告警信息',
+        'report.alerts.level_3': '三级告警（必须处理）:',
+        'report.alerts.level_2': '二级告警（建议处理）:',
+        'report.alerts.level_1': '一级告警（优化建议）:',
+        'report.alerts.suggestion_label': '建议',
+        'report.alerts.current_value_label': '当前值',
+        
+        # 高级分析组件
+        'report.advanced.thread_pool_warning': '⚠️ 线程池队列堆积告警',
+        'report.advanced.thread_pool_normal': '✅ 所有线程池运行正常，无队列堆积',
+        'report.advanced.thread_pool_no_data': 'ℹ️ 暂无线程池数据（诊断包未包含 nodes_stats 数据）',
+        'report.advanced.thread_pool.overload': '过载',
+        'report.advanced.thread_pool.high_load': '高负载',
+        'report.advanced.thread_pool.normal': '正常',
+        'report.advanced.thread_pool.headers.node': '节点名称',
+        'report.advanced.thread_pool.headers.pool': '线程池',
+        'report.advanced.thread_pool.headers.queue': '队列大小',
+        'report.advanced.thread_pool.headers.rejected': '拒绝数',
+        'report.advanced.thread_pool.headers.status': '状态',
+        
+        'report.advanced.shard_heatmap': '🔥 分片分布热点',
+        'report.advanced.shard_heatmap.no_data': '暂无节点或分片数据',
+        'report.advanced.shard_heatmap.headers.node': '节点名称',
+        'report.advanced.shard_heatmap.headers.load': '负载指数',
+        'report.advanced.shard_heatmap.headers.cpu': 'CPU%',
+        'report.advanced.shard_heatmap.headers.disk': '磁盘%',
+        'report.advanced.shard_heatmap.headers.shards': '分片数',
+        
+        'report.advanced.jvm_profile': '💾 JVM 内存画像',
+        'report.advanced.jvm_profile.no_data': '暂无 JVM 数据',
+        'report.advanced.jvm_profile.headers.node': '节点名称',
+        'report.advanced.jvm_profile.headers.heap_percent': '堆使用率',
+        'report.advanced.jvm_profile.headers.heap_used': '已用堆内存',
+        'report.advanced.jvm_profile.headers.heap_max': '最大堆内存',
+        
+        'report.advanced.config_drift': '⚙️ 配置漂移检测',
+        'report.advanced.config_drift.all_consistent': '✅ 所有节点配置一致',
+        'report.advanced.config_drift.no_data': 'ℹ️ 暂无节点配置数据（诊断包未包含 nodes 配置信息）',
+        'report.advanced.config_drift.config_key': '配置项',
+        'report.advanced.config_drift.not_set': '未设置',
+        
+        'report.advanced.shard_allocation': '✅ 分片分配状态',
+        'report.advanced.shard_allocation.all_normal': '✅ 所有分片分配正常，无未分配分片',
+        'report.advanced.shard_allocation.all_normal_or_no_data': '✅ 所有分片分配正常（或诊断包未包含 allocation_explain 数据）',
+        'report.advanced.shard_allocation.unassigned_found': '❌ 发现未分配分片: 索引=',
+        'report.advanced.shard_allocation.shard_label': ', 分片=',
+        'report.advanced.shard_allocation.failure_reasons': '失败原因:',
+        'report.advanced.shard_allocation.unassigned_reason': '未分配原因',
+        'report.advanced.shard_allocation.unknown': '未知',
+        
+        # 资源使用
+        'report.resources.disk_usage': '平均磁盘使用率',
+        'report.resources.jvm_heap_usage': '平均 JVM 堆使用率',
+        'report.resources.cpu_usage': '平均 CPU 使用率',
+        'report.resources.system_load': '平均系统负载 (1m)',
+        'report.resources.max_shards_per_node': '单节点最大分片数',
+        'report.resources.max_connections': '节点最大连接数',
+        'report.resources.highest_node': '最高节点',
+        
+        # 索引统计
+        'report.indices.total_docs': '总文档数',
+        'report.indices.total_storage': '总存储',
+        'report.indices.healthy': '健康 (GREEN)',
+        'report.indices.top5_largest': 'Top 5 最大索引',
+        'report.indices.rank': '排名',
+        'report.indices.size_gb': '大小 (GB)',
+        'report.indices.doc_count': '文档数',
+        
+        # 元数据
+        'report.metadata.title': '检查元数据',
+        'report.metadata.data_source': '数据来源',
+        'report.metadata.extraction_time': '提取时间',
+        'report.metadata.check_duration': '检查耗时',
+        'report.metadata.seconds': '秒',
+        
+        # 页脚
+        'report.footer.report_generated_at': '报告生成时间',
+        'report.footer.auto_inspection_system': 'ES 集群自动巡检系统',
+        'report.footer.health_score_based_on': '健康评分基于',
+        'report.footer.categories': '大类',
+        'report.footer.indicators': '项检查指标',
+        
+        # 分片分布热点
+        'report.shard_heatmap.title': '分片分布热点',
+        'report.shard_heatmap.load_index': '负载指数',
+        'report.shard_heatmap.cpu': 'CPU%',
+        'report.shard_heatmap.disk': '磁盘%',
+        
+        # JVM内存画像
+        'report.jvm_profile.title': 'JVM 内存画像',
+        'report.jvm_profile.heap_usage': '堆使用率',
+        'report.jvm_profile.heap_used': '已用堆内存',
+        'report.jvm_profile.heap_max': '最大堆内存',
+        
+        # 健康摘要
+        'report.health_summary.active_shards_ratio': '活跃分片比例',
+        
+        # 资源使用
+        'report.resources.title': '资源使用情况',
+        'report.resources.disk_usage': '平均磁盘使用率',
+        'report.resources.jvm_heap_usage': '平均 JVM 堆使用率',
+        'report.resources.cpu_usage': '平均 CPU 使用率',
+        'report.resources.highest_node_label': '最高节点',
+        
+        # 索引统计
+        'report.indices.title': '索引统计',
+        'report.indices.total_docs': '总文档数',
+        'report.indices.total_storage': '总存储',
+        'report.indices.healthy': '健康 (GREEN)',
+        'report.indices.headers.rank': '排名',
+        'report.indices.headers.name': '索引名称',
+        'report.indices.headers.size_gb': '大小 (GB)',
+        'report.indices.headers.docs': '文档数',
+        'report.indices.top5_title': 'Top 5 最大索引',
+        
+        # 分片详细信息
+        'report.shard_detail.primary_distribution': '主分片分布',
+        'report.shard_detail.large_shards': '单个分片大于40GB索引',
+        'report.shard_detail.small_shards_multi_primary': '单个分片小于500MB并且主分片数大于1的索引',
+        'report.shard_detail.count_label': '数量',
+        'report.shard_detail.no_data': '无数据',
+        'report.shard_detail.headers.shard_count': '分片数',
+        'report.shard_detail.headers.index_count': '索引数',
+        'report.shard_detail.headers.shard_size': '分片大小',
+        
+        # 元数据
+        'report.metadata.title': '检查元数据',
+        'report.metadata.data_source_label': '数据来源',
+        'report.metadata.extraction_time_label': '提取时间',
+        'report.metadata.check_duration_label': '检查耗时',
+        
+        # 检查结果
+        'report.check_results.title': '全部检查项详情',
+        'report.check_results.no_data': '暂无详细检查数据',
+        'report.check_results.threshold': '阈值',
+        
+        # 页脚
+        'report.footer.generated_at': '报告生成时间',
+        'report.footer.system_name': 'ES 集群自动巡检系统',
+        'report.footer.score_based_on': '健康评分基于',
+        'report.footer.categories_count': '大类',
+        'report.footer.indicators_count': '项检查指标',
+        
+        # 通用
+        'report.common.seconds': '秒',
+    },
+    
+    'zh-TW': {
+        # 繁体中文翻译
+        'report.title': 'ES 叢集巡檢報告',
+        'report.generated_at': '生成時間',
+        'report.sections.health_assessment': '一、健康評估',
+        'report.sections.cluster_basic_info': '二、叢集基本資訊',
+        'report.sections.node_basic_info': '三、節點基本資訊',
+        'report.sections.shard_basic_info': '四、分片基本資訊',
+        'report.sections.inspection_results': '五、巡檢結果',
+        'report.health.score': '健康評分',
+        'report.health.level_1_alerts': '一級告警數',
+        'report.health.level_2_alerts': '二級告警數',
+        'report.health.level_3_alerts': '三級告警數',
+        'report.cluster.cluster_name': '叢集名稱',
+        'report.cluster.status': '叢集狀態',
+        'report.cluster.nodes_count': '節點數量',
+        'report.cluster.data_nodes': '資料節點數量',
+        'report.cluster.master_nodes': '主節點數量',
+        'report.cluster.indices_count': '索引數量',
+        'report.cluster.shards_total': '分片數量',
+        'report.cluster.version': '叢集版本',
+        'report.cluster.license': '許可證書',
+        'report.cluster.security': '訪問加密認證',
+        'report.cluster.hot_cold': '冷熱分佈',
+        'report.cluster.hot_cold_ratio': '冷熱分佈比例',
+        'report.nodes.headers.seq': '序號',
+        'report.nodes.headers.name': '節點名稱',
+        'report.nodes.headers.version': '版本',
+        'report.nodes.headers.cpu': 'CPU佔用率',
+        'report.nodes.headers.memory': '總記憶體',
+        'report.nodes.headers.jvm_heap': 'JVM堆',
+        'report.nodes.headers.jvm_heap_usage': 'JVM堆使用率',
+        'report.nodes.headers.roles': '角色',
+        'report.nodes.headers.uptime': '啟動時長',
+        'report.nodes.headers.shards': '分片數',
+        'report.nodes.headers.disk_space': '資料盤空間',
+        'report.nodes.headers.disk_usage': '盤使用率',
+        'report.shards.headers.seq': '序號',
+        'report.shards.headers.index_name': '索引名',
+        'report.shards.headers.shard_count': '分片數',
+        'report.shards.headers.shard_size': '分片大小（精確到GB）',
+        'report.status.green': '綠色',
+        'report.status.yellow': '黃色',
+        'report.status.red': '紅色',
+        'report.status.enabled': '開啟',
+        'report.status.disabled': '未開啟',
+        'report.status.yes': '有',
+        'report.status.no': '無',
+        'report.common.unknown': '未知',
+        'report.common.na': 'N/A',
+        'report.common.days': '天',
+        
+        # HTML報告特有
+        'report.html.diagnosis_time': '診斷時間',
+        'report.html.health_score_label': '健康評分',
+        'report.html.alerts.total': '告警總數',
+        'report.html.alerts.level_1': '一級告警數',
+        'report.html.alerts.level_2': '二級告警數',
+        'report.html.alerts.level_3': '三級告警數',
+        'report.html.alerts.title': '告警資訊',
+        'report.html.alerts.critical': '三級告警（必須處理）',
+        'report.html.alerts.warning': '二級告警（建議處理）',
+        'report.html.alerts.info': '一級告警（優化建議）',
+        'report.html.alerts.no_alerts': '無告警，系統運行正常',
+        'report.html.alerts.suggestion': '建議',
+        'report.html.alerts.current_value': '當前值',
+        'report.html.thread_pool.title': '執行緒池佇列堆積告警',
+        'report.html.thread_pool.node_name': '節點名稱',
+        'report.html.thread_pool.pool_name': '執行緒池',
+        'report.html.thread_pool.queue_size': '佇列大小',
+        'report.html.thread_pool.rejected': '拒絕數',
+        'report.html.thread_pool.status': '狀態',
+        'report.html.thread_pool.overloaded': '過載',
+        'report.html.thread_pool.normal': '正常',
+        'report.html.thread_pool.all_normal': '所有執行緒池運行正常，無佇列堆積',
+        'report.html.thread_pool.no_data': '暫無執行緒池資料（診斷包未包含 nodes_stats 資料）',
+        'report.html.cluster.basic_info': '叢集基本資訊',
+        'report.html.cluster.name': '叢集名稱',
+        'report.html.cluster.status': '叢集狀態',
+        'report.html.cluster.version': '叢集版本',
+        'report.html.cluster.license': '許可證書',
+        'report.html.cluster.nodes_total': '節點總數',
+        'report.html.cluster.data_nodes': '資料節點',
+        'report.html.cluster.master_nodes': '主節點',
+        'report.html.cluster.shards': '分片數量',
+        'report.html.cluster.indices': '索引總數',
+        'report.html.cluster.security': '訪問加密認證',
+        'report.html.cluster.hot_cold': '冷熱分佈',
+        'report.html.cluster.hot_cold_ratio': '冷熱分佈比例',
+        'report.html.cluster.has_hot_cold': '有',
+        'report.html.cluster.no_hot_cold': '無',
+        'report.html.health_summary.title': '健康摘要',
+        'report.html.health_summary.active_shards': '活躍分片',
+        'report.html.health_summary.active_primary': '活躍主分片',
+        'report.html.health_summary.unassigned_shards': '未分配分片',
+        'report.html.health_summary.active_ratio': '活躍比例',
+        'report.html.check_results.title': '詳細檢查結果',
+        'report.html.check_results.no_data': '暫無詳細檢查資料',
+        'report.html.footer.generated_by': '由 ES 巡檢工具生成',
+        
+        # 通用詞彙
+        'report.common.unassigned_reason': '未分配原因',
+        'report.common.unknown_issue': '未知問題',
+        'report.common.current_value_label': '當前值',
+        'report.common.suggestion_label': '建議',
+        'report.common.index': '索引',
+        'report.common.shard': '分片',
+        'report.common.node': '節點',
+        'report.common.all': '所有',
+        'report.common.normal': '正常',
+        'report.common.enabled_status': '開啟',
+        'report.common.disabled_status': '關閉',
+        'report.common.yes_status': '是',
+        'report.common.no_status': '否',
+        'report.common.has_data': '有',
+        'report.common.no_data': '無',
+        'report.common.not_configured': '未配置',
+        'report.common.default_value': '預設值',
+        'report.common.threshold': '閾值',
+        'report.common.count': '數量',
+        'report.common.total': '總計',
+        'report.common.average': '平均',
+        'report.common.max': '最大',
+        'report.common.min': '最小',
+        'report.common.percentage': '百分比',
+        
+        # 分片分配
+        'report.shard_allocation.title': '分片分配狀態',
+        'report.shard_allocation.all_normal': '所有分片分配正常，無未分配分片',
+        'report.shard_allocation.all_normal_or_no_data': '所有分片分配正常（或診斷包未包含 allocation_explain 資料）',
+        'report.shard_allocation.failure_title': '失敗原因',
+        'report.shard_allocation.index_label': '索引',
+        'report.shard_allocation.shard_label': '分片',
+        
+        # 配置漂移
+        'report.config_drift.title': '配置漂移檢測',
+        'report.config_drift.all_consistent': '所有節點配置一致',
+        'report.config_drift.no_data': '暫無節點配置資料（診斷包未包含 nodes 配置資訊）',
+        'report.config_drift.inconsistent_nodes': '不一致節點',
+        
+        # 檢查項詳情
+        'report.sections.check_details': '五、檢查項詳情',
+        'report.check_details.title': '全部檢查項詳情',
+        'report.check_details.critical_issues': '嚴重問題',
+        'report.check_details.warning_issues': '警告問題',
+        'report.check_details.cluster_health': 'cluster health',
+        'report.check_details.cluster_role': '叢集角色分配',
+        'report.check_details.delete_protection': '叢集索引刪除保護配置',
+        'report.check_details.jvm_consistency': '各同類型節點JVM堆大小設定一致性檢查',
+        'report.check_details.cluster_params': '叢集參數配置',
+        'report.check_details.thread_pool_usage': '叢集執行緒池使用情況',
+        'report.check_details.gc_status': '各節點JVM垃圾回收情況',
+        'report.check_details.primary_shard_rationality': '主分片數合理性檢查',
+        'report.check_details.replica_rationality': '副本數量合理性檢查',
+        'report.check_details.write_optimization': '寫優化基礎配置檢查',
+        'report.check_details.delayed_allocation': '分片延遲分配設定合理性檢查',
+        'report.check_details.mapping_fields': '索引欄位mappings數合理性檢查',
+        'report.check_details.mapping_string_type': '索引mapping字串類型設定檢查',
+        'report.check_details.segment_overload': 'Segment數量過載檢查',
+        'report.check_details.swap_partition': '伺服器swap分區檢查',
+        'report.check_details.index_rejection': '索引拒絕情形檢查',
+        'report.check_details.search_failure': '搜尋失敗情形檢查',
+        'report.check_details.parent_circuit_breaker': '父級熔斷情形檢查',
+        'report.check_details.empty_shards': '空分片情形檢查',
+        'report.check_details.node_resources': 'node_resources檢查',
+        'report.check_details.index_health': 'index_health檢查',
+        'report.check_details.shards_check': 'shards檢查',
+        'report.check_details.recovery': 'recovery檢查',
+        'report.check_details.ilm': 'ilm檢查',
+        'report.check_details.snapshot': 'snapshot檢查',
+        'report.check_details.security': 'security檢查',
+        
+        # 檢查類別
+        'report.check_categories.cluster_health': '1、cluster health',
+        'report.check_categories.cluster_roles': '2、叢集角色分配',
+        'report.check_categories.cluster_destructive': '3、叢集索引刪除保護配置',
+        'report.check_categories.jvm_consistency': '4、各同類型節點JVM堆大小設置一致性檢查',
+        'report.check_categories.cluster_settings': '5、叢集參數配置',
+        'report.check_categories.thread_pool_status': '6、叢集執行緒池使用情況',
+        'report.check_categories.performance_stability': '7、性能穩定性檢查',
+        'report.check_categories.index_advanced': '8、索引高級配置',
+        'report.check_categories.write_optimization': '9、寫入優化配置',
+        'report.check_categories.network': '10、網路配置',
+        'report.check_categories.security': '11、安全配置',
+        'report.check_categories.license': '12、許可證狀態',
+        'report.check_categories.node_resources': '13、節點資源使用',
+        'report.check_categories.node_consistency': '14、節點一致性',
+        'report.check_categories.index_health': '15、索引健康狀態',
+        'report.check_categories.index_settings': '16、索引設置',
+        'report.check_categories.ilm': '17、ILM 管理',
+        'report.check_categories.snapshot': '18、快照備份',
+        'report.check_categories.primary_shard_rationality': '主分片合理性',
+        'report.check_categories.replica_rationality': '副本合理性',
+        'report.check_categories.delayed_allocation': '延遲分配',
+        'report.check_categories.mapping_count': 'Mapping數量',
+        'report.check_categories.mapping_text_type': 'Mapping text類型',
+        'report.check_categories.segment_overload': 'Segment過載',
+        'report.check_categories.swap_partition': 'Swap分區',
+        'report.check_categories.index_rejection': '索引拒絕',
+        'report.check_categories.search_failure': '搜索失敗',
+        'report.check_categories.breaker_status': '斷路器狀態',
+        'report.check_categories.empty_shards': '空分片',
+        'report.check_categories.shards': '分片',
+        'report.check_categories.recovery': '恢復',
+        'report.check_categories.thread_pools': '線程池',
+        
+        # 檢查項詳情表頭
+        'report.check_details.check_item': '檢查項',
+        'report.check_details.status': '狀態',
+        'report.check_details.details': '詳情',
+        'report.check_details.value': '值',
+        'report.check_details.threshold': '閾值',
+        
+        # 檢查項狀態
+        'report.check.status.pass': '通過',
+        'report.check.status.fail': '失敗',
+        
+        # 檢查項狀態
+        'report.check.status.ok': '✅',
+        'report.check.status.fail': '❌',
+        'report.check.status.normal': '正常',
+        'report.check.status.abnormal': '異常',
+        
+        # 分片相關章節標題
+        'report.shards.distribution_title': '4.1 主分片分布',
+        'report.shards.large_shards_title': '4.2 單個分片大於40GB索引',
+        'report.shards.small_shards_title': '4.3 單個分片小於500MB並且主分片數大於1的索引',
+        'report.shards.headers.shard_count': '分片數',
+        'report.shards.headers.index_count': '索引數',
+        'report.shards.headers.seq': '序號',
+        'report.shards.headers.index_name': '索引名稱',
+        'report.shards.headers.shard_size': '分片大小',
+        'report.shards.no_data': '無數據',
+        
+        # 告警信息章節
+        'report.alerts.title': '告警資訊',
+        'report.alerts.level_3': '三級告警（必須處理）:',
+        'report.alerts.level_2': '二級告警（建議處理）:',
+        'report.alerts.level_1': '一級告警（優化建議）:',
+        'report.alerts.suggestion_label': '建議',
+        'report.alerts.current_value_label': '當前值',
+        
+        # 高級分析組件
+        'report.advanced.thread_pool_warning': '⚠️ 執行緒池佇列堆積告警',
+        'report.advanced.thread_pool_normal': '✅ 所有執行緒池運行正常，無佇列堆積',
+        'report.advanced.thread_pool_no_data': 'ℹ️ 暫無執行緒池資料（診斷包未包含 nodes_stats 資料）',
+        'report.advanced.thread_pool.overload': '過載',
+        'report.advanced.thread_pool.high_load': '高負載',
+        'report.advanced.thread_pool.normal': '正常',
+        'report.advanced.thread_pool.headers.node': '節點名稱',
+        'report.advanced.thread_pool.headers.pool': '執行緒池',
+        'report.advanced.thread_pool.headers.queue': '佇列大小',
+        'report.advanced.thread_pool.headers.rejected': '拒絕數',
+        'report.advanced.thread_pool.headers.status': '狀態',
+        
+        'report.advanced.shard_heatmap': '🔥 分片分布熱點',
+        'report.advanced.shard_heatmap.no_data': '暫無節點或分片資料',
+        'report.advanced.shard_heatmap.headers.node': '節點名稱',
+        'report.advanced.shard_heatmap.headers.load': '負載指數',
+        'report.advanced.shard_heatmap.headers.cpu': 'CPU%',
+        'report.advanced.shard_heatmap.headers.disk': '磁碟%',
+        'report.advanced.shard_heatmap.headers.shards': '分片數',
+        
+        'report.advanced.jvm_profile': '💾 JVM 記憶體畫像',
+        'report.advanced.jvm_profile.no_data': '暫無 JVM 資料',
+        'report.advanced.jvm_profile.headers.node': '節點名稱',
+        'report.advanced.jvm_profile.headers.heap_percent': '堆使用率',
+        'report.advanced.jvm_profile.headers.heap_used': '已用堆記憶體',
+        'report.advanced.jvm_profile.headers.heap_max': '最大堆記憶體',
+        
+        'report.advanced.config_drift': '⚙️ 配置漂移檢測',
+        'report.advanced.config_drift.all_consistent': '✅ 所有節點配置一致',
+        'report.advanced.config_drift.no_data': 'ℹ️ 暫無節點配置資料（診斷包未包含 nodes 配置資訊）',
+        'report.advanced.config_drift.config_key': '配置項',
+        'report.advanced.config_drift.not_set': '未設置',
+        
+        'report.advanced.shard_allocation': '✅ 分片分配狀態',
+        'report.advanced.shard_allocation.all_normal': '✅ 所有分片分配正常，無未分配分片',
+        'report.advanced.shard_allocation.all_normal_or_no_data': '✅ 所有分片分配正常（或診斷包未包含 allocation_explain 資料）',
+        'report.advanced.shard_allocation.unassigned_found': '❌ 發現未分配分片: 索引=',
+        'report.advanced.shard_allocation.shard_label': ', 分片=',
+        'report.advanced.shard_allocation.failure_reasons': '失敗原因:',
+        'report.advanced.shard_allocation.unassigned_reason': '未分配原因',
+        'report.advanced.shard_allocation.unknown': '未知',
+        
+        # 資源使用
+        'report.resources.disk_usage': '平均磁碟使用率',
+        'report.resources.jvm_heap_usage': '平均 JVM 堆使用率',
+        'report.resources.cpu_usage': '平均 CPU 使用率',
+        'report.resources.system_load': '平均系統負載 (1m)',
+        'report.resources.max_shards_per_node': '單節點最大分片數',
+        'report.resources.max_connections': '節點最大連線數',
+        'report.resources.highest_node': '最高節點',
+        
+        # 索引統計
+        'report.indices.total_docs': '總文件數',
+        'report.indices.total_storage': '總儲存',
+        'report.indices.healthy': '健康 (GREEN)',
+        'report.indices.top5_largest': 'Top 5 最大索引',
+        'report.indices.rank': '排名',
+        'report.indices.size_gb': '大小 (GB)',
+        'report.indices.doc_count': '文件數',
+        
+        # 元資料
+        'report.metadata.title': '檢查元資料',
+        'report.metadata.data_source': '資料來源',
+        'report.metadata.extraction_time': '擷取時間',
+        'report.metadata.check_duration': '檢查耗時',
+        'report.metadata.seconds': '秒',
+        
+        # 頁尾
+        'report.footer.report_generated_at': '報告生成時間',
+        'report.footer.auto_inspection_system': 'ES 叢集自動巡檢系統',
+        'report.footer.health_score_based_on': '健康評分基於',
+        'report.footer.categories': '大類',
+        'report.footer.indicators': '項檢查指標',
+        
+        # 分片分布熱點
+        'report.shard_heatmap.title': '分片分布熱點',
+        'report.shard_heatmap.load_index': '負載指數',
+        'report.shard_heatmap.cpu': 'CPU%',
+        'report.shard_heatmap.disk': '磁碟%',
+        
+        # JVM記憶體画像
+        'report.jvm_profile.title': 'JVM 記憶體画像',
+        'report.jvm_profile.heap_usage': '堆使用率',
+        'report.jvm_profile.heap_used': '已用堆記憶體',
+        'report.jvm_profile.heap_max': '最大堆記憶體',
+        
+        # 健康摘要
+        'report.health_summary.active_shards_ratio': '活躍分片比例',
+        
+        # 資源使用
+        'report.resources.title': '資源使用情況',
+        'report.resources.disk_usage': '平均磁碟使用率',
+        'report.resources.jvm_heap_usage': '平均 JVM 堆使用率',
+        'report.resources.cpu_usage': '平均 CPU 使用率',
+        'report.resources.highest_node_label': '最高節點',
+        
+        # 索引統計
+        'report.indices.title': '索引統計',
+        'report.indices.total_docs': '總文件數',
+        'report.indices.total_storage': '總儲存',
+        'report.indices.healthy': '健康 (GREEN)',
+        'report.indices.headers.rank': '排名',
+        'report.indices.headers.name': '索引名稱',
+        'report.indices.headers.size_gb': '大小 (GB)',
+        'report.indices.headers.docs': '文件數',
+        'report.indices.top5_title': 'Top 5 最大索引',
+        
+        # 分片詳細資訊
+        'report.shard_detail.primary_distribution': '主分片分布',
+        'report.shard_detail.large_shards': '單個分片大於40GB索引',
+        'report.shard_detail.small_shards_multi_primary': '單個分片小於500MB並且主分片數大於1的索引',
+        'report.shard_detail.count_label': '數量',
+        'report.shard_detail.no_data': '無資料',
+        'report.shard_detail.headers.shard_count': '分片數',
+        'report.shard_detail.headers.index_count': '索引數',
+        'report.shard_detail.headers.shard_size': '分片大小',
+        
+        # 元資料
+        'report.metadata.title': '檢查元資料',
+        'report.metadata.data_source_label': '資料來源',
+        'report.metadata.extraction_time_label': '擷取時間',
+        'report.metadata.check_duration_label': '檢查耗時',
+        
+        # 檢查結果
+        'report.check_results.title': '全部檢查項詳情',
+        'report.check_results.no_data': '暫無詳細檢查資料',
+        'report.check_results.threshold': '閾值',
+        
+        # 頁尾
+        'report.footer.generated_at': '報告生成時間',
+        'report.footer.system_name': 'ES 叢集自動巡檢系統',
+        'report.footer.score_based_on': '健康評分基於',
+        'report.footer.categories_count': '大類',
+        'report.footer.indicators_count': '項檢查指標',
+        
+        # 通用
+        'report.common.seconds': '秒',
+    },
+    
+    'en-US': {
+        # English translation
+        'report.title': 'ES Cluster Inspection Report',
+        'report.generated_at': 'Generated At',
+        'report.sections.health_assessment': '1. Health Assessment',
+        'report.sections.cluster_basic_info': '2. Cluster Basic Information',
+        'report.sections.node_basic_info': '3. Node Basic Information',
+        'report.sections.shard_basic_info': '4. Shard Basic Information',
+        'report.sections.inspection_results': '5. Inspection Results',
+        'report.health.score': 'Health Score',
+        'report.health.level_1_alerts': 'Level 1 Alerts',
+        'report.health.level_2_alerts': 'Level 2 Alerts',
+        'report.health.level_3_alerts': 'Level 3 Alerts',
+        'report.cluster.cluster_name': 'Cluster Name',
+        'report.cluster.status': 'Cluster Status',
+        'report.cluster.nodes_count': 'Nodes Count',
+        'report.cluster.data_nodes': 'Data Nodes',
+        'report.cluster.master_nodes': 'Master Nodes',
+        'report.cluster.indices_count': 'Indices Count',
+        'report.cluster.shards_total': 'Total Shards',
+        'report.cluster.version': 'Cluster Version',
+        'report.cluster.license': 'License Type',
+        'report.cluster.security': 'Security Enabled',
+        'report.cluster.hot_cold': 'Hot/Cold Architecture',
+        'report.cluster.hot_cold_ratio': 'Hot/Cold Ratio',
+        'report.nodes.headers.seq': 'No.',
+        'report.nodes.headers.name': 'Node Name',
+        'report.nodes.headers.version': 'Version',
+        'report.nodes.headers.cpu': 'CPU Usage',
+        'report.nodes.headers.memory': 'Total Memory',
+        'report.nodes.headers.jvm_heap': 'JVM Heap',
+        'report.nodes.headers.jvm_heap_usage': 'JVM Heap Usage',
+        'report.nodes.headers.roles': 'Roles',
+        'report.nodes.headers.uptime': 'Uptime',
+        'report.nodes.headers.shards': 'Shard Count',
+        'report.nodes.headers.disk_space': 'Disk Space',
+        'report.nodes.headers.disk_usage': 'Disk Usage',
+        'report.shards.headers.seq': 'No.',
+        'report.shards.headers.index_name': 'Index Name',
+        'report.shards.headers.shard_count': 'Shard Count',
+        'report.shards.headers.shard_size': 'Shard Size (GB)',
+        'report.status.green': 'Green',
+        'report.status.yellow': 'Yellow',
+        'report.status.red': 'Red',
+        'report.status.enabled': 'Enabled',
+        'report.status.disabled': 'Disabled',
+        'report.status.yes': 'Yes',
+        'report.status.no': 'No',
+        'report.common.unknown': 'Unknown',
+        'report.common.na': 'N/A',
+        'report.common.days': 'days',
+        
+        # HTML Report specific
+        'report.html.diagnosis_time': 'Diagnosis Time',
+        'report.html.health_score_label': 'Health Score',
+        'report.html.alerts.total': 'Total Alerts',
+        'report.html.alerts.level_1': 'Level 1 Alerts',
+        'report.html.alerts.level_2': 'Level 2 Alerts',
+        'report.html.alerts.level_3': 'Level 3 Alerts',
+        'report.html.alerts.title': 'Alert Information',
+        'report.html.alerts.critical': 'Level 3 Alerts (Must Fix)',
+        'report.html.alerts.warning': 'Level 2 Alerts (Recommended)',
+        'report.html.alerts.info': 'Level 1 Alerts (Optimization)',
+        'report.html.alerts.no_alerts': 'No alerts, system is running normally',
+        'report.html.alerts.suggestion': 'Suggestion',
+        'report.html.alerts.current_value': 'Current Value',
+        'report.html.thread_pool.title': 'Thread Pool Queue Buildup Alert',
+        'report.html.thread_pool.node_name': 'Node Name',
+        'report.html.thread_pool.pool_name': 'Thread Pool',
+        'report.html.thread_pool.queue_size': 'Queue Size',
+        'report.html.thread_pool.rejected': 'Rejected',
+        'report.html.thread_pool.status': 'Status',
+        'report.html.thread_pool.overloaded': 'Overloaded',
+        'report.html.thread_pool.normal': 'Normal',
+        'report.html.thread_pool.all_normal': 'All thread pools are running normally, no queue buildup',
+        'report.html.thread_pool.no_data': 'No thread pool data available (diagnostic package does not include nodes_stats data)',
+        'report.html.cluster.basic_info': 'Cluster Basic Information',
+        'report.html.cluster.name': 'Cluster Name',
+        'report.html.cluster.status': 'Cluster Status',
+        'report.html.cluster.version': 'Cluster Version',
+        'report.html.cluster.license': 'License Type',
+        'report.html.cluster.nodes_total': 'Total Nodes',
+        'report.html.cluster.data_nodes': 'Data Nodes',
+        'report.html.cluster.master_nodes': 'Master Nodes',
+        'report.html.cluster.shards': 'Shard Count',
+        'report.html.cluster.indices': 'Total Indices',
+        'report.html.cluster.security': 'Security Enabled',
+        'report.html.cluster.hot_cold': 'Hot/Cold Architecture',
+        'report.html.cluster.hot_cold_ratio': 'Hot/Cold Ratio',
+        'report.html.cluster.has_hot_cold': 'Yes',
+        'report.html.cluster.no_hot_cold': 'No',
+        'report.html.health_summary.title': 'Health Summary',
+        'report.html.health_summary.active_shards': 'Active Shards',
+        'report.html.health_summary.active_primary': 'Active Primary Shards',
+        'report.html.health_summary.unassigned_shards': 'Unassigned Shards',
+        'report.html.health_summary.active_ratio': 'Active Ratio',
+        'report.html.check_results.title': 'Detailed Check Results',
+        'report.html.check_results.no_data': 'No detailed check data available',
+        'report.html.footer.generated_by': 'Generated by ES Inspection Tool',
+        
+        # Common Terms
+        'report.common.unassigned_reason': 'Unassigned Reason',
+        'report.common.unknown_issue': 'Unknown Issue',
+        'report.common.current_value_label': 'Current Value',
+        'report.common.suggestion_label': 'Suggestion',
+        'report.common.index': 'Index',
+        'report.common.shard': 'Shard',
+        'report.common.node': 'Node',
+        'report.common.all': 'All',
+        'report.common.normal': 'Normal',
+        'report.common.enabled_status': 'Enabled',
+        'report.common.disabled_status': 'Disabled',
+        'report.common.yes_status': 'Yes',
+        'report.common.no_status': 'No',
+        'report.common.has_data': 'Has Data',
+        'report.common.no_data': 'No Data',
+        'report.common.not_configured': 'Not Configured',
+        'report.common.default_value': 'Default Value',
+        'report.common.threshold': 'Threshold',
+        'report.common.count': 'Count',
+        'report.common.total': 'Total',
+        'report.common.average': 'Average',
+        'report.common.max': 'Max',
+        'report.common.min': 'Min',
+        'report.common.percentage': 'Percentage',
+        
+        # Shard Allocation
+        'report.shard_allocation.title': 'Shard Allocation Status',
+        'report.shard_allocation.all_normal': 'All shards are allocated normally, no unassigned shards',
+        'report.shard_allocation.all_normal_or_no_data': 'All shards are allocated normally (or diagnostic package does not include allocation_explain data)',
+        'report.shard_allocation.failure_title': 'Failure Reasons',
+        'report.shard_allocation.index_label': 'Index',
+        'report.shard_allocation.shard_label': 'Shard',
+        
+        # Configuration Drift
+        'report.config_drift.title': 'Configuration Drift Detection',
+        'report.config_drift.all_consistent': 'All node configurations are consistent',
+        'report.config_drift.no_data': 'No node configuration data available (diagnostic package does not include nodes configuration information)',
+        'report.config_drift.inconsistent_nodes': 'Inconsistent Nodes',
+        
+        # Check Details
+        'report.sections.check_details': '5. Check Item Details',
+        'report.check_details.title': 'All Check Item Details',
+        'report.check_details.critical_issues': 'Critical Issues',
+        'report.check_details.warning_issues': 'Warning Issues',
+        'report.check_details.cluster_health': 'cluster health',
+        'report.check_details.cluster_role': 'Cluster Role Assignment',
+        'report.check_details.delete_protection': 'Cluster Index Deletion Protection Configuration',
+        'report.check_details.jvm_consistency': 'JVM Heap Size Consistency Check for Same Type Nodes',
+        'report.check_details.cluster_params': 'Cluster Parameter Configuration',
+        'report.check_details.thread_pool_usage': 'Cluster Thread Pool Usage',
+        'report.check_details.gc_status': 'JVM Garbage Collection Status for Each Node',
+        'report.check_details.primary_shard_rationality': 'Primary Shard Count Rationality Check',
+        'report.check_details.replica_rationality': 'Replica Count Rationality Check',
+        'report.check_details.write_optimization': 'Write Optimization Basic Configuration Check',
+        'report.check_details.delayed_allocation': 'Shard Delayed Allocation Setting Rationality Check',
+        'report.check_details.mapping_fields': 'Index Field Mappings Count Rationality Check',
+        'report.check_details.mapping_string_type': 'Index Mapping String Type Setting Check',
+        'report.check_details.segment_overload': 'Segment Count Overload Check',
+        'report.check_details.swap_partition': 'Server Swap Partition Check',
+        'report.check_details.index_rejection': 'Index Rejection Check',
+        'report.check_details.search_failure': 'Search Failure Check',
+        'report.check_details.parent_circuit_breaker': 'Parent Circuit Breaker Check',
+        'report.check_details.empty_shards': 'Empty Shards Check',
+        'report.check_details.node_resources': 'node_resources check',
+        'report.check_details.index_health': 'index_health check',
+        'report.check_details.shards_check': 'shards check',
+        'report.check_details.recovery': 'recovery check',
+        'report.check_details.ilm': 'ilm check',
+        'report.check_details.snapshot': 'snapshot check',
+        'report.check_details.security': 'security check',
+        
+        # Check categories
+        'report.check_categories.cluster_health': '1. Cluster Health',
+        'report.check_categories.cluster_roles': '2. Cluster Role Assignment',
+        'report.check_categories.cluster_destructive': '3. Cluster Index Deletion Protection',
+        'report.check_categories.jvm_consistency': '4. JVM Heap Size Consistency',
+        'report.check_categories.cluster_settings': '5. Cluster Parameters Configuration',
+        'report.check_categories.thread_pool_status': '6. Thread Pool Usage',
+        'report.check_categories.performance_stability': '7. Performance Stability Check',
+        'report.check_categories.index_advanced': '8. Index Advanced Configuration',
+        'report.check_categories.write_optimization': '9. Write Optimization Configuration',
+        'report.check_categories.network': '10. Network Configuration',
+        'report.check_categories.security': '11. Security Configuration',
+        'report.check_categories.license': '12. License Status',
+        'report.check_categories.node_resources': '13. Node Resource Usage',
+        'report.check_categories.node_consistency': '14. Node Consistency',
+        'report.check_categories.index_health': '15. Index Health Status',
+        'report.check_categories.index_settings': '16. Index Settings',
+        'report.check_categories.ilm': '17. ILM Management',
+        'report.check_categories.snapshot': '18. Snapshot Backup',
+        'report.check_categories.primary_shard_rationality': 'Primary Shard Rationality',
+        'report.check_categories.replica_rationality': 'Replica Rationality',
+        'report.check_categories.delayed_allocation': 'Delayed Allocation',
+        'report.check_categories.mapping_count': 'Mapping Count',
+        'report.check_categories.mapping_text_type': 'Mapping Text Type',
+        'report.check_categories.segment_overload': 'Segment Overload',
+        'report.check_categories.swap_partition': 'Swap Partition',
+        'report.check_categories.index_rejection': 'Index Rejection',
+        'report.check_categories.search_failure': 'Search Failure',
+        'report.check_categories.breaker_status': 'Breaker Status',
+        'report.check_categories.empty_shards': 'Empty Shards',
+        'report.check_categories.shards': 'Shards',
+        'report.check_categories.recovery': 'Recovery',
+        'report.check_categories.thread_pools': 'Thread Pools',
+        
+        # Check item detail headers
+        'report.check_details.check_item': 'Check Item',
+        'report.check_details.status': 'Status',
+        'report.check_details.details': 'Details',
+        'report.check_details.value': 'Value',
+        'report.check_details.threshold': 'Threshold',
+        
+        # Check item status
+        'report.check.status.pass': 'Pass',
+        'report.check.status.fail': 'Fail',
+        
+        # Check item status
+        'report.check.status.ok': '✅',
+        'report.check.status.fail': '❌',
+        'report.check.status.normal': 'Normal',
+        'report.check.status.abnormal': 'Abnormal',
+        
+        # Shard section titles
+        'report.shards.distribution_title': '4.1 Primary Shard Distribution',
+        'report.shards.large_shards_title': '4.2 Indexes with Single Shard > 40GB',
+        'report.shards.small_shards_title': '4.3 Indexes with Single Shard < 500MB and Primary Shards > 1',
+        'report.shards.headers.shard_count': 'Shard Count',
+        'report.shards.headers.index_count': 'Index Count',
+        'report.shards.headers.seq': 'Seq',
+        'report.shards.headers.index_name': 'Index Name',
+        'report.shards.headers.shard_size': 'Shard Size',
+        'report.shards.no_data': 'No Data',
+        
+        # Alerts section
+        'report.alerts.title': 'Alert Information',
+        'report.alerts.level_3': 'Level 3 Alerts (Must Handle):',
+        'report.alerts.level_2': 'Level 2 Alerts (Recommended to Handle):',
+        'report.alerts.level_1': 'Level 1 Alerts (Optimization Suggestions):',
+        'report.alerts.suggestion_label': 'Suggestion',
+        'report.alerts.current_value_label': 'Current Value',
+        
+        # Advanced Analysis Components
+        'report.advanced.thread_pool_warning': '⚠️ Thread Pool Queue Accumulation Warning',
+        'report.advanced.thread_pool_normal': '✅ All thread pools are running normally, no queue accumulation',
+        'report.advanced.thread_pool_no_data': 'ℹ️ No thread pool data available (diagnostic package does not include nodes_stats data)',
+        'report.advanced.thread_pool.overload': 'Overloaded',
+        'report.advanced.thread_pool.high_load': 'High Load',
+        'report.advanced.thread_pool.normal': 'Normal',
+        'report.advanced.thread_pool.headers.node': 'Node Name',
+        'report.advanced.thread_pool.headers.pool': 'Thread Pool',
+        'report.advanced.thread_pool.headers.queue': 'Queue Size',
+        'report.advanced.thread_pool.headers.rejected': 'Rejected',
+        'report.advanced.thread_pool.headers.status': 'Status',
+        
+        'report.advanced.shard_heatmap': '🔥 Shard Distribution Heatmap',
+        'report.advanced.shard_heatmap.no_data': 'No node or shard data available',
+        'report.advanced.shard_heatmap.headers.node': 'Node Name',
+        'report.advanced.shard_heatmap.headers.load': 'Load Index',
+        'report.advanced.shard_heatmap.headers.cpu': 'CPU%',
+        'report.advanced.shard_heatmap.headers.disk': 'Disk%',
+        'report.advanced.shard_heatmap.headers.shards': 'Shard Count',
+        
+        'report.advanced.jvm_profile': '💾 JVM Memory Profile',
+        'report.advanced.jvm_profile.no_data': 'No JVM data available',
+        'report.advanced.jvm_profile.headers.node': 'Node Name',
+        'report.advanced.jvm_profile.headers.heap_percent': 'Heap Usage %',
+        'report.advanced.jvm_profile.headers.heap_used': 'Used Heap',
+        'report.advanced.jvm_profile.headers.heap_max': 'Max Heap',
+        
+        'report.advanced.config_drift': '⚙️ Configuration Drift Detection',
+        'report.advanced.config_drift.all_consistent': '✅ All node configurations are consistent',
+        'report.advanced.config_drift.no_data': 'ℹ️ No node configuration data available (diagnostic package does not include nodes configuration information)',
+        'report.advanced.config_drift.config_key': 'Configuration Key',
+        'report.advanced.config_drift.not_set': 'Not Set',
+        
+        'report.advanced.shard_allocation': '✅ Shard Allocation Status',
+        'report.advanced.shard_allocation.all_normal': '✅ All shards are allocated normally, no unassigned shards',
+        'report.advanced.shard_allocation.all_normal_or_no_data': '✅ All shards are allocated normally (or diagnostic package does not include allocation_explain data)',
+        'report.advanced.shard_allocation.unassigned_found': '❌ Found unassigned shard: index=',
+        'report.advanced.shard_allocation.shard_label': ', shard=',
+        'report.advanced.shard_allocation.failure_reasons': 'Failure Reasons:',
+        'report.advanced.shard_allocation.unassigned_reason': 'Unassigned Reason',
+        'report.advanced.shard_allocation.unknown': 'Unknown',
+        
+        # Check Status
+        'report.check.status.ok': '✅',
+        'report.check.status.fail': '❌',
+        'report.check.status.normal': 'Normal',
+        'report.check.status.abnormal': 'Abnormal',
+        
+        # Resource Usage
+        'report.resources.disk_usage': 'Average Disk Usage',
+        'report.resources.jvm_heap_usage': 'Average JVM Heap Usage',
+        'report.resources.cpu_usage': 'Average CPU Usage',
+        'report.resources.system_load': 'Average System Load (1m)',
+        'report.resources.max_shards_per_node': 'Max Shards Per Node',
+        'report.resources.max_connections': 'Max Node Connections',
+        'report.resources.highest_node': 'Highest Node',
+        
+        # Index Statistics
+        'report.indices.total_docs': 'Total Documents',
+        'report.indices.total_storage': 'Total Storage',
+        'report.indices.healthy': 'Healthy (GREEN)',
+        'report.indices.top5_largest': 'Top 5 Largest Indices',
+        'report.indices.rank': 'Rank',
+        'report.indices.size_gb': 'Size (GB)',
+        'report.indices.doc_count': 'Document Count',
+        
+        # Metadata
+        'report.metadata.title': 'Check Metadata',
+        'report.metadata.data_source': 'Data Source',
+        'report.metadata.extraction_time': 'Extraction Time',
+        'report.metadata.check_duration': 'Check Duration',
+        'report.metadata.seconds': 'seconds',
+        
+        # Footer
+        'report.footer.report_generated_at': 'Report Generated At',
+        'report.footer.auto_inspection_system': 'ES Cluster Auto Inspection System',
+        'report.footer.health_score_based_on': 'Health Score Based on',
+        'report.footer.categories': 'Categories',
+        'report.footer.indicators': 'Check Indicators',
+        
+        # Shard Distribution Heatmap
+        'report.shard_heatmap.title': 'Shard Distribution Heatmap',
+        'report.shard_heatmap.load_index': 'Load Index',
+        'report.shard_heatmap.cpu': 'CPU%',
+        'report.shard_heatmap.disk': 'Disk%',
+        
+        # JVM Memory Profile
+        'report.jvm_profile.title': 'JVM Memory Profile',
+        'report.jvm_profile.heap_usage': 'Heap Usage',
+        'report.jvm_profile.heap_used': 'Used Heap',
+        'report.jvm_profile.heap_max': 'Max Heap',
+        
+        # Health Summary
+        'report.health_summary.active_shards_ratio': 'Active Shards Ratio',
+        
+        # Resource Usage
+        'report.resources.title': 'Resource Usage',
+        'report.resources.disk_usage': 'Average Disk Usage',
+        'report.resources.jvm_heap_usage': 'Average JVM Heap Usage',
+        'report.resources.cpu_usage': 'Average CPU Usage',
+        'report.resources.highest_node_label': 'Highest Node',
+        
+        # Index Statistics
+        'report.indices.title': 'Index Statistics',
+        'report.indices.total_docs': 'Total Documents',
+        'report.indices.total_storage': 'Total Storage',
+        'report.indices.healthy': 'Healthy (GREEN)',
+        'report.indices.headers.rank': 'Rank',
+        'report.indices.headers.name': 'Index Name',
+        'report.indices.headers.size_gb': 'Size (GB)',
+        'report.indices.headers.docs': 'Documents',
+        'report.indices.top5_title': 'Top 5 Largest Indices',
+        
+        # Shard Details
+        'report.shard_detail.primary_distribution': 'Primary Shard Distribution',
+        'report.shard_detail.large_shards': 'Indices with Single Shard > 40GB',
+        'report.shard_detail.small_shards_multi_primary': 'Indices with Single Shard < 500MB and Primary Shards > 1',
+        'report.shard_detail.count_label': 'Count',
+        'report.shard_detail.no_data': 'No Data',
+        'report.shard_detail.headers.shard_count': 'Shard Count',
+        'report.shard_detail.headers.index_count': 'Index Count',
+        'report.shard_detail.headers.shard_size': 'Shard Size',
+        
+        # Metadata
+        'report.metadata.title': 'Check Metadata',
+        'report.metadata.data_source_label': 'Data Source',
+        'report.metadata.extraction_time_label': 'Extraction Time',
+        'report.metadata.check_duration_label': 'Check Duration',
+        
+        # Check Results
+        'report.check_results.title': 'All Check Details',
+        'report.check_results.no_data': 'No Detailed Check Data',
+        'report.check_results.threshold': 'Threshold',
+        
+        # Footer
+        'report.footer.generated_at': 'Report Generated At',
+        'report.footer.system_name': 'ES Cluster Auto Inspection System',
+        'report.footer.score_based_on': 'Health Score Based on',
+        'report.footer.categories_count': 'Categories',
+        'report.footer.indicators_count': 'Check Indicators',
+        
+        # Common
+        'report.common.seconds': 's',
+    },
+    'ja-JP': {
+        # Japanese translation
+        'report.title': 'ESクラスタ検査レポート',
+        'report.generated_at': '生成日時',
+        'report.sections.health_assessment': '一、健康評価',
+        'report.sections.cluster_basic_info': '二、クラスタ基本情報',
+        'report.sections.node_basic_info': '三、ノード基本情報',
+        'report.sections.shard_basic_info': '四、シャード基本情報',
+        'report.sections.inspection_results': '五、検査結果',
+        'report.health.score': 'ヘルススコア',
+        'report.health.level_1_alerts': 'レベル1アラート数',
+        'report.health.level_2_alerts': 'レベル2アラート数',
+        'report.health.level_3_alerts': 'レベル3アラート数',
+        'report.cluster.cluster_name': 'クラスタ名',
+        'report.cluster.status': 'クラスタステータス',
+        'report.cluster.nodes_count': 'ノード数',
+        'report.cluster.data_nodes': 'データノード数',
+        'report.cluster.master_nodes': 'マスターノード数',
+        'report.cluster.indices_count': 'インデックス数',
+        'report.cluster.shards_total': 'シャード総数',
+        'report.cluster.version': 'クラスタバージョン',
+        'report.cluster.license': 'ライセンスタイプ',
+        'report.cluster.security': 'セキュリティ有効化',
+        'report.cluster.hot_cold': 'ホット/コールドアーキテクチャ',
+        'report.cluster.hot_cold_ratio': 'ホット/コールド比率',
+        'report.nodes.headers.seq': '番号',
+        'report.nodes.headers.name': 'ノード名',
+        'report.nodes.headers.version': 'バージョン',
+        'report.nodes.headers.cpu': 'CPU使用率',
+        'report.nodes.headers.memory': '総メモリ',
+        'report.nodes.headers.jvm_heap': 'JVMヒープ',
+        'report.nodes.headers.jvm_heap_usage': 'JVMヒープ使用率',
+        'report.nodes.headers.roles': 'ロール',
+        'report.nodes.headers.uptime': '稼働時間',
+        'report.nodes.headers.shards': 'シャード数',
+        'report.nodes.headers.disk_space': 'ディスク容量',
+        'report.nodes.headers.disk_usage': 'ディスク使用率',
+        'report.shards.headers.seq': '番号',
+        'report.shards.headers.index_name': 'インデックス名',
+        'report.shards.headers.shard_count': 'シャード数',
+        'report.shards.headers.shard_size': 'シャードサイズ(GB)',
+        'report.status.green': 'グリーン',
+        'report.status.yellow': 'イエロー',
+        'report.status.red': 'レッド',
+        'report.status.enabled': '有効',
+        'report.status.disabled': '無効',
+        'report.status.yes': 'はい',
+        'report.status.no': 'いいえ',
+        'report.common.unknown': '不明',
+        'report.common.na': 'N/A',
+        'report.common.days': '日',
+        
+        # HTML Report specific
+        'report.html.diagnosis_time': '診断時刻',
+        'report.html.health_score_label': 'ヘルススコア',
+        'report.html.alerts.total': 'アラート総数',
+        'report.html.alerts.level_1': 'レベル1アラート',
+        'report.html.alerts.level_2': 'レベル2アラート',
+        'report.html.alerts.level_3': 'レベル3アラート',
+        'report.html.alerts.title': 'アラート情報',
+        'report.html.alerts.critical': 'レベル3アラート（必須対応）',
+        'report.html.alerts.warning': 'レベル2アラート（推奨対応）',
+        'report.html.alerts.info': 'レベル1アラート（最適化提案）',
+        'report.html.alerts.no_alerts': 'アラートなし、システムは正常に動作しています',
+        'report.html.alerts.suggestion': '提案',
+        'report.html.alerts.current_value': '現在値',
+        'report.html.thread_pool.title': 'スレッドプールキュー蓄積アラート',
+        'report.html.thread_pool.node_name': 'ノード名',
+        'report.html.thread_pool.pool_name': 'スレッドプール',
+        'report.html.thread_pool.queue_size': 'キューサイズ',
+        'report.html.thread_pool.rejected': '拒否数',
+        'report.html.thread_pool.status': 'ステータス',
+        'report.html.thread_pool.overloaded': '過負荷',
+        'report.html.thread_pool.normal': '正常',
+        'report.html.thread_pool.all_normal': 'すべてのスレッドプールは正常に動作しており、キュー蓄積はありません',
+        'report.html.thread_pool.no_data': 'スレッドプールデータがありません（診断パッケージにnodes_statsデータが含まれていません）',
+        'report.html.cluster.basic_info': 'クラスタ基本情報',
+        'report.html.cluster.name': 'クラスタ名',
+        'report.html.cluster.status': 'クラスタステータス',
+        'report.html.cluster.version': 'クラスタバージョン',
+        'report.html.cluster.license': 'ライセンスタイプ',
+        'report.html.cluster.nodes_total': 'ノード総数',
+        'report.html.cluster.data_nodes': 'データノード',
+        'report.html.cluster.master_nodes': 'マスターノード',
+        'report.html.cluster.shards': 'シャード数',
+        'report.html.cluster.indices': 'インデックス総数',
+        'report.html.cluster.security': 'セキュリティ有効化',
+        'report.html.cluster.hot_cold': 'ホット/コールドアーキテクチャ',
+        'report.html.cluster.hot_cold_ratio': 'ホット/コールド比率',
+        'report.html.cluster.has_hot_cold': 'はい',
+        'report.html.cluster.no_hot_cold': 'いいえ',
+        'report.html.health_summary.title': 'ヘルスサマリー',
+        'report.html.health_summary.active_shards': 'アクティブシャード',
+        'report.html.health_summary.active_primary': 'アクティブプライマリシャード',
+        'report.html.health_summary.unassigned_shards': '未割り当てシャード',
+        'report.html.health_summary.active_ratio': 'アクティブ率',
+        'report.html.check_results.title': '詳細チェック結果',
+        'report.html.check_results.no_data': '詳細チェックデータがありません',
+        'report.html.footer.generated_by': 'ES検査ツールによって生成',
+        
+        # Common Terms
+        'report.common.unassigned_reason': '未割り当て理由',
+        'report.common.unknown_issue': '不明な問題',
+        'report.common.current_value_label': '現在値',
+        'report.common.suggestion_label': '提案',
+        'report.common.index': 'インデックス',
+        'report.common.shard': 'シャード',
+        'report.common.node': 'ノード',
+        'report.common.all': 'すべて',
+        'report.common.normal': '正常',
+        'report.common.enabled_status': '有効',
+        'report.common.disabled_status': '無効',
+        'report.common.yes_status': 'はい',
+        'report.common.no_status': 'いいえ',
+        'report.common.has_data': 'データあり',
+        'report.common.no_data': 'データなし',
+        'report.common.not_configured': '未設定',
+        'report.common.default_value': 'デフォルト値',
+        'report.common.threshold': '閾値',
+        'report.common.count': '数',
+        'report.common.total': '合計',
+        'report.common.average': '平均',
+        'report.common.max': '最大',
+        'report.common.min': '最小',
+        'report.common.percentage': 'パーセンテージ',
+        
+        # Shard Allocation
+        'report.shard_allocation.title': 'シャード割り当てステータス',
+        'report.shard_allocation.all_normal': 'すべてのシャードは正常に割り当てられており、未割り当てシャードはありません',
+        'report.shard_allocation.all_normal_or_no_data': 'すべてのシャードは正常に割り当てられています（または診断パッケージにallocation_explainデータが含まれていません）',
+        'report.shard_allocation.failure_title': '失敗理由',
+        'report.shard_allocation.index_label': 'インデックス',
+        'report.shard_allocation.shard_label': 'シャード',
+        
+        # Configuration Drift
+        'report.config_drift.title': '設定ドリフト検出',
+        'report.config_drift.all_consistent': 'すべてのノード設定は一貫しています',
+        'report.config_drift.no_data': 'ノード設定データがありません（診断パッケージにノード設定情報が含まれていません）',
+        'report.config_drift.inconsistent_nodes': '不整合ノード',
+        
+        # Check Details
+        'report.sections.check_details': '五、チェック項目詳細',
+        'report.check_details.title': 'すべてのチェック項目詳細',
+        'report.check_details.critical_issues': '重大な問題',
+        'report.check_details.warning_issues': '警告問題',
+        'report.check_details.cluster_health': 'クラスタヘルス',
+        'report.check_details.cluster_role': 'クラスタロール割り当て',
+        'report.check_details.delete_protection': 'クラスタインデックス削除保護設定',
+        'report.check_details.jvm_consistency': '同種ノードのJVMヒープサイズ一貫性チェック',
+        'report.check_details.cluster_params': 'クラスタパラメータ設定',
+        'report.check_details.thread_pool_usage': 'クラスタスレッドプール使用状況',
+        'report.check_details.gc_status': '各ノードのJVMガベージコレクションステータス',
+        'report.check_details.primary_shard_rationality': 'プライマリシャード数の合理性チェック',
+        'report.check_details.replica_rationality': 'レプリカ数の合理性チェック',
+        'report.check_details.write_optimization': '書き込み最適化基本設定チェック',
+        'report.check_details.delayed_allocation': 'シャード遅延割り当て設定の合理性チェック',
+        'report.check_details.mapping_fields': 'インデックスフィールドマッピング数の合理性チェック',
+        'report.check_details.mapping_string_type': 'インデックスマッピング文字列タイプ設定チェック',
+        'report.check_details.segment_overload': 'セグメント数過負荷チェック',
+        'report.check_details.swap_partition': 'サーバースワップパーティションチェック',
+        'report.check_details.index_rejection': 'インデックス拒否チェック',
+        'report.check_details.search_failure': '検索失敗チェック',
+        'report.check_details.parent_circuit_breaker': '親サーキットブレーカーチェック',
+        'report.check_details.empty_shards': '空シャードチェック',
+        'report.check_details.node_resources': 'ノードリソースチェック',
+        'report.check_details.index_health': 'インデックスヘルスチェック',
+        'report.check_details.shards_check': 'シャードチェック',
+        'report.check_details.recovery': 'リカバリチェック',
+        'report.check_details.ilm': 'ILMチェック',
+        'report.check_details.snapshot': 'スナップショットチェック',
+        'report.check_details.security': 'セキュリティチェック',
+        
+        # Check categories
+        'report.check_categories.cluster_health': '1. クラスタヘルス',
+        'report.check_categories.cluster_roles': '2. クラスタロール割り当て',
+        'report.check_categories.cluster_destructive': '3. クラスタインデックス削除保護',
+        'report.check_categories.jvm_consistency': '4. JVMヒープサイズ一貫性',
+        'report.check_categories.cluster_settings': '5. クラスタパラメータ設定',
+        'report.check_categories.thread_pool_status': '6. スレッドプール使用状況',
+        'report.check_categories.performance_stability': '7. パフォーマンス安定性チェック',
+        'report.check_categories.index_advanced': '8. インデックス高度な設定',
+        'report.check_categories.write_optimization': '9. 書き込み最適化設定',
+        'report.check_categories.network': '10. ネットワーク設定',
+        'report.check_categories.security': '11. セキュリティ設定',
+        'report.check_categories.license': '12. ライセンスステータス',
+        'report.check_categories.node_resources': '13. ノードリソース使用状況',
+        'report.check_categories.node_consistency': '14. ノード一貫性',
+        'report.check_categories.index_health': '15. インデックスヘルスステータス',
+        'report.check_categories.index_settings': '16. インデックス設定',
+        'report.check_categories.ilm': '17. ILM管理',
+        'report.check_categories.snapshot': '18. スナップショットバックアップ',
+        'report.check_categories.primary_shard_rationality': 'プライマリシャード合理性',
+        'report.check_categories.replica_rationality': 'レプリカ合理性',
+        'report.check_categories.delayed_allocation': '遅延割り当て',
+        'report.check_categories.mapping_count': 'マッピング数',
+        'report.check_categories.mapping_text_type': 'マッピングテキストタイプ',
+        'report.check_categories.segment_overload': 'セグメント過負荷',
+        'report.check_categories.swap_partition': 'スワップパーティション',
+        'report.check_categories.index_rejection': 'インデックス拒否',
+        'report.check_categories.search_failure': '検索失敗',
+        'report.check_categories.breaker_status': 'ブレーカーステータス',
+        'report.check_categories.empty_shards': '空シャード',
+        'report.check_categories.shards': 'シャード',
+        'report.check_categories.recovery': 'リカバリ',
+        'report.check_categories.thread_pools': 'スレッドプール',
+        
+        # Check item detail headers
+        'report.check_details.check_item': 'チェック項目',
+        'report.check_details.status': 'ステータス',
+        'report.check_details.details': '詳細',
+        'report.check_details.value': '値',
+        'report.check_details.threshold': '閾値',
+        
+        # Check item status
+        'report.check.status.pass': '合格',
+        'report.check.status.fail': '不合格',
+        'report.check.status.ok': '✅',
+        'report.check.status.fail': '❌',
+        'report.check.status.normal': '正常',
+        'report.check.status.abnormal': '異常',
+        
+        # Shard section titles
+        'report.shards.distribution_title': '4.1 プライマリシャード分布',
+        'report.shards.large_shards_title': '4.2 単一シャードが40GBを超えるインデックス',
+        'report.shards.small_shards_title': '4.3 単一シャードが500MB未満でプライマリシャード数が1超のインデックス',
+        'report.shards.headers.shard_count': 'シャード数',
+        'report.shards.headers.index_count': 'インデックス数',
+        'report.shards.headers.seq': '番号',
+        'report.shards.headers.index_name': 'インデックス名',
+        'report.shards.headers.shard_size': 'シャードサイズ',
+        'report.shards.no_data': 'データなし',
+        
+        # Alerts section
+        'report.alerts.title': 'アラート情報',
+        'report.alerts.level_3': 'レベル3アラート（必須対応）:',
+        'report.alerts.level_2': 'レベル2アラート（推奨対応）:',
+        'report.alerts.level_1': 'レベル1アラート（最適化提案）:',
+        'report.alerts.suggestion_label': '提案',
+        'report.alerts.current_value_label': '現在値',
+        
+        # Advanced Analysis Components
+        'report.advanced.thread_pool_warning': '⚠️ スレッドプールキュー蓄積警告',
+        'report.advanced.thread_pool_normal': '✅ すべてのスレッドプールは正常に動作しており、キュー蓄積はありません',
+        'report.advanced.thread_pool_no_data': 'ℹ️ スレッドプールデータがありません（診断パッケージにnodes_statsデータが含まれていません）',
+        'report.advanced.thread_pool.overload': '過負荷',
+        'report.advanced.thread_pool.high_load': '高負荷',
+        'report.advanced.thread_pool.normal': '正常',
+        'report.advanced.thread_pool.headers.node': 'ノード名',
+        'report.advanced.thread_pool.headers.pool': 'スレッドプール',
+        'report.advanced.thread_pool.headers.queue': 'キューサイズ',
+        'report.advanced.thread_pool.headers.rejected': '拒否数',
+        'report.advanced.thread_pool.headers.status': 'ステータス',
+        
+        'report.advanced.shard_heatmap': '🔥 シャード分布ヒートマップ',
+        'report.advanced.shard_heatmap.no_data': 'ノードまたはシャードデータがありません',
+        'report.advanced.shard_heatmap.headers.node': 'ノード名',
+        'report.advanced.shard_heatmap.headers.load': '負荷指数',
+        'report.advanced.shard_heatmap.headers.cpu': 'CPU%',
+        'report.advanced.shard_heatmap.headers.disk': 'ディスク%',
+        'report.advanced.shard_heatmap.headers.shards': 'シャード数',
+        
+        'report.advanced.jvm_profile': '💾 JVMメモリープロファイル',
+        'report.advanced.jvm_profile.no_data': 'JVMデータがありません',
+        'report.advanced.jvm_profile.headers.node': 'ノード名',
+        'report.advanced.jvm_profile.headers.heap_percent': 'ヒープ使用率%',
+        'report.advanced.jvm_profile.headers.heap_used': '使用ヒープ',
+        'report.advanced.jvm_profile.headers.heap_max': '最大ヒープ',
+        
+        'report.advanced.config_drift': '⚙️ 設定ドリフト検出',
+        'report.advanced.config_drift.all_consistent': '✅ すべてのノード設定は一貫しています',
+        'report.advanced.config_drift.no_data': 'ℹ️ ノード設定データがありません（診断パッケージにノード設定情報が含まれていません）',
+        'report.advanced.config_drift.config_key': '設定キー',
+        'report.advanced.config_drift.not_set': '未設定',
+        
+        'report.advanced.shard_allocation': '✅ シャード割り当てステータス',
+        'report.advanced.shard_allocation.all_normal': '✅ すべてのシャードは正常に割り当てられており、未割り当てシャードはありません',
+        'report.advanced.shard_allocation.all_normal_or_no_data': '✅ すべてのシャードは正常に割り当てられています（または診断パッケージにallocation_explainデータが含まれていません）',
+        'report.advanced.shard_allocation.unassigned_found': '❌ 未割り当てシャードを発見: インデックス=',
+        'report.advanced.shard_allocation.shard_label': ', シャード=',
+        'report.advanced.shard_allocation.failure_reasons': '失敗理由:',
+        'report.advanced.shard_allocation.unassigned_reason': '未割り当て理由',
+        'report.advanced.shard_allocation.unknown': '不明',
+        
+        # Resource Usage
+        'report.resources.disk_usage': '平均ディスク使用率',
+        'report.resources.jvm_heap_usage': '平均JVMヒープ使用率',
+        'report.resources.cpu_usage': '平均CPU使用率',
+        'report.resources.system_load': '平均システムロード(1分)',
+        'report.resources.max_shards_per_node': 'ノードあたりの最大シャード数',
+        'report.resources.max_connections': '最大ノード接続数',
+        'report.resources.highest_node': '最高ノード',
+        
+        # Index Statistics
+        'report.indices.total_docs': '総ドキュメント数',
+        'report.indices.total_storage': '総ストレージ',
+        'report.indices.healthy': '健全（グリーン）',
+        'report.indices.top5_largest': '上位5つの最大インデックス',
+        'report.indices.rank': '順位',
+        'report.indices.size_gb': 'サイズ(GB)',
+        'report.indices.doc_count': 'ドキュメント数',
+        
+        # Metadata
+        'report.metadata.title': 'チェックメタデータ',
+        'report.metadata.data_source': 'データソース',
+        'report.metadata.extraction_time': '抽出時刻',
+        'report.metadata.check_duration': 'チェック期間',
+        'report.metadata.seconds': '秒',
+        
+        # Footer
+        'report.footer.report_generated_at': 'レポート生成時刻',
+        'report.footer.auto_inspection_system': 'ESクラスタ自動検査システム',
+        'report.footer.health_score_based_on': 'ヘルススコア基準',
+        'report.footer.categories': 'カテゴリ',
+        'report.footer.indicators': 'チェック指標',
+        
+        # Common
+        'report.common.seconds': '秒',
+        
+        # Alert messages (dynamic content)
+        '未优化': {
+            'zh-TW': '未優化',
+            'en-US': 'Not Optimized',
+            'ja-JP': '未最適化'
+        },
+        '为空': {
+            'zh-TW': '為空',
+            'en-US': 'Empty',
+            'ja-JP': '空'
+        },
+        '是': {
+            'zh-TW': '是',
+            'en-US': 'Yes',
+            'ja-JP': 'はい'
+        },
+        '否': {
+            'zh-TW': '否',
+            'en-US': 'No',
+            'ja-JP': 'いいえ'
+        },
+        '开启': {
+            'zh-TW': '開啟',
+            'en-US': 'Enabled',
+            'ja-JP': '有効'
+        },
+        '关闭': {
+            'zh-TW': '關閉',
+            'en-US': 'Disabled',
+            'ja-JP': '無効'
+        },
+        '无': {
+            'zh-TW': '無',
+            'en-US': 'N/A',
+            'ja-JP': 'なし'
+        },
+        '并发': {
+            'zh-TW': '並發',
+            'en-US': 'Concurrent',
+            'ja-JP': '並行'
+        },
+        '初始': {
+            'zh-TW': '初始',
+            'en-US': 'Initial',
+            'ja-JP': '初期'
+        },
+    }
+}
+
+
+def translate(key: str, lang: str = 'zh-CN') -> str:
+    """
+    获取翻译文本
+    
+    Args:
+        key: 翻译键
+        lang: 语言代码 (zh-CN, zh-TW, en-US)
+        
+    Returns:
+        翻译后的文本，如果找不到则返回键本身
+    """
+    # 验证语言
+    if lang not in TRANSLATIONS:
+        lang = 'zh-CN'  # fallback to Chinese
+    
+    # 获取翻译
+    translation = TRANSLATIONS[lang].get(key)
+    
+    # 如果找不到，尝试fallback到中文
+    if translation is None:
+        translation = TRANSLATIONS['zh-CN'].get(key, key)
+    
+    return translation
+
+
+def get_supported_languages() -> list:
+    """获取支持的语言列表"""
+    return list(TRANSLATIONS.keys())
+
+
+def translate_check_message(message: str, lang: str = 'zh-CN') -> str:
+    """
+    智能翻译检查项的message字段
+    
+    策略：
+    1. 如果message包含已知的中文模式，尝试翻译
+    2. 使用正则表达式处理动态内容（数字、节点名、索引名等）
+    3. 对常见短语进行逐词翻译
+    4. 否则返回原文本（可能是已经是目标语言）
+    
+    Args:
+        message: 原始消息文本
+        lang: 目标语言
+        
+    Returns:
+        翻译后的消息
+    """
+    if not message or lang == 'zh-CN':
+        return message
+    
+    import re
+    # 常见模式的翻译映射
+    translations_map = {
+        '集群状态：': {
+            'zh-TW': '叢集狀態：',
+            'en-US': 'Cluster Status: '
+        },
+        '活跃分片比例：': {
+            'zh-TW': '活躍分片比例：',
+            'en-US': 'Active Shards Ratio: '
+        },
+        '未分配分片：': {
+            'zh-TW': '未分配分片：',
+            'en-US': 'Unassigned Shards: '
+        },
+        '初始化中分片：': {
+            'zh-TW': '初始化中分片：',
+            'en-US': 'Initializing Shards: '
+        },
+        '迁移中分片：': {
+            'zh-TW': '遷移中分片：',
+            'en-US': 'Relocating Shards: '
+        },
+        '延迟未分配分片：': {
+            'zh-TW': '延遲未分配分片：',
+            'en-US': 'Delayed Unassigned Shards: '
+        },
+        '集群任务队列：': {
+            'zh-TW': '叢集任務佇列：',
+            'en-US': 'Pending Tasks: '
+        },
+        '集群节点总数：': {
+            'zh-TW': '叢集節點總數：',
+            'en-US': 'Total Nodes: '
+        },
+        '数据节点数：': {
+            'zh-TW': '資料節點數：',
+            'en-US': 'Data Nodes: '
+        },
+        '主节点为独立主节点：': {
+            'zh-TW': '主節點為獨立主節點：',
+            'en-US': 'Dedicated Master Node: '
+        },
+        '存在预处理节点：': {
+            'zh-TW': '存在預處理節點：',
+            'en-US': 'Ingest Node Exists: '
+        },
+        '存在专用的协调节点：': {
+            'zh-TW': '存在專用的協調節點：',
+            'en-US': 'Dedicated Coordinator Node: '
+        },
+        '索引删除保护配置：': {
+            'zh-TW': '索引刪除保護配置：',
+            'en-US': 'Index Deletion Protection: '
+        },
+        'JVM堆内存一致性：': {
+            'zh-TW': 'JVM堆記憶體一致性：',
+            'en-US': 'JVM Heap Consistency: '
+        },
+        '节点类型：': {
+            'zh-TW': '節點類型：',
+            'en-US': 'Node Type: '
+        },
+        '线程池名称：': {
+            'zh-TW': '執行緒池名稱：',
+            'en-US': 'Thread Pool Name: '
+        },
+        '当前大小：': {
+            'zh-TW': '當前大小：',
+            'en-US': 'Current Size: '
+        },
+        '最大大小：': {
+            'zh-TW': '最大大小：',
+            'en-US': 'Max Size: '
+        },
+        '队列大小：': {
+            'zh-TW': '佇列大小：',
+            'en-US': 'Queue Size: '
+        },
+        '活跃线程数：': {
+            'zh-TW': '活躍執行緒數：',
+            'en-US': 'Active Threads: '
+        },
+        '拒绝策略：': {
+            'zh-TW': '拒絕策略：',
+            'en-US': 'Rejection Policy: '
+        },
+        # 告警信息中的常见模式
+        '主节点为独立主节点：': {
+            'zh-TW': '主節點為獨立主節點：',
+            'en-US': 'Dedicated Master Node: '
+        },
+        '存在专用的协调节点：': {
+            'zh-TW': '存在專用的協調節點：',
+            'en-US': 'Dedicated Coordinator Node: '
+        },
+        '关闭索引的模糊匹配删除行为：': {
+            'zh-TW': '關閉索引的模糊匹配刪除行為：',
+            'en-US': 'Index Deletion Protection (destructive_requires_name): '
+        },
+        '未开启 (值: ': {
+            'zh-TW': '未開啟 (值: ',
+            'en-US': 'Disabled (value: '
+        },
+        '副本正常：': {
+            'zh-TW': '副本正常：',
+            'en-US': 'Replica Status: '
+        },
+        '个索引副本数为': {
+            'zh-TW': '個索引副本數為',
+            'en-US': ' indices have replica count of'
+        },
+        'mapping 字符串类型设定合理': {
+            'zh-TW': 'mapping 字串類型設定合理',
+            'en-US': 'Mapping string type configuration is reasonable'
+        },
+        '延迟Unassigned Shards:': {
+            'zh-TW': '延遲Unassigned Shards:',
+            'en-US': 'Delayed Unassigned Shards: '
+        },
+        '协调节点': {
+            'zh-TW': '協調節點',
+            'en-US': 'Coordinator Node'
+        },
+        '磁盘水位线配置 - Low:': {
+            'zh-TW': '磁碟水位線配置 - Low:',
+            'en-US': 'Disk Watermark Configuration - Low:'
+        },
+        '默认值': {
+            'zh-TW': '預設值',
+            'en-US': 'default'
+        },
+        '分片恢复配置 - 并发数:': {
+            'zh-TW': '分片恢復配置 - 並發數:',
+            'en-US': 'Shard Recovery Configuration - Concurrent Streams:'
+        },
+        '初始主分片数:': {
+            'zh-TW': '初始主分片數:',
+            'en-US': 'Initial Primary Shards:'
+        },
+        '各节点的各个线程池使用情况：': {
+            'zh-TW': '各節點的各個執行緒池使用情況：',
+            'en-US': 'Thread pool usage across all nodes: '
+        },
+        '不存在线程池请求拒绝的节点': {
+            'zh-TW': '不存在執行緒池請求拒絕的節點',
+            'en-US': 'No nodes with thread pool rejections'
+        },
+        '所有节点GC情况：': {
+            'zh-TW': '所有節點GC情況：',
+            'en-US': 'GC status for all nodes: '
+        },
+        '不存在GC异常': {
+            'zh-TW': '不存在GC異常',
+            'en-US': 'No GC anomalies detected'
+        },
+        '总次数:': {
+            'zh-TW': '總次數:',
+            'en-US': 'Total Count: '
+        },
+        '分片正常：集群中不存在过大(单分片>40GB)分片的索引': {
+            'zh-TW': '分片正常：叢集中不存在過大(單分片>40GB)分片的索引',
+            'en-US': 'Shard size normal: No indices with oversized shards (>40GB per shard)'
+        },
+        '个索引': {
+            'zh-TW': '個索引',
+            'en-US': ' indices'
+        },
+        '完全配置：集群中全部索引均进行写入优化配置（修改refresh_interval）': {
+            'zh-TW': '完全配置：叢集中全部索引均進行寫入優化配置（修改refresh_interval）',
+            'en-US': 'Fully configured: All indices have write optimization settings (refresh_interval modified)'
+        },
+        '分片延迟分配设置：': {
+            'zh-TW': '分片延遲分配設置：',
+            'en-US': 'Shard delayed allocation setting: '
+        },
+        '未配置': {
+            'zh-TW': '未配置',
+            'en-US': 'Not configured'
+        },
+        'mapping 字段合理': {
+            'zh-TW': 'mapping 欄位合理',
+            'en-US': 'Mapping fields are reasonable'
+        },
+        '所有索引的 mapping 字段数是否过多（>100）': {
+            'zh-TW': '所有索引的 mapping 欄位數是否過多（>100）',
+            'en-US': 'Whether any index has excessive mapping fields (>100)'
+        },
+        '所有索引的字符串类型字段是否采用的默认设定，即 text + keyword 的组合': {
+            'zh-TW': '所有索引的字串類型欄位是否採用預設設定，即 text + keyword 的組合',
+            'en-US': 'Whether string type fields use default settings (text + keyword combination)'
+        },
+        'Segment数量正常：所有索引段数均在合理范围': {
+            'zh-TW': 'Segment數量正常：所有索引段數均在合理範圍',
+            'en-US': 'Segment count normal: All indices have reasonable segment counts'
+        },
+        '服务器swap分区检查：': {
+            'zh-TW': '伺服器swap分區檢查：',
+            'en-US': 'Server swap partition check: '
+        },
+        '所有节点服务器均已禁用swap交换分区': {
+            'zh-TW': '所有節點伺服器均已禁用swap交換分區',
+            'en-US': 'All nodes have swap partition disabled'
+        },
+        '已禁用': {
+            'zh-TW': '已禁用',
+            'en-US': 'Disabled'
+        },
+        '未出现索引拒绝：': {
+            'zh-TW': '未出現索引拒絕：',
+            'en-US': 'No indexing rejections: '
+        },
+        '未发现索引写入拒绝的节点': {
+            'zh-TW': '未發現索引寫入拒絕的節點',
+            'en-US': 'No nodes with indexing rejections found'
+        },
+        '个节点': {
+            'zh-TW': '個節點',
+            'en-US': ' nodes'
+        },
+        '搜索失败情形检查：': {
+            'zh-TW': '搜尋失敗情形檢查：',
+            'en-US': 'Search failure check: '
+        },
+        '未出现搜索失败': {
+            'zh-TW': '未出現搜尋失敗',
+            'en-US': 'No search failures detected'
+        },
+        '未发现': {
+            'zh-TW': '未發現',
+            'en-US': 'Not found'
+        },
+        '父级熔断情形检查：': {
+            'zh-TW': '父級熔斷情形檢查：',
+            'en-US': 'Parent circuit breaker check: '
+        },
+        '未出现父级熔断': {
+            'zh-TW': '未出現父級熔斷',
+            'en-US': 'No parent circuit breaker trips'
+        },
+        '未触发': {
+            'zh-TW': '未觸發',
+            'en-US': 'Not triggered'
+        },
+        '未出现空白分片：': {
+            'zh-TW': '未出現空白分片：',
+            'en-US': 'No empty shards: '
+        },
+        '所有索引均有数据': {
+            'zh-TW': '所有索引均有資料',
+            'en-US': 'All indices contain data'
+        },
+        '平均磁盘使用率：': {
+            'zh-TW': '平均磁碟使用率：',
+            'en-US': 'Average Disk Usage: '
+        },
+        '平均 JVM 堆使用率：': {
+            'zh-TW': '平均 JVM 堆使用率：',
+            'en-US': 'Average JVM Heap Usage: '
+        },
+        '平均 CPU 使用率：': {
+            'zh-TW': '平均 CPU 使用率：',
+            'en-US': 'Average CPU Usage: '
+        },
+        '平均系统负载 (1m):': {
+            'zh-TW': '平均系統負載 (1m):',
+            'en-US': 'Average System Load (1m): '
+        },
+        '单节点最大分片数：': {
+            'zh-TW': '單節點最大分片數：',
+            'en-US': 'Max shards per node: '
+        },
+        '节点最大连接数：': {
+            'zh-TW': '節點最大連接數：',
+            'en-US': 'Max connections per node: '
+        },
+        '值：': {
+            'zh-TW': '值：',
+            'en-US': 'Value: '
+        },
+        '阈值：': {
+            'zh-TW': '閾值：',
+            'en-US': 'Threshold: '
+        },
+        '并发': {
+            'zh-TW': '並發',
+            'en-US': 'Concurrent'
+        },
+        '初始': {
+            'zh-TW': '初始',
+            'en-US': 'Initial'
+        },
+        '开启': {
+            'zh-TW': '開啟',
+            'en-US': 'Enabled'
+        },
+        '无': {
+            'zh-TW': '無',
+            'en-US': 'N/A'
+        },
+        '完全配置': {
+            'zh-TW': '寫入優化配置',
+            'en-US': 'Write Optimization',
+            'ja-JP': '書き込み最適化'
+        },
+        '完全配置：': {
+            'zh-TW': '寫入優化配置：',
+            'en-US': 'Write Optimization: ',
+            'ja-JP': '書き込み最適化：'
+        },
+        '集群中全部索引均进行写入优化配置（修改refresh_interval）': {
+            'zh-TW': '叢集中全部索引均進行寫入優化配置（修改refresh_interval）',
+            'en-US': 'All indices in cluster have write optimization configured (modified refresh_interval)',
+            'ja-JP': 'クラスタ内の全インデックスが書き込み最適化を設定（refresh_interval変更済み）'
+        },
+        '未优化': {
+            'zh-TW': '未優化',
+            'en-US': ' Not Optimized'
+        },
+        '为空': {
+            'zh-TW': '為空',
+            'en-US': 'Empty'
+        },
+        '索引健康分布：': {
+            'zh-TW': '索引健康分佈：',
+            'en-US': 'Index Health Distribution: '
+        },
+        '大索引数量 (>1000GB):': {
+            'zh-TW': '大索引數量 (>1000GB):',
+            'en-US': 'Large Indices (>1000GB): '
+        },
+        '高段数索引 (>500):': {
+            'zh-TW': '高段數索引 (>500):',
+            'en-US': 'High Segment Count Indices (>500): '
+        },
+        '高分片数索引 (>100):': {
+            'zh-TW': '高分片數索引 (>100):',
+            'en-US': 'High Shard Count Indices (>100): '
+        },
+        '大文档数索引 (>1亿):': {
+            'zh-TW': '大文檔數索引 (>1億):',
+            'en-US': 'Large Document Count Indices (>100M): '
+        },
+        '高删除文档比例索引 (>2000%):': {
+            'zh-TW': '高刪除文檔比例索引 (>2000%):',
+            'en-US': 'High Deleted Doc Ratio Indices (>2000%): '
+        },
+        '分片大小正常 (<50GB)': {
+            'zh-TW': '分片大小正常 (<50GB)',
+            'en-US': 'Shard size normal (<50GB)'
+        },
+        '分片文档数正常 (<2亿)': {
+            'zh-TW': '分片文檔數正常 (<2億)',
+            'en-US': 'Shard document count normal (<200M)'
+        },
+        '分片分布均衡 (标准差：': {
+            'zh-TW': '分片分佈均衡 (標準差：',
+            'en-US': 'Shard distribution balanced (Std Dev: '
+        },
+        '节点分片数正常': {
+            'zh-TW': '節點分片數正常',
+            'en-US': 'Node shard count normal'
+        },
+        '正在恢复的分片：': {
+            'zh-TW': '正在恢復的分片：',
+            'en-US': 'Recovering shards: '
+        },
+        '平均恢复进度：': {
+            'zh-TW': '平均恢復進度：',
+            'en-US': 'Average recovery progress: '
+        },
+        'ILM 状态：': {
+            'zh-TW': 'ILM 狀態：',
+            'en-US': 'ILM Status: ',
+            'ja-JP': 'ILMステータス：'
+        },
+        '未配置快照备份': {
+            'zh-TW': '未配置快照備份',
+            'en-US': 'Snapshot backup not configured',
+            'ja-JP': 'スナップショットバックアップが未設定'
+        },
+        '快照备份未配置': {
+            'zh-TW': '快照備份未配置',
+            'en-US': 'Snapshot backup not configured',
+            'ja-JP': 'スナップショットバックアップが未設定'
+        },
+        '快照备份': {
+            'zh-TW': '快照備份',
+            'en-US': 'Snapshot backup',
+            'ja-JP': 'スナップショットバックアップ'
+        },
+        '未配置': {
+            'zh-TW': '未配置',
+            'en-US': 'Not configured',
+            'ja-JP': '未設定'
+        },
+        '无快照数据': {
+            'zh-TW': '無快照資料',
+            'en-US': 'No snapshot data',
+            'ja-JP': 'スナップショットデータなし'
+        },
+        'X-Pack 安全：': {
+            'zh-TW': 'X-Pack 安全：',
+            'en-US': 'X-Pack Security: ',
+            'ja-JP': 'X-Packセキュリティ：'
+        },
+        '已启用': {
+            'zh-TW': '已啟用',
+            'en-US': 'Enabled',
+            'ja-JP': '有効'
+        },
+        '是': {
+            'zh-TW': '是',
+            'en-US': 'Yes',
+            'ja-JP': 'はい'
+        },
+        '否': {
+            'zh-TW': '否',
+            'en-US': 'No',
+            'ja-JP': 'いいえ'
+        },
+        # 额外的value值翻译
+        '正常': {
+            'zh-TW': '正常',
+            'en-US': 'Normal',
+            'ja-JP': '正常'
+        },
+        '开启': {
+            'zh-TW': '開啟',
+            'en-US': 'Enabled',
+            'ja-JP': '有効'
+        },
+        '无': {
+            'zh-TW': '無',
+            'en-US': 'None',
+            'ja-JP': 'なし'
+        },
+        '总次数': {
+            'zh-TW': '總次數',
+            'en-US': 'Total Count',
+            'ja-JP': '総回数'
+        },
+        # 检查项说明文本翻译
+        '所有索引的 mapping 字段数是否过多（>100）': {
+            'zh-TW': '所有索引的 mapping 欄位數是否過多（>100）',
+            'en-US': 'Whether any index has excessive mapping fields (>100)',
+            'ja-JP': 'すべてのインデックスのmappingフィールド数が多すぎるか（>100）'
+        },
+        '所有索引的字符串类型字段是否采用的默认设定，即 text + keyword 的组合': {
+            'zh-TW': '所有索引的字串類型欄位是否採用預設設定，即 text + keyword 的組合',
+            'en-US': 'Whether string type fields use default settings (text + keyword combination)',
+            'ja-JP': 'すべてのインデックスの文字列タイプフィールドがデフォルト設定（text + keywordの組み合わせ）を使用しているか'
+        }
+    }
+    
+    # 尝试匹配并替换（按长度降序，确保更长的模式优先匹配）
+    translated = message
+    sorted_patterns = sorted(translations_map.keys(), key=len, reverse=True)
+    for cn_pattern in sorted_patterns:
+        lang_map = translations_map[cn_pattern]
+        if cn_pattern in translated:
+            replacement = lang_map.get(lang, cn_pattern)
+            translated = translated.replace(cn_pattern, replacement)
+    
+    # 特殊处理：替换 "数字+个索引" 模式
+    if lang == 'en-US':
+        translated = re.sub(r'(\d+)个索引', r'\1 indices', translated)
+        translated = re.sub(r'(\d+)个节点', r'\1 nodes', translated)
+        translated = re.sub(r'(\d+)亿', r'\100M', translated)
+    elif lang == 'zh-TW':
+        translated = re.sub(r'(\d+)个索引', r'\1個索引', translated)
+        translated = re.sub(r'(\d+)个节点', r'\1個節點', translated)
+    elif lang == 'ja-JP':
+        translated = re.sub(r'(\d+)个索引', r'\1インデックス', translated)
+        translated = re.sub(r'(\d+)个节点', r'\1ノード', translated)
+        translated = re.sub(r'(\d+)亿', r'\1億', translated)
+    
+    # 新增：智能处理动态生成的告警消息
+    # 如果翻译后仍然包含中文，尝试逐词翻译常见短语
+    if lang != 'zh-CN' and _contains_chinese(translated):
+        translated = _translate_dynamic_message(translated, lang)
+    
+    return translated
+
+
+def _contains_chinese(text: str) -> bool:
+    """检查文本是否包含中文字符"""
+    import re
+    return bool(re.search(r'[\u4e00-\u9fff]', text))
+
+
+def _translate_dynamic_message(message: str, lang: str) -> str:
+    """
+    智能翻译动态生成的消息（处理未预定义的模式）
+    
+    Args:
+        message: 原始消息
+        lang: 目标语言
+        
+    Returns:
+        翻译后的消息
+    """
+    import re
+    
+    # 通用短语翻译映射（覆盖更多场景）
+    common_phrases = {
+        # 状态相关
+        '集群状态为': {'zh-TW': '叢集狀態為', 'en-US': 'Cluster status is', 'ja-JP': 'クラスタステータス：'},
+        '运行正常': {'zh-TW': '運行正常', 'en-US': 'running normally', 'ja-JP': '正常に動作中'},
+        '主分片未分配': {'zh-TW': '主分片未分配', 'en-US': 'primary shards unassigned', 'ja-JP': 'プライマリシャード未割り当て'},
+        '数据不可用': {'zh-TW': '資料不可用', 'en-US': 'data unavailable', 'ja-JP': 'データ利用不可'},
+        '副本分片未分配': {'zh-TW': '副本分片未分配', 'en-US': 'replica shards unassigned', 'ja-JP': 'レプリカシャード未割り当て'},
+        
+        # 分片相关
+        '分片': {'zh-TW': '分片', 'en-US': 'shard(s)', 'ja-JP': 'シャード'},
+        '主分片': {'zh-TW': '主分片', 'en-US': 'primary shard(s)', 'ja-JP': 'プライマリシャード'},
+        '副本分片': {'zh-TW': '副本分片', 'en-US': 'replica shard(s)', 'ja-JP': 'レプリカシャード'},
+        '未分配分片': {'zh-TW': '未分配分片', 'en-US': 'unassigned shards', 'ja-JP': '未割り当てシャード'},
+        '超大': {'zh-TW': '超大', 'en-US': 'Oversized', 'ja-JP': '過大'},
+        '过大': {'zh-TW': '過大', 'en-US': 'Oversized', 'ja-JP': '過大'},
+        '数量': {'zh-TW': '數量', 'en-US': 'Count', 'ja-JP': '数'},
+        '分片正常': {'zh-TW': '分片正常', 'en-US': 'Shards normal', 'ja-JP': 'シャード正常'},
+        '标准差': {'zh-TW': '標準差', 'en-US': 'Std Dev', 'ja-JP': '標準偏差'},
+        '分布': {'zh-TW': '分佈', 'en-US': 'Distribution', 'ja-JP': '分布'},
+        '均衡': {'zh-TW': '均衡', 'en-US': 'Balanced', 'ja-JP': '均等'},
+        '不均': {'zh-TW': '不均', 'en-US': 'Unbalanced', 'ja-JP': '不均等'},
+        
+        # 数量描述
+        '存在': {'zh-TW': '存在', 'en-US': 'Found', 'ja-JP': '存在する'},
+        '个': {'zh-TW': '個', 'en-US': '', 'ja-JP': '個'},
+        '低于': {'zh-TW': '低於', 'en-US': 'below', 'ja-JP': '以下'},
+        '高于': {'zh-TW': '高於', 'en-US': 'above', 'ja-JP': '以上'},
+        '超过': {'zh-TW': '超過', 'en-US': 'exceeds', 'ja-JP': '超える'},
+        
+        # 检查项
+        '正在初始化': {'zh-TW': '正在初始化', 'en-US': 'initializing', 'ja-JP': '初期化中'},
+        '正在迁移': {'zh-TW': '正在遷移', 'en-US': 'relocating', 'ja-JP': '再配置中'},
+        '未分配': {'zh-TW': '未分配', 'en-US': 'unassigned', 'ja-JP': '未割り当て'},
+        '延迟未分配': {'zh-TW': '延遲未分配', 'en-US': 'delayed unassigned', 'ja-JP': '遅延未割り当て'},
+        
+        # 节点相关
+        '节点': {'zh-TW': '節點', 'en-US': 'node(s)', 'ja-JP': 'ノード'},
+        '的': {'zh-TW': '的', 'en-US': "'", 'ja-JP': 'の'},
+        '线程池': {'zh-TW': '執行緒池', 'en-US': 'thread pool', 'ja-JP': 'スレッドプール'},
+        '存在拒绝': {'zh-TW': '存在拒絕', 'en-US': 'has rejections', 'ja-JP': '拒否あり'},
+        '部分节点存在拒绝，详见详情': {'zh-TW': '部分節點存在拒絕，詳見詳情', 'en-US': 'Some nodes have rejections, see details', 'ja-JP': '一部のノードで拒否が発生、詳細を参照'},
+        
+        # GC相关
+        '所有节点GC情况：': {'zh-TW': '所有節點GC情況：', 'en-US': 'GC status for all nodes: ', 'ja-JP': '全ノードのGC状況：'},
+        '不存在GC异常': {'zh-TW': '不存在GC異常', 'en-US': 'No GC anomalies detected', 'ja-JP': 'GC異常なし'},
+        '个节点Old Gen使用率过高': {'zh-TW': '個節點Old Gen使用率過高', 'en-US': ' nodes with high Old Gen usage', 'ja-JP': 'ノードのOld Gen使用率が高い'},
+        '使用率过高': {'zh-TW': '使用率過高', 'en-US': 'usage too high', 'ja-JP': '使用率が高すぎます'},
+        
+        # Swap相关
+        '服务器swap分区检查：': {'zh-TW': '伺服器swap分區檢查：', 'en-US': 'Server swap partition check: ', 'ja-JP': 'サーバーSWAPパーティションチェック：'},
+        '所有节点服务器均已禁用swap交换分区': {'zh-TW': '所有節點伺服器均已禁用swap交換分區', 'en-US': 'All nodes have swap partition disabled', 'ja-JP': '全ノードでSWAPが無効'},
+        '个节点未禁用swap': {'zh-TW': '個節點未禁用swap', 'en-US': ' nodes have swap enabled', 'ja-JP': 'ノードでSWAPが有効'},
+        '未禁用': {'zh-TW': '未禁用', 'en-US': 'have ... enabled', 'ja-JP': '無効にしていない'},
+        
+        # 熔断相关
+        '父级熔断情形检查：': {'zh-TW': '父級熔斷情形檢查：', 'en-US': 'Parent circuit breaker check: ', 'ja-JP': '親サーキットブレーカーチェック：'},
+        '未出现父级熔断': {'zh-TW': '未出現父級熔斷', 'en-US': 'No parent circuit breaker trips', 'ja-JP': '親サーキットブレーカー作動なし'},
+        '个节点/熔断器触发过熔断': {'zh-TW': '個節點/熔斷器觸發過熔斷', 'en-US': ' nodes/breakers triggered', 'ja-JP': 'ノード/ブレーカーが作動'},
+        '熔断器': {'zh-TW': '熔斷器', 'en-US': 'breaker(s)', 'ja-JP': 'ブレーカー'},
+        '触发过熔断': {'zh-TW': '觸發過熔斷', 'en-US': 'triggered', 'ja-JP': '作動した'},
+        
+        # 搜索相关
+        '搜索失败情形检查：': {'zh-TW': '搜尋失敗情形檢查：', 'en-US': 'Search failure check: ', 'ja-JP': '検索失敗チェック：'},
+        '未出现搜索失败': {'zh-TW': '未出現搜尋失敗', 'en-US': 'No search failures detected', 'ja-JP': '検索失敗なし'},
+        '个节点存在搜索缺失': {'zh-TW': '個節點存在搜尋缺失', 'en-US': ' nodes with search missing', 'ja-JP': 'ノードで検索欠落あり'},
+        '搜索缺失': {'zh-TW': '搜尋缺失', 'en-US': 'search missing', 'ja-JP': '検索欠落'},
+        
+        # 其他常见短语
+        '严重': {'zh-TW': '嚴重', 'en-US': '(critical)', 'ja-JP': '(重大)'},
+        '（严重）': {'zh-TW': '（嚴重）', 'en-US': ' (critical)', 'ja-JP': ' (重大)'},
+        '比例为': {'zh-TW': '比例為', 'en-US': 'ratio is', 'ja-JP': '割合は'},
+        '活跃分片比例': {'zh-TW': '活躍分片比例', 'en-US': 'Active shards ratio', 'ja-JP': 'アクティブシャード割合'},
+        '已开启': {'zh-TW': '已開啟', 'en-US': 'Enabled', 'ja-JP': '有効'},
+        '未开启': {'zh-TW': '未開啟', 'en-US': 'Disabled', 'ja-JP': '無効'},
+        '值:': {'zh-TW': '值:', 'en-US': 'value:', 'ja-JP': '値:'},
+        
+        # 连接词和助词（补充）
+        '为': {'zh-TW': '為', 'en-US': 'is', 'ja-JP': 'は'},
+        '正在': {'zh-TW': '正在', 'en-US': '', 'ja-JP': '中'},
+        '化': {'zh-TW': '化', 'en-US': '', 'ja-JP': '化'},
+        '，': {'zh-TW': '，', 'en-US': ', ', 'ja-JP': '、'},
+        '：': {'zh-TW': '：', 'en-US': ': ', 'ja-JP': '：'},
+        '索引': {'zh-TW': '索引', 'en-US': 'indices', 'ja-JP': 'インデックス'},
+        '集群中': {'zh-TW': '叢集中', 'en-US': 'In cluster', 'ja-JP': 'クラスタ内'},
+        '不存在': {'zh-TW': '不存在', 'en-US': 'No', 'ja-JP': '存在しない'},
+        '单': {'zh-TW': '單', 'en-US': 'per', 'ja-JP': 'あたり'},
+        '超大shard(s)数量': {'zh-TW': '超大shard(s)數量', 'en-US': 'Oversized shard(s) count', 'ja-JP': '過大シャード数'},
+        '分片分布标准差过大': {'zh-TW': '分片分佈標準差過大', 'en-US': 'Shard distribution standard deviation too high', 'ja-JP': 'シャード分布の標準偏差が大きすぎます'},
+        '分片分布不均': {'zh-TW': '分片分佈不均', 'en-US': 'Shard distribution unbalanced', 'ja-JP': 'シャード分布が不均等'},
+        '集群中不存在过大(单分片>40GB)分片的索引': {'zh-TW': '叢集中不存在過大(單分片>40GB)分片的索引', 'en-US': 'No indices with oversized shards (>40GB per shard) in cluster', 'ja-JP': 'クラスタ内に過大なシャード（1シャード>40GB）を持つインデックスなし'},
+        '个索引存在超大分片': {'zh-TW': '個索引存在超大分片', 'en-US': ' indices have oversized shards', 'ja-JP': 'インデックスに過大なシャードが存在'},
+        '存在超大分片': {'zh-TW': '存在超大分片', 'en-US': ' have oversized shards', 'ja-JP': '過大なシャードが存在'},
+        '超大分片数量': {'zh-TW': '超大分片數量', 'en-US': 'Oversized shard(s) count', 'ja-JP': '過大シャード数'},
+        '所有索引副本数大于 0': {'zh-TW': '所有索引副本數大於 0', 'en-US': 'All indices have replica count > 0', 'ja-JP': 'すべてのインデックスのレプリカ数が0より大きい'},
+        '个索引副本数为 0': {'zh-TW': '個索引副本數為 0', 'en-US': ' indices have replica count of 0', 'ja-JP': 'インデックスのレプリカ数が0'},
+        '副本数为 0': {'zh-TW': '副本數為 0', 'en-US': 'have replica count of 0', 'ja-JP': 'レプリカ数が0'},
+        '副本数为': {'zh-TW': '副本數為', 'en-US': ' replica count is', 'ja-JP': 'レプリカ数は'},
+        '集群中全部索引均进行写入优化配置（修改refresh_interval）': {'zh-TW': '叢集中全部索引均進行寫入優化配置（修改refresh_interval）', 'en-US': 'All indices in cluster are configured for write optimization (refresh_interval modified)', 'ja-JP': 'クラスタ内の全インデックスが書き込み最適化設定済み（refresh_interval変更）'},
+        '个索引未优化': {'zh-TW': '個索引未優化', 'en-US': ' indices not optimized', 'ja-JP': 'インデックスが最適化されていない'},
+        '已配置': {'zh-TW': '已配置', 'en-US': 'Configured', 'ja-JP': '設定済み'},
+        'mapping 字段合理': {'zh-TW': 'mapping 欄位合理', 'en-US': 'Mapping fields reasonable', 'ja-JP': 'マッピングフィールドが適切'},
+        'mapping 字符串类型设定合理': {'zh-TW': 'mapping 字串類型設定合理', 'en-US': 'Mapping string type settings reasonable', 'ja-JP': 'マッピング文字列タイプ設定が適切'},
+        '所有索引段数均在合理范围': {'zh-TW': '所有索引段數均在合理範圍', 'en-US': 'All indices have segment count within reasonable range', 'ja-JP': 'すべてのインデックスのセグメント数が適切な範囲内'},
+        '个索引段数过高': {'zh-TW': '個索引段數過高', 'en-US': ' indices have excessive segment count', 'ja-JP': 'インデックスのセグメント数が高すぎる'},
+        '段数过高': {'zh-TW': '段數過高', 'en-US': ' segment count too high', 'ja-JP': 'セグメント数が高すぎる'},
+    }
+    
+    translated = message
+    
+    # 按长度降序替换，确保长模式优先匹配
+    sorted_phrases = sorted(common_phrases.keys(), key=len, reverse=True)
+    for cn_phrase in sorted_phrases:
+        if cn_phrase in translated:
+            lang_map = common_phrases[cn_phrase]
+            replacement = lang_map.get(lang, cn_phrase)
+            translated = translated.replace(cn_phrase, replacement)
+    
+    # 特殊处理：数字模式的翻译
+    if lang == 'en-US':
+        # 处理 "X个节点" 模式
+        translated = re.sub(r'(\d+)個?节点', r'\1 node(s)', translated)
+        # 处理 "X亿" 模式
+        translated = re.sub(r'(\d+)亿', r'\100M', translated)
+        
+        # 智能添加空格：在英文字母和中文之间添加空格
+        translated = re.sub(r'([a-zA-Z])([\u4e00-\u9fff])', r'\1 \2', translated)
+        translated = re.sub(r'([\u4e00-\u9fff])([a-zA-Z])', r'\1 \2', translated)
+        
+        # 在连续的英文单词之间添加空格（如果它们紧贴在一起）
+        # 匹配小写字母/右括号后紧跟大写字母的情况
+        translated = re.sub(r'([a-z)])([A-Z])', r'\1 \2', translated)
+        # 匹配多个大写字母后紧跟小写字母的情况（如 "Oversizedshard" -> "Oversized shard"）
+        translated = re.sub(r'([A-Z]+)([A-Z][a-z])', lambda m: m.group(1) + ' ' + m.group(2) if len(m.group(1)) > 1 else m.group(0), translated)
+        
+        # 清理多余空格（将多个连续空格替换为单个空格）
+        translated = re.sub(r'\s{2,}', ' ', translated).strip()
+    elif lang == 'zh-TW':
+        # 简体转繁体（补充）
+        translated = translated.replace('节点', '節點').replace('线程', '執行緒')
+    elif lang == 'ja-JP':
+        # 处理数字+量词
+        translated = re.sub(r'(\d+)個?节点', r'\1ノード', translated)
+    
+    return translated

@@ -1,0 +1,7 @@
+{
+  "backToHome": "Back to Home",
+  "loadingReport": "Loading report...",
+  "loadError": "Failed to load report, please check if the report exists",
+  "loadFailed": "Load Failed",
+  "reportTitle": "Inspection Report"
+}

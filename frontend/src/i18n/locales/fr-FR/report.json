@@ -1,0 +1,7 @@
+{
+  "backToHome": "Retour à l'accueil",
+  "loadingReport": "Chargement du rapport...",
+  "loadError": "Échec du chargement du rapport, veuillez vérifier si le rapport existe",
+  "loadFailed": "Échec du chargement",
+  "reportTitle": "Rapport d'inspection"
+}

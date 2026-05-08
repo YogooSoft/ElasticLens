@@ -1,0 +1,6 @@
+{
+  "dragText": "Cliquez ou faites glisser le fichier dans cette zone pour le télécharger",
+  "hint": "Prend en charge un seul fichier ZIP, taille du fichier ne dépassant pas 2 Go",
+  "uploadSuccess": "Téléchargement réussi, traitement en cours...",
+  "uploadFailed": "Échec du téléchargement"
+}

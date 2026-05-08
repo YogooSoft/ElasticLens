@@ -1,0 +1,35 @@
+{
+  "title": "📊 ES-Cluster-Inspektionssystem",
+  "subtitle": "Diagnosepaket hochladen, Inspektionsbericht automatisch generieren",
+  "uploadSection": {
+    "title": "📤 Diagnosepaket hochladen"
+  },
+  "downloadToolSection": {
+    "title": "🛠️ Offizielles Diagnosetool herunterladen",
+    "description": "Bitte laden Sie das ES-Cluster-Diagnosetool herunter und führen Sie es aus. Die generierte ZIP-Datei kann direkt auf dieser Seite hochgeladen werden.",
+    "downloadButton": "Offizielles Diagnosetool herunterladen (v9.1.0) (ZIP)"
+  },
+  "usageGuideSection": {
+    "title": "📖 Anleitung zur Verwendung des Diagnosetools",
+    "step1": {
+      "title": "1. Umgebungsvorbereitung",
+      "content": "Stellen Sie sicher, dass Java 8 oder höher auf dem Server installiert ist."
+    },
+    "step2": {
+      "title": "2. Tool beziehen",
+      "content": "Klicken Sie oben auf die Schaltfläche \"Diagnosetool herunterladen\", entpacken Sie das heruntergeladene ZIP-Paket."
+    },
+    "step3": {
+      "title": "3. Diagnose ausführen",
+      "content": "Gehen Sie in das entpackte Verzeichnis, führen Sie den folgenden Befehl im Terminal aus (das Passwort wird nach der Ausführung interaktiv eingegeben):"
+    },
+    "command": "./diagnostics.sh --host <ES-Adresse> --type remote -u <ES-Benutzer> -p --port <Port> --remoteUser <Remote-Benutzer> --remotePass --trustRemote",
+    "step4": {
+      "title": "4. Bericht hochladen",
+      "content": "Ziehen Sie das generierte ZIP-Diagnosepaket per Drag & Drop oder klicken Sie, um es in den linken Bereich hochzuladen. Das System analysiert automatisch und generiert einen Inspektionsbericht."
+    }
+  },
+  "taskListSection": {
+    "title": "📋 Aufgabenliste"
+  }
+}

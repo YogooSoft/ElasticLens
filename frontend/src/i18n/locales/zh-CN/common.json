@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "ES 集群巡检系统",
+    "subtitle": "上传诊断包，自动生成巡检报告",
+    "copyright": "版权所有 © 上海悦高软件股份有限公司",
+    "version": "版本号"
+  },
+  "common": {
+    "upload": "上传",
+    "download": "下载",
+    "view": "查看",
+    "delete": "删除",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "loading": "加载中...",
+    "success": "成功",
+    "error": "错误",
+    "backToHome": "返回首页",
+    "uploadSuccess": "上传成功，开始处理...",
+    "uploadFailed": "上传失败",
+    "onlyZipFiles": "只能上传 ZIP 格式的文件",
+    "fileSizeExceeded": "文件大小不能超过 2GB",
+    "noTasks": "暂无任务",
+    "completed": "完成",
+    "failed": "失败",
+    "processing": "处理中",
+    "pending": "等待中",
+    "healthScore": "健康评分",
+    "alertCount": "告警总数",
+    "level1Alerts": "一级告警数",
+    "level2Alerts": "二级告警数",
+    "level3Alerts": "三级告警数",
+    "viewDetail": "查看详情",
+    "downloadWord": "下载 Word",
+    "generatingWord": "正在生成 Word 报告...",
+    "wordDownloadSuccess": "Word 报告下载成功",
+    "wordFeatureUnavailable": "Word 生成功能暂不可用。请点击\"查看\"按钮打开报告，然后使用浏览器打印功能（Ctrl+P）保存为 PDF。",
+    "downloadFailed": "下载失败",
+    "errorPrefix": "错误"
+  }
+}
