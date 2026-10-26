@@ -12,6 +12,33 @@ from typing import List, Dict, Any
 from loguru import logger
 from es_insight.rules.engine import RulesEngine
 from es_insight.health_score import HealthScoreConfig, HealthScoreReport
+from es_insight.shard_size_check import (
+    count_physical_shards_over_size_gb,
+    find_oversized_primary_shard_indices,
+    index_name_from_record,
+    index_replica_shards,
+    oversized_primary_shard_threshold_gb,
+    oversized_single_shard_threshold_gb,
+)
+from es_insight.nodes_stats_utils import (
+    find_nodes_with_search_missing,
+    get_nodes_stats_payload,
+)
+from es_insight.segment_check import (
+    find_indices_with_too_many_segments,
+    per_primary_shard_threshold,
+)
+from es_insight.shard_node_stats import (
+    count_shards_per_node,
+    max_shards_on_single_node,
+)
+from es_insight.node_role_utils import (
+    is_data_node,
+    is_dedicated_coordinator_node,
+    is_master_eligible_node,
+    normalize_roles,
+    roles_concat_lower,
+)
 
 
 class CheckResultParser:
@@ -1164,6 +1191,7 @@ class CheckResultParser:
         shards = self.data.get('shards', [])
         recovery = self.data.get('recovery', {})
         cluster_stats = self.data.get('cluster_stats', {})
+        nodes_stats = get_nodes_stats_payload(self.data)
         
         check_results = {}
         
@@ -1303,9 +1331,8 @@ class CheckResultParser:
             }
         }
         
-        # 2.1 JVM 堆大小一致性检查
-        # nodes_stats = self.data.get('nodes_stats', {})
-        nodes_stats = self.data.get('nodes', [])
+        # 2.1 JVM 堆大小一致性检查（使用 cat/汇总 nodes，非 nodes_stats）
+        jvm_nodes_source = self.data.get('nodes', [])
         
         # 初始化 jvm_consistency_results
         jvm_consistency_results = {
@@ -1331,19 +1358,17 @@ class CheckResultParser:
         # print(f"nodes_stats 存在: {nodes_stats}")
         # print(f"nodes_stats 类型: {type(nodes_stats)}")
         
-        # 处理 nodes_stats 数据
+        # 处理 JVM 节点数据
         nodes_data = None
-        if isinstance(nodes_stats, list):
-            # nodes_stats 本身就是列表
-            nodes_data = nodes_stats
-        elif isinstance(nodes_stats, dict):
-            # 尝试不同的键名
-            if 'nodes' in nodes_stats:
-                nodes_data = nodes_stats['nodes']
-            elif 'data' in nodes_stats:
-                nodes_data = nodes_stats['data']
-            elif 'items' in nodes_stats:
-                nodes_data = nodes_stats['items']
+        if isinstance(jvm_nodes_source, list):
+            nodes_data = jvm_nodes_source
+        elif isinstance(jvm_nodes_source, dict):
+            if 'nodes' in jvm_nodes_source:
+                nodes_data = jvm_nodes_source['nodes']
+            elif 'data' in jvm_nodes_source:
+                nodes_data = jvm_nodes_source['data']
+            elif 'items' in jvm_nodes_source:
+                nodes_data = jvm_nodes_source['items']
         
         if nodes_data:
             # print(f"nodes_data 类型: {type(nodes_data)}")
@@ -1366,64 +1391,23 @@ class CheckResultParser:
                     # print(f"节点角色: {roles}")
                     # print(f"Heap Max: {heap_max}")
                     
-                    # 处理 roles 可能是列表的情况
-                    roles_str = ''
-                    if isinstance(roles, list):
-                        for role in roles:
-                            if isinstance(role, str):
-                                roles_str += role
-                    elif isinstance(roles, str):
-                        roles_str = roles
-                    
-                    # print(f"Roles 字符串: {roles_str}")
-                    
-                    # 检查角色并添加到相应的映射中
-                    if 'm' in roles_str or 'master' in roles_str:
-                        # 即使节点同时有 data 角色，也添加到 master 角色
+                    if is_master_eligible_node(roles):
                         roles_map['master'].append(heap_max)
-                        # print(f"添加到 master 角色: {heap_max}")
-                    if 'd' in roles_str or 'data' in roles_str:
+                    if is_data_node(roles):
                         roles_map['data'].append(heap_max)
-                        # print(f"添加到 data 角色: {heap_max}")
-                    if ('m' not in roles_str and 'master' not in roles_str) and ('d' not in roles_str and 'data' not in roles_str) and ('i' not in roles_str and 'ingest' not in roles_str):
+                    if is_dedicated_coordinator_node(roles):
                         roles_map['coordinator'].append(heap_max)
-                        # print(f"添加到 coordinator 角色: {heap_max}")
             elif isinstance(nodes_data, list):
                 # 节点数据是列表形式
                 for stats in nodes_data:
-                    # 从 stats 中获取节点角色
                     roles = stats.get('roles', [])
-                    # 获取堆大小
                     heap_max = stats.get('jvm_heap_max', stats.get('jvm', {}).get('mem', {}).get('heap_max', 'N/A'))
-                    
-                    # 调试：打印每个节点的信息
-                    # print(f"\n===== 节点 =====")
-                    # print(f"节点名称: {stats.get('name')}")
-                    # print(f"节点角色: {roles}")
-                    # print(f"Heap Max: {heap_max}")
-                    
-                    # 处理 roles 可能是列表的情况
-                    roles_str = ''
-                    if isinstance(roles, list):
-                        for role in roles:
-                            if isinstance(role, str):
-                                roles_str += role
-                    elif isinstance(roles, str):
-                        roles_str = roles
-                    
-                    # print(f"Roles 字符串: {roles_str}")
-                    
-                    # 检查角色并添加到相应的映射中
-                    if 'm' in roles_str or 'master' in roles_str:
-                        # 即使节点同时有 data 角色，也添加到 master 角色
+                    if is_master_eligible_node(roles):
                         roles_map['master'].append(heap_max)
-                        # print(f"添加到 master 角色: {heap_max}")
-                    if 'd' in roles_str or 'data' in roles_str:
+                    if is_data_node(roles):
                         roles_map['data'].append(heap_max)
-                        # print(f"添加到 data 角色: {heap_max}")
-                    if ('m' not in roles_str and 'master' not in roles_str) and ('d' not in roles_str and 'data' not in roles_str) and ('i' not in roles_str and 'ingest' not in roles_str):
+                    if is_dedicated_coordinator_node(roles):
                         roles_map['coordinator'].append(heap_max)
-                        # print(f"添加到 coordinator 角色: {heap_max}")
             
             # 调试：打印 roles_map
             # print("\n===== Roles Map =====")
@@ -1439,41 +1423,22 @@ class CheckResultParser:
                     roles = stats.get('roles', [])
                     heap_max = stats.get('jvm_heap_max', stats.get('jvm', {}).get('mem', {}).get('heap_max', 'N/A'))
                     node_name = stats.get('name', node_id)
-                    
-                    # 处理 roles 可能是列表的情况
-                    roles_str = ''
-                    if isinstance(roles, list):
-                        for role in roles:
-                            if isinstance(role, str):
-                                roles_str += role
-                    elif isinstance(roles, str):
-                        roles_str = roles
-                    
                     all_nodes_info.append({
                         'name': node_name,
-                        'roles': roles_str,
-                        'heap': heap_max
+                        'roles': roles_concat_lower(roles),
+                        'roles_list': normalize_roles(roles),
+                        'heap': heap_max,
                     })
             elif isinstance(nodes_data, list):
-                # 节点数据是列表形式
                 for stats in nodes_data:
                     roles = stats.get('roles', [])
                     heap_max = stats.get('jvm_heap_max', stats.get('jvm', {}).get('mem', {}).get('heap_max', 'N/A'))
                     node_name = stats.get('name', 'unknown')
-                    
-                    # 处理 roles 可能是列表的情况
-                    roles_str = ''
-                    if isinstance(roles, list):
-                        for role in roles:
-                            if isinstance(role, str):
-                                roles_str += role
-                    elif isinstance(roles, str):
-                        roles_str = roles
-                    
                     all_nodes_info.append({
                         'name': node_name,
-                        'roles': roles_str,
-                        'heap': heap_max
+                        'roles': roles_concat_lower(roles),
+                        'roles_list': normalize_roles(roles),
+                        'heap': heap_max,
                     })
             
             # 按照需求文档格式输出
@@ -1509,10 +1474,12 @@ class CheckResultParser:
                             status_passed = False
                             node_details = []
                             for node in all_nodes_info:
-                                # 检查节点是否是专用协调节点
-                                node_roles = node['roles']
-                                if ('m' not in node_roles and 'master' not in node_roles) and ('d' not in node_roles and 'data' not in node_roles) and ('i' not in node_roles and 'ingest' not in node_roles):
-                                    node_details.append(f"{node['name']}({node['roles']}):{node['heap']}")
+                                if is_dedicated_coordinator_node(
+                                    node.get('roles_list', node.get('roles'))
+                                ):
+                                    node_details.append(
+                                        f"{node['name']}({node['roles']}):{node['heap']}"
+                                    )
                             value = '\n'.join(node_details) if node_details else ''
                     else:
                         # 不存在专用协调节点，显示‘-’
@@ -1530,12 +1497,17 @@ class CheckResultParser:
                             status_passed = False
                             node_details = []
                             for node in all_nodes_info:
-                                # 检查节点是否具有当前角色
-                                node_roles = node['roles']
-                                if role_name == 'master' and ('m' in node_roles or 'master' in node_roles):
-                                    node_details.append(f"{node['name']}({node['roles']}):{node['heap']}")
-                                elif role_name == 'data' and ('d' in node_roles or 'data' in node_roles):
-                                    node_details.append(f"{node['name']}({node['roles']}):{node['heap']}")
+                                roles_ref = node.get('roles_list', node.get('roles'))
+                                if role_name == 'master' and is_master_eligible_node(
+                                    roles_ref
+                                ):
+                                    node_details.append(
+                                        f"{node['name']}({node['roles']}):{node['heap']}"
+                                    )
+                                elif role_name == 'data' and is_data_node(roles_ref):
+                                    node_details.append(
+                                        f"{node['name']}({node['roles']}):{node['heap']}"
+                                    )
                             value = '\n'.join(node_details) if node_details else ''
                     else:
                         status_passed = True  # 无数据时默认为通过
@@ -1549,9 +1521,6 @@ class CheckResultParser:
                 # print(f"\n===== {role_name} 结果 =====")
                 # print(f"值: {value}")
                 # print(f"通过: {status_passed}")
-        else:
-            print("===== 没有 nodes_stats 数据 =====")
-        
         # 无论是否有数据，都添加 jvm_consistency 到 check_results
         check_results['jvm_consistency'] = jvm_consistency_results
         # print("\n===== 最终 JVM 一致性检查结果 =====")
@@ -1673,17 +1642,18 @@ class CheckResultParser:
         }
 
         # 搜索失败情形检查 - 单独分类
-        missing_nodes = []
-        if nodes_stats and 'nodes' in nodes_stats:
-            for node_id, stats in nodes_stats['nodes'].items():
-                if stats.get('indices', {}).get('get', {}).get('missing_total', 0) > 0:
-                    missing_nodes.append(stats.get('name', node_id))
+        missing_node_details = find_nodes_with_search_missing(nodes_stats)
         
         check_results['search_failure'] = {
             'missing': {
-                'value': '未发现' if not missing_nodes else '发现',
-                'passed': len(missing_nodes) == 0,
-                'message': f"搜索失败情形检查：{'未出现搜索失败' if not missing_nodes else f'{len(missing_nodes)}个节点存在搜索缺失'}"
+                'value': '未发现' if not missing_node_details else f"{len(missing_node_details)}个节点",
+                'passed': len(missing_node_details) == 0,
+                'missing_nodes': missing_node_details,
+                'message': (
+                    "搜索失败情形检查：未出现搜索失败"
+                    if not missing_node_details
+                    else f"搜索失败情形检查：{len(missing_node_details)}个节点存在搜索缺失"
+                ),
             }
         }
 
@@ -1720,18 +1690,14 @@ class CheckResultParser:
             # 从规则引擎配置中读取阈值
             node_config = self.rules_engine.config.get('node', {})
             
-            # 统计每个节点的分片数
             shards_data = self.data.get('shards', [])
-            shards_per_node_count = {}
-            if shards_data:
-                for shard in shards_data:
-                    node_name = shard.get('node', '')
-                    if node_name:
-                        shards_per_node_count[node_name] = shards_per_node_count.get(node_name, 0) + 1
-            
-            max_shards = max(shards_per_node_count.values()) if shards_per_node_count else 0
-            max_shards_node = max(shards_per_node_count, key=shards_per_node_count.get) if shards_per_node_count else 'N/A'
-            avg_shards = sum(shards_per_node_count.values()) / len(shards_per_node_count) if shards_per_node_count else 0
+            shards_per_node_count = count_shards_per_node(shards_data) if shards_data else {}
+            max_shards, max_shards_node = max_shards_on_single_node(shards_data)
+            avg_shards = (
+                sum(shards_per_node_count.values()) / len(shards_per_node_count)
+                if shards_per_node_count
+                else 0
+            )
             
             # 计算节点JVM堆大小阈值（用于分片数检查）
             nodes = self.data.get('nodes', [])
@@ -1767,7 +1733,6 @@ class CheckResultParser:
                 shards_threshold = node_config.get('shards_per_node', {}).get('warning', 500)
             
             # 统计连接数
-            nodes_stats = self.data.get('nodes_stats', {})
             total_connections = 0
             max_connections = 0
             max_connections_node = 'N/A'
@@ -1825,25 +1790,45 @@ class CheckResultParser:
         
         # 3. 索引相关检查
         if indices:
-            # 3.1 主分片数合理性检查 (单分片 > 40GB)
-            oversized_shards = []
-            for idx in indices:
-                if idx.get('status') == 'open' and idx.get('pri', 0) > 0 and idx.get('store_size_bytes', 0) > 0:
-                    shard_size_gb = idx['store_size_bytes'] / idx['pri'] / (1024**3)
-                    if shard_size_gb > 40:
-                        oversized_shards.append(idx.get('index', idx.get('name', 'unknown')))
-            
+            # 3.1 主分片数合理性检查（单主分片平均 > 配置阈值，默认 40GB）
+            rules_config = self.rules_engine.config if self.rules_engine else {}
+            oversized_threshold_gb = oversized_primary_shard_threshold_gb(rules_config)
+            oversized_details = find_oversized_primary_shard_indices(
+                indices, oversized_threshold_gb
+            )
+            oversized_names = [d["index_name"] for d in oversized_details]
+            threshold_label = (
+                int(oversized_threshold_gb)
+                if oversized_threshold_gb == int(oversized_threshold_gb)
+                else oversized_threshold_gb
+            )
+            if not oversized_names:
+                shard_rationality_message = (
+                    f"分片正常：集群中不存在过大(单分片>{threshold_label}GB)分片的索引"
+                )
+            else:
+                shard_rationality_message = (
+                    f"分片异常：{len(oversized_names)}个索引存在超大分片"
+                    f"(单分片>{threshold_label}GB)"
+                )
+
             # 主分片数合理性检查 - 单独分类
             check_results['primary_shard_rationality'] = {
                 'shard_size_rationality': {
-                    'value': f"{len(oversized_shards)}个索引",
-                    'passed': len(oversized_shards) == 0,
-                    'message': f"分片正常：{'集群中不存在过大(单分片>40GB)分片的索引' if not oversized_shards else f'{len(oversized_shards)}个索引存在超大分片'}"
+                    'value': f"{len(oversized_names)}个索引",
+                    'passed': len(oversized_names) == 0,
+                    'threshold_gb': oversized_threshold_gb,
+                    'oversized_indices': oversized_details,
+                    'message': shard_rationality_message,
                 }
             }
 
             # 3.2 副本数量合理性检查
-            zero_rep_indices = [idx.get('index', idx.get('name', 'unknown')) for idx in indices if idx.get('rep', 0) == 0]
+            zero_rep_indices = [
+                index_name_from_record(idx)
+                for idx in indices
+                if index_replica_shards(idx) == 0
+            ]
             # 副本数量合理性检查 - 单独分类
             check_results['replica_rationality'] = {
                 'replica_count': {
@@ -1879,12 +1864,25 @@ class CheckResultParser:
                 if 'unassigned' in settings and 'node_left' in settings.get('unassigned', {}):
                     delayed_indices.append(idx.get('index', idx.get('name', 'unknown')))
             
-            # 分片延迟分配设置合理性检查 - 单独分类
+            # 分片延迟分配设置合理性检查 - 单独分类（未配置视为不通过）
+            has_delayed_setting = len(delayed_indices) > 0
             check_results['delayed_allocation'] = {
                 'settings': {
                     'value': f"{len(delayed_indices)}个索引",
-                    'passed': True, # 这是一个配置项，有或没有都算通过，只是建议
-                    'message': f"分片延迟分配设置：{'已配置' if delayed_indices else '未配置'} ({len(delayed_indices)}个索引)"
+                    'passed': has_delayed_setting,
+                    'message': (
+                        f"分片延迟分配设置：已配置 ({len(delayed_indices)}个索引)"
+                        if has_delayed_setting
+                        else "分片延迟分配设置：未配置 (0个索引)"
+                    ),
+                    'suggestion': (
+                        ''
+                        if has_delayed_setting
+                        else (
+                            "建议为业务索引配置 index.unassigned.node_left.delayed_timeout，"
+                            "减少节点短暂离线时的分片重分配开销"
+                        )
+                    ),
                 }
             }
 
@@ -1943,14 +1941,31 @@ class CheckResultParser:
                 }
             }
 
-            # 3.7 Segment数量过载检查
-            high_segment_indices = [idx.get('index', idx.get('name', 'unknown')) for idx in indices if idx.get('segments_total', 0) > 500]
-            # Segment数量过载检查 - 单独分类
+            # 3.7 Segment数量过载检查（对齐 diagnostic indices_too_many_segments）
+            seg_per_shard = per_primary_shard_threshold(
+                {'index': {'segments_count': index_config.get('segments_count', {})}}
+            )
+            overloaded_segments = find_indices_with_too_many_segments(
+                indices, seg_per_shard
+            )
+            overloaded_names = [d["index_name"] for d in overloaded_segments]
+            if not overloaded_names:
+                segment_message = (
+                    f"Segment数量正常：所有索引分片的 segments 均在合理范围"
+                    f"(单分片≤{seg_per_shard})"
+                )
+            else:
+                segment_message = (
+                    f"Segment数量异常：{len(overloaded_names)}个索引存在过多 segments"
+                    f"(单分片>{seg_per_shard})"
+                )
             check_results['segment_overload'] = {
                 'segment_count': {
-                    'value': f"{len(high_segment_indices)}个索引",
-                    'passed': len(high_segment_indices) == 0,
-                    'message': f"Segment数量正常：{'所有索引段数均在合理范围' if not high_segment_indices else f'{len(high_segment_indices)}个索引段数过高'}"
+                    'value': f"{len(overloaded_names)}个索引",
+                    'passed': len(overloaded_names) == 0,
+                    'per_primary_shard_threshold': seg_per_shard,
+                    'overloaded_indices': overloaded_segments,
+                    'message': segment_message,
                 }
             }
 
@@ -2040,26 +2055,35 @@ class CheckResultParser:
         if shards:
             check_results['shards'] = {}
             
-            # 检查分片大小
-            size_config = self.rules_engine.config.get('shard', {}).get('size_gb', {})
-            large_shards = [s for s in shards if int(s.get('store') or 0) > size_config.get('critical', 50) * (1024**3)]
-            if large_shards:
-                check_results['shards']['size_gb'] = {
-                    'value': len(large_shards),
-                    'passed': len(large_shards) == 0,
-                    'check_item': 'shard.size_gb',
-                    'threshold': f">{size_config.get('critical', 50)}GB",
-                    'message': f"超大分片数量 (>{size_config.get('critical', 50)}GB): {len(large_shards)}"
-                }
-            else:
-                # 即使没有超大分片，也显示正常信息
-                check_results['shards']['size_gb'] = {
-                    'value': 0,
-                    'passed': True,
-                    'check_item': 'shard.size_gb',
-                    'threshold': f"<{size_config.get('critical', 50)}GB",
-                    'message': f"分片大小正常 (<{size_config.get('critical', 50)}GB)"
-                }
+            # 检查分片大小（单物理分片 store，阈值与 oversized_single_shard 对齐）
+            rules_config = self.rules_engine.config if self.rules_engine else {}
+            single_shard_gb = oversized_single_shard_threshold_gb(rules_config)
+            large_shard_count = count_physical_shards_over_size_gb(shards, single_shard_gb)
+            threshold_label = (
+                int(single_shard_gb)
+                if single_shard_gb == int(single_shard_gb)
+                else single_shard_gb
+            )
+            shard_size_note = "含主分片与副本，按物理分片条数统计"
+            size_gb_message = (
+                f"超大分片数量 (>{threshold_label}GB): {large_shard_count}"
+                if large_shard_count
+                else f"分片大小正常 (<={threshold_label}GB)"
+            )
+            check_results['shards']['size_gb'] = {
+                'value': large_shard_count,
+                'passed': large_shard_count == 0,
+                'check_item': 'shard.size_gb',
+                'threshold_gb': single_shard_gb,
+                'threshold': f">{threshold_label}GB",
+                'message': size_gb_message,
+                'detail': shard_size_note if large_shard_count else '',
+                'suggestion': (
+                    f"{size_gb_message}（{shard_size_note}）"
+                    if large_shard_count
+                    else ''
+                ),
+            }
             
             # 检查分片文档数
             docs_config = self.rules_engine.config.get('shard', {}).get('docs_count', {})
@@ -2088,12 +2112,8 @@ class CheckResultParser:
             
             # 检查分片平衡
             balance_config = self.rules_engine.config.get('shard', {}).get('balance_std_dev', {})
-            shards_per_node = {}
-            for shard in shards:
-                node_name = shard.get('node', '')
-                if node_name:
-                    shards_per_node[node_name] = shards_per_node.get(node_name, 0) + 1
-            
+            shards_per_node = count_shards_per_node(shards)
+
             if shards_per_node:
                 import statistics
                 shard_counts = list(shards_per_node.values())
@@ -2125,68 +2145,65 @@ class CheckResultParser:
                         'message': f"分片分布均衡 (标准差：{std_dev:.1f})"
                     }
             
-            # 检查节点分片数（新增）
+            # 检查节点分片数（value = 单节点最大分片数）
+            import re
+
+            max_node_shards, max_node_name = max_shards_on_single_node(shards)
             nodes = self.data.get('nodes', [])
+            node_jvm_map = {}
             if nodes:
-                # 处理 nodes 可能是字典的情况
-                if isinstance(nodes, dict):
-                    nodes_list = list(nodes.values())
-                else:
-                    nodes_list = nodes
-                
-                # 构建节点名称到JVM堆大小的映射
-                node_jvm_map = {}
+                nodes_list = list(nodes.values()) if isinstance(nodes, dict) else nodes
                 for node in nodes_list:
                     node_name = node.get('name', '')
-                    if node_name:
-                        # 尝试获取JVM堆大小
-                        jvm_heap_max = node.get('jvm_heap_max', '')
-                        if jvm_heap_max:
-                            # 提取数字部分
-                            import re
-                            match = re.search(r'\d+', jvm_heap_max)
-                            if match:
-                                jvm_heap_gb = int(match.group())
-                                node_jvm_map[node_name] = jvm_heap_gb
-                
-                # 检查每个节点的分片数（新增）
-                high_shards_nodes = []
-                node_thresholds = {}  # 记录每个节点的阈值
-                for node_name, shard_count in shards_per_node.items():
-                    if node_name in node_jvm_map:
-                        jvm_heap_gb = node_jvm_map[node_name]
-                        threshold = jvm_heap_gb * 20
-                        node_thresholds[node_name] = threshold
-                        if shard_count > threshold:
-                            high_shards_nodes.append(f"{node_name}: {shard_count} (> {threshold})")
-                
-                # 生成阈值描述
-                if node_thresholds:
-                    # 获取所有阈值并去重
-                    unique_thresholds = sorted(set(node_thresholds.values()))
-                    if len(unique_thresholds) == 1:
-                        threshold_desc = f"{unique_thresholds[0]}"
-                    else:
-                        threshold_desc = f"{min(unique_thresholds)}-{max(unique_thresholds)}"
+                    if not node_name:
+                        continue
+                    jvm_heap_max = node.get('jvm_heap_max', '')
+                    if jvm_heap_max:
+                        match = re.search(r'\d+', str(jvm_heap_max))
+                        if match:
+                            node_jvm_map[node_name] = int(match.group())
+
+            node_config = self.rules_engine.config.get('node', {})
+            if max_node_name in node_jvm_map:
+                shards_threshold = node_jvm_map[max_node_name] * 20
+            else:
+                shards_threshold = node_config.get('shards_per_node', {}).get('warning', 500)
+
+            high_shards_nodes = []
+            node_thresholds = {}
+            for node_name, shard_count in shards_per_node.items():
+                if node_name in node_jvm_map:
+                    threshold = node_jvm_map[node_name] * 20
                 else:
-                    threshold_desc = "节点JVM堆大小*20"
-                
-                if high_shards_nodes:
-                    check_results['shards']['nodes_shards'] = {
-                        'value': len(high_shards_nodes),
-                        'passed': False,
-                        'check_item': 'shard.nodes_shards',
-                        'threshold': threshold_desc,
-                        'message': f"节点分片数超过阈值：{'; '.join(high_shards_nodes)}"
-                    }
-                else:
-                    check_results['shards']['nodes_shards'] = {
-                        'value': 0,
-                        'passed': True,
-                        'check_item': 'shard.nodes_shards',
-                        'threshold': threshold_desc,
-                        'message': "节点分片数正常"
-                    }
+                    threshold = shards_threshold
+                node_thresholds[node_name] = threshold
+                if shard_count > threshold:
+                    high_shards_nodes.append(f"{node_name}: {shard_count} (> {threshold})")
+
+            if node_thresholds:
+                unique_thresholds = sorted(set(node_thresholds.values()))
+                threshold_desc = (
+                    str(unique_thresholds[0])
+                    if len(unique_thresholds) == 1
+                    else f"{min(unique_thresholds)}-{max(unique_thresholds)}"
+                )
+            else:
+                threshold_desc = str(shards_threshold)
+
+            passed_nodes = len(high_shards_nodes) == 0
+            check_results['shards']['nodes_shards'] = {
+                'value': max_node_shards,
+                'passed': passed_nodes,
+                'check_item': 'shard.nodes_shards',
+                'threshold': f"<{shards_threshold}",
+                'max_shards_node': max_node_name,
+                'violating_node_count': len(high_shards_nodes),
+                'message': (
+                    f"节点分片数超过阈值：{'; '.join(high_shards_nodes)}"
+                    if high_shards_nodes
+                    else f"单节点最大分片数：{max_node_shards}（{max_node_name}），阈值 {shards_threshold}"
+                ),
+            }
         #         },
         #         'active_shards': {
         #             'value': sum(1 for s in shards if s.get('state') == 'STARTED'),
@@ -2339,7 +2356,11 @@ class CheckResultParser:
                                 'description': check_data.get('message', ''),
                                 'value': check_data.get('value'),
                                 'threshold': check_data.get('threshold', ''),
-                                'suggestion': check_data.get('message', '建议检查该项配置')
+                                'suggestion': (
+                                    check_data.get('suggestion')
+                                    or check_data.get('detail')
+                                    or check_data.get('message', '建议检查该项配置')
+                                ),
                             })
             
             logger.info(f"从check_results提取问题: {len(issues)}个")
@@ -2402,7 +2423,11 @@ class CheckResultParser:
                                     'description': check_data.get('message', ''),
                                     'value': check_data.get('value'),
                                     'threshold': check_data.get('threshold', ''),
-                                    'suggestion': check_data.get('message', '建议检查该项配置')
+                                    'suggestion': (
+                                        check_data.get('suggestion')
+                                        or check_data.get('detail')
+                                        or check_data.get('message', '建议检查该项配置')
+                                    ),
                                 })
                 
                 critical_issues = sum(1 for issue in issues if issue['severity'] == 'critical')
@@ -2448,7 +2473,12 @@ class CheckResultParser:
                     extractor = DiagnosticDataExtractor(source)
                     shard_summaries = extractor.extract_shard_summaries()
                     shard_distribution = extractor.extract_shard_distribution()
-                    large_shards = extractor.extract_large_shards()
+                    threshold_gb = oversized_primary_shard_threshold_gb(
+                        self.rules_engine.config if self.rules_engine else {}
+                    )
+                    large_shards = extractor.extract_large_shards(
+                        threshold_gb=threshold_gb
+                    )
                     small_shards_with_multiple_primaries = extractor.extract_small_shards_with_multiple_primaries()
             except Exception as e:
                 logger.warning(f"提取分片汇总信息失败：{e}")

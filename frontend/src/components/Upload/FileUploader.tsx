@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, message } from 'antd';
+import { Upload, message, Progress, Typography } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,14 @@ import { useUploadStore } from '../../store/useUploadStore';
 import { useTaskStore } from '../../store/useTaskStore';
 
 const { Dragger } = Upload;
+const { Text } = Typography;
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
+  return `${(bytes / 1024 ** 3).toFixed(2)} GB`;
+}
 
 interface FileUploaderProps {
   onUploadSuccess?: (taskId: string) => void;
@@ -15,7 +23,15 @@ interface FileUploaderProps {
 
 export const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
   const { t } = useTranslation(['upload', 'common']);
-  const { setUploading, setProgress, reset } = useUploadStore();
+  const {
+    isUploading,
+    uploadProgress,
+    currentFile,
+    setUploading,
+    setProgress,
+    setCurrentFile,
+    reset,
+  } = useUploadStore();
   const { addTask } = useTaskStore();
   const [fileList, setFileList] = useState<any[]>([]);
 
@@ -24,41 +40,44 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) =
     multiple: false,
     accept: '.zip',
     fileList,
+    disabled: isUploading,
     beforeUpload: (file) => {
-      // 校验文件类型
       if (!file.name.endsWith('.zip')) {
         message.error(t('common:onlyZipFiles'));
         return false;
       }
-      
-      // 校验文件大小（最大 2GB）
+
       const maxSize = 2 * 1024 * 1024 * 1024;
       if (file.size > maxSize) {
         message.error(t('common:fileSizeExceeded'));
         return false;
       }
-      
+
       return true;
     },
     customRequest: async ({ file, onSuccess, onError }) => {
+      const uploadFileObj = file as File;
       try {
+        setCurrentFile(uploadFileObj);
         setUploading(true);
-        
-        const response = await uploadFile(file as File, (percent) => {
+        setProgress(0);
+
+        const response = await uploadFile(uploadFileObj, (percent) => {
           setProgress(percent);
         });
-        
-        // 添加到任务列表
+
+        setProgress(100);
+
         addTask({
           id: response.data.taskId,
           filename: response.data.filename,
-          fileSize: (file as File).size,
+          fileSize: uploadFileObj.size,
           status: response.data.status,
           progress: 0,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         });
-        
+
         message.success(t('uploadSuccess'));
         onUploadSuccess?.(response.data.taskId);
         onSuccess?.(response);
@@ -75,15 +94,44 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) =
     },
   };
 
+  const loadedBytes = currentFile
+    ? Math.min(currentFile.size, Math.round((currentFile.size * uploadProgress) / 100))
+    : 0;
+
   return (
-    <Dragger {...uploadProps}>
-      <p className="ant-upload-drag-icon">
-        <InboxOutlined />
-      </p>
-      <p className="ant-upload-text">{t('dragText')}</p>
-      <p className="ant-upload-hint">
-        {t('hint')}
-      </p>
-    </Dragger>
+    <div>
+      <Dragger {...uploadProps}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">{t('dragText')}</p>
+        <p className="ant-upload-hint">{t('hint')}</p>
+      </Dragger>
+
+      {isUploading && currentFile && (
+        <div style={{ marginTop: 16 }}>
+          <Text strong style={{ display: 'block', marginBottom: 8 }} ellipsis>
+            {currentFile.name}
+          </Text>
+          <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>
+            {t('uploading')} {t('uploadProgress', { percent: uploadProgress })}
+          </Text>
+          <Progress
+            percent={uploadProgress}
+            status="active"
+            strokeColor={{
+              '0%': '#667eea',
+              '100%': '#764ba2',
+            }}
+          />
+          <Text type="secondary" style={{ display: 'block', marginTop: 8, fontSize: 12 }}>
+            {t('uploadSize', {
+              loaded: formatFileSize(loadedBytes),
+              total: formatFileSize(currentFile.size),
+            })}
+          </Text>
+        </div>
+      )}
+    </div>
   );
 };

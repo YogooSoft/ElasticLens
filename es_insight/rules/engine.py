@@ -805,19 +805,27 @@ class RulesEngine:
         if not shards_data:
             return alerts
         
-        # 1. 检查分片大小
-        size_config = shard_config.get('size_gb', {})
-        large_shards = [s for s in shards_data if int(s.get('store') or 0) > size_config.get('critical', 50) * (1024**3)]
-        
-        if large_shards:
+        # 1. 检查分片大小（与报告 shards 检查阈值一致）
+        from es_insight.shard_size_check import (
+            count_physical_shards_over_size_gb,
+            oversized_single_shard_threshold_gb,
+        )
+
+        single_gb = oversized_single_shard_threshold_gb(self.config)
+        large_count = count_physical_shards_over_size_gb(shards_data, single_gb)
+
+        if large_count:
             alerts.append({
                 'category': 'shard',
                 'check_item': 'shard.size_gb',
-                'message': f'{len(large_shards)} 个分片超过 {size_config.get("critical")}GB',
-                'current_value': len(large_shards),
-                'threshold': size_config.get('critical'),
+                'message': f'{large_count} 个分片超过 {single_gb}GB',
+                'current_value': large_count,
+                'threshold': single_gb,
                 'severity': 'critical',
-                'recommendation': '考虑拆分索引或使用更小的分片策略'
+                'recommendation': (
+                    '考虑拆分索引或使用更小的分片策略；'
+                    '该数量为含主分片与副本的物理分片条数'
+                ),
             })
         
         # 2. 检查分片文档数

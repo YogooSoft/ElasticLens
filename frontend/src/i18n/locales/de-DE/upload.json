@@ -2,5 +2,8 @@
   "dragText": "Klicken oder ziehen Sie die Datei in diesen Bereich zum Hochladen",
   "hint": "Unterstützt eine einzelne ZIP-Datei, Dateigröße darf 2 GB nicht überschreiten",
   "uploadSuccess": "Upload erfolgreich, Verarbeitung läuft...",
-  "uploadFailed": "Upload fehlgeschlagen"
+  "uploadFailed": "Upload fehlgeschlagen",
+  "uploading": "Wird hochgeladen…",
+  "uploadProgress": "({{percent}} %)",
+  "uploadSize": "{{loaded}} / {{total}} übertragen"
 }

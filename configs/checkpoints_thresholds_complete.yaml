@@ -139,6 +139,7 @@ index:
   segments_count:
     warning: 100     # 需要 merge
     critical: 500    # 严重影响性能
+    per_primary_shard: 35   # 报告「Segment数量过载检查」，对齐 ES 诊断脚本 3.16
   
   # 4.6 分片数量 per 索引
   shards_per_index:
@@ -152,7 +153,9 @@ index:
 shard:
   # 5.1 单分片大小 (GB)
   size_gb:
-    critical: 50           # 过大
+    oversized_primary: 40  # 主分片数合理性检查 / 大分片列表（单主分片平均）
+    oversized_single_shard: 40  # 报告 shards 检查：单物理分片 store
+    critical: 50           # 规则引擎严重过大（可选，与 oversized_single_shard 区分）
     
   
   # 5.2 单分片文档数

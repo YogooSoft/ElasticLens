@@ -162,6 +162,32 @@ class IndicesParser(DiagnosticFileParser):
         
         logger.info(f"成功从 indices.json 解析 {len(indices)} 个索引信息")
         return indices
+
+    @staticmethod
+    def _extract_segment_stats(index_data: dict) -> tuple:
+        """索引级 segment 总数与各主分片 segment 数的最大值。"""
+        total = index_data.get("total", {}).get("segments", {}).get("count")
+        if total is None:
+            total = index_data.get("primaries", {}).get("segments", {}).get("count", 0)
+        try:
+            segments_count = int(total or 0)
+        except (TypeError, ValueError):
+            segments_count = 0
+
+        max_primary = 0
+        for _shard_num, shard_copies in (index_data.get("shards") or {}).items():
+            if not isinstance(shard_copies, list):
+                continue
+            for shard_copy in shard_copies:
+                routing = shard_copy.get("routing", {})
+                if not routing.get("primary", False):
+                    continue
+                try:
+                    seg = int(shard_copy.get("segments", {}).get("count", 0) or 0)
+                except (TypeError, ValueError):
+                    seg = 0
+                max_primary = max(max_primary, seg)
+        return segments_count, max_primary
     
     def _parse_from_indices_stats_json(self, data) -> List[IndexInfo]:
         """
@@ -214,6 +240,10 @@ class IndicesParser(DiagnosticFileParser):
                 
                 # 6. 创建时间（暂不支持）
                 created_time = None
+
+                segments_count, max_primary_shard_segments = self._extract_segment_stats(
+                    index_data
+                )
                 
                 # 7. 创建 IndexInfo 对象
                 index_info = IndexInfo(
@@ -225,7 +255,9 @@ class IndicesParser(DiagnosticFileParser):
                     replica_shards=replica_count,
                     docs_count=docs_count,
                     store_size_bytes=store_size_bytes,
-                    created_time=created_time
+                    created_time=created_time,
+                    segments_count=segments_count,
+                    max_primary_shard_segments=max_primary_shard_segments,
                 )
                 indices.append(index_info)
                 

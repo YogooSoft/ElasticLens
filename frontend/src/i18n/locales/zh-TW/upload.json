@@ -2,5 +2,8 @@
   "dragText": "點擊或拖拽文件到此區域上傳",
   "hint": "支持單個 ZIP 文件，文件大小不超過 2GB",
   "uploadSuccess": "上傳成功，開始處理...",
-  "uploadFailed": "上傳失敗"
+  "uploadFailed": "上傳失敗",
+  "uploading": "正在上傳…",
+  "uploadProgress": "（{{percent}}%）",
+  "uploadSize": "已傳輸 {{loaded}} / {{total}}"
 }

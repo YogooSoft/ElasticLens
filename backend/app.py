@@ -197,6 +197,9 @@ def _add_checks_table(doc, checks, lang='zh-CN'):
                 detail_parts.append(f"值：{value}")
             if threshold:
                 detail_parts.append(f"阈值：{threshold}")
+            note = check.get('detail')
+            if note:
+                detail_parts.append(note)
             
             detail_text = ', '.join(detail_parts) if detail_parts else check.get('message', 'N/A')
             # 智能翻译detail文本（会翻译"值："和"阈值："）
@@ -768,7 +771,8 @@ def generate_word_report(report_data: dict, output_path: str, lang: str = 'zh-CN
                                     'status': translate('report.check.status.pass', lang) if check_value.get('passed', True) else translate('report.check.status.fail', lang),
                                     'message': detail,
                                     'value': check_value.get('value'),
-                                    'threshold': check_value.get('threshold')
+                                    'threshold': check_value.get('threshold'),
+                                    'detail': check_value.get('detail', ''),
                                 })
                         
                         if flat_checks:

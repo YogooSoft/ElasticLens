@@ -754,32 +754,27 @@ class DiagnosticDataExtractor:
                 logger.warning("未找到 cat_shards.txt 文件，返回空的大分片列表")
                 return []
             
-            # 解析分片数据
-            from es_insight.parsers.shards_parser import parse_cat_shards, bytes_to_gb
+            from es_insight.parsers.shards_parser import (
+                parse_cat_shards,
+                aggregate_index_shards,
+            )
+
             shards = parse_cat_shards(content)
-            
-            # 计算每个索引的分片大小（包括所有分片，不仅仅是主分片）
-            index_shard_sizes = {}
-            index_shard_counts = {}
-            
-            for shard in shards:
-                if shard.index_name not in index_shard_sizes:
-                    index_shard_sizes[shard.index_name] = 0
-                    index_shard_counts[shard.index_name] = 0
-                index_shard_sizes[shard.index_name] += shard.store_size_bytes
-                index_shard_counts[shard.index_name] += 1
-            
-            # 计算每个索引的平均分片大小
+            summaries = aggregate_index_shards(shards)
+
             large_shards_indices = []
-            for index_name, total_size in index_shard_sizes.items():
-                shard_count = index_shard_counts.get(index_name, 1)
-                avg_shard_size_gb = bytes_to_gb(total_size / shard_count)
-                logger.debug(f"索引 {index_name} 的平均分片大小：{avg_shard_size_gb:.2f} GB")
-                if avg_shard_size_gb > threshold_gb:
-                    large_shards_indices.append({
-                        'index_name': index_name,
-                        'shard_size_gb': avg_shard_size_gb
-                    })
+            for summary in summaries:
+                if summary.avg_shard_size_gb > threshold_gb:
+                    logger.debug(
+                        f"索引 {summary.index_name} 的主分片平均大小："
+                        f"{summary.avg_shard_size_gb:.2f} GB"
+                    )
+                    large_shards_indices.append(
+                        {
+                            "index_name": summary.index_name,
+                            "shard_size_gb": summary.avg_shard_size_gb,
+                        }
+                    )
             
             # 按分片大小排序
             large_shards_indices.sort(key=lambda x: x['shard_size_gb'], reverse=True)

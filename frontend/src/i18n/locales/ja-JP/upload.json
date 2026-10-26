@@ -2,5 +2,8 @@
   "dragText": "クリックまたはファイルをこのエリアにドラッグしてアップロード",
   "hint": "単一のZIPファイルをサポート、ファイルサイズは2GB以下",
   "uploadSuccess": "アップロード成功、処理開始...",
-  "uploadFailed": "アップロード失敗"
+  "uploadFailed": "アップロード失敗",
+  "uploading": "アップロード中…",
+  "uploadProgress": "（{{percent}}%）",
+  "uploadSize": "転送済み {{loaded}} / {{total}}"
 }

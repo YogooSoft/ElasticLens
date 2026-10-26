@@ -1,5 +1,23 @@
 # ES Insight Frontend 变更日志
 
+## 版本号修改位置
+- 页面展示版本：`frontend/.env.development`、`.env.production` 中的 `VITE_APP_VERSION`
+- 包版本：`frontend/package.json` 的 `version` 字段
+
+## [1.0.10] - 2026-10-26
+### Fixed
+- **大文件上传过程无界面反馈**：进度已写入 `useUploadStore`，但上传区未渲染进度，用户在上传完成前看不到任何变化。
+
+### Added
+- **左侧上传进度展示**：`FileUploader` 在 Dragger 下方显示文件名、进度条、已传输/总大小；上传中禁用拖拽区防止重复提交
+- **上传进度兜底**：`api/upload.ts` 在 `progressEvent.total` 缺失时使用 `file.size` 计算百分比
+- **多语言**：各语言 `upload.json` 新增 `uploading`、`uploadProgress`、`uploadSize`
+
+### Technical Details
+- `src/components/Upload/FileUploader.tsx`
+- `src/api/upload.ts`
+- `src/i18n/locales/**/upload.json`
+
 ## [1.0.9] - 2026-05-06
 ### Added
 - **新增 Docker 化部署支持**：实现前端容器化部署方案

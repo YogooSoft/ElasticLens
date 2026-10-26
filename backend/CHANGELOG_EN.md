@@ -4,6 +4,27 @@
 - Version number is defined in the `version.py` file
 - Modify the `VERSION` variable to update the version number
 
+## [1.0.10] - 2026-10-26
+### Fixed
+- **Primary shard rationality vs detail table mismatch**: Align with diagnostic JSON `primary_shards`; oversized primary shard counts match the “indices with single shard > 40GB” table (`shard_size_check` / `diagnostic_extractor`)
+- **Segment overload always passing**: Parse index segment fields; evaluate average segments per primary shard (threshold `per_primary_shard: 35`), consistent with diagnostic script 3.16
+- **Search failure check always “none found”**: Fix `nodes_stats` assignment so `missing_total` and related node metrics are read correctly (`nodes_stats_utils`)
+- **Shards check threshold and display**: Unify oversized physical shard threshold from 50GB to 40GB; `nodes_shards` `value` shows cluster-wide max shards per node instead of count of violating nodes (`shard_node_stats`)
+- **JVM consistency showing `-` for data**: Recognize data node roles such as `data_hot` and `his` (`node_role_utils`); JVM consistency applies only to data nodes
+- **Delayed shard allocation passing when unset**: Treat missing delayed allocation policy as failed (`passed: false`)
+
+### Changed
+- **Oversized shard messaging**: HTML/Word reports add detail/suggestion for shard size checks—counts include primaries and replicas (physical shard rows), distinct from index-level primary aggregation
+- **Threshold config**: `checkpoints_thresholds_complete.yaml` aligns `oversized_primary`, `oversized_single_shard`, etc. with the 40GB product standard
+
+### Added
+- **Inspection modules**: `shard_size_check.py`, `segment_check.py`, `nodes_stats_utils.py`, `shard_node_stats.py`, `node_role_utils.py`
+- **Unit tests**: `test_oversized_primary_shards.py`, `test_problem2_checks.py`, `test_problem3_shards_check.py`, `test_delayed_allocation_check.py`, `test_node_role_utils.py`
+
+### Technical Details
+- Core parsing and rules: `es_insight/parse_check_result.py`, `es_insight/diagnostic_extractor.py`, `es_insight/parsers/indices_parser.py`
+- Backend reports: `backend/app.py` Word report suggestion field path aligned with HTML
+
 ## [1.0.9] - 2026-05-06
 ### Added
 - **Added Dockerized deployment support**: Implemented containerized frontend and backend deployment solution

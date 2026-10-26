@@ -18,10 +18,14 @@ export const uploadFile = async (
       'Content-Type': 'multipart/form-data',
     },
     onUploadProgress: (progressEvent) => {
-      if (onProgress && progressEvent.total) {
-        const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        onProgress(percent);
-      }
+      if (!onProgress) return;
+      const total = progressEvent.total || file.size;
+      if (!total) return;
+      const percent = Math.min(
+        100,
+        Math.round((progressEvent.loaded * 100) / total)
+      );
+      onProgress(percent);
     },
   });
 

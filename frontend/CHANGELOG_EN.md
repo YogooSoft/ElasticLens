@@ -1,5 +1,23 @@
 # ES Insight Frontend Changelog
 
+## Version Number Location
+- UI display version: `VITE_APP_VERSION` in `frontend/.env.development` and `.env.production`
+- Package version: `version` field in `frontend/package.json`
+
+## [1.0.10] - 2026-10-26
+### Fixed
+- **No UI feedback during large file upload**: Progress was stored in `useUploadStore` but not rendered in the upload area, so nothing appeared to change until the request completed.
+
+### Added
+- **Left-side upload progress**: `FileUploader` shows file name, progress bar, and transferred/total size below the Dragger; the drop zone is disabled while uploading to prevent duplicate submissions
+- **Upload progress fallback**: `api/upload.ts` uses `file.size` when `progressEvent.total` is missing
+- **i18n**: Added `uploading`, `uploadProgress`, and `uploadSize` in all locale `upload.json` files
+
+### Technical Details
+- `src/components/Upload/FileUploader.tsx`
+- `src/api/upload.ts`
+- `src/i18n/locales/**/upload.json`
+
 ## [1.0.9] - 2026-05-06
 ### Added
 - **Added Dockerized deployment support**: Implemented containerized frontend deployment solution

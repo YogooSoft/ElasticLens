@@ -4,6 +4,27 @@
 - 版本号定义在 `version.py` 文件中
 - 修改 `VERSION` 变量即可更新版本号
 
+## [1.0.10] - 2026-10-26
+### Fixed
+- **主分片合理性检查与明细表不一致**：诊断 JSON 使用 `primary_shards` 字段；超大主分片统计与「单个分片大于 40GB 索引」表对齐（`shard_size_check` / `diagnostic_extractor`）
+- **Segment 过载恒为通过**：补全索引 segment 字段解析，按主分片平均 segment 数判定（阈值 `per_primary_shard: 35`），与诊断脚本 3.16 一致
+- **搜索失败检查恒为「未发现」**：修正 `nodes_stats` 赋值逻辑，正确读取 `missing_total` 等节点统计（`nodes_stats_utils`）
+- **Shards 检查阈值与展示**：超大物理分片阈值由 50GB 统一为 40GB；节点分片数 `value` 改为全集群单节点最大分片数，而非违规节点个数（`shard_node_stats`）
+- **JVM 内存一致性 data 为 `-`**：识别 `data_hot`、`his` 等数据节点 role（`node_role_utils`），仅对数据节点做 JVM 一致性比对
+- **分片延迟分配未配置仍通过**：未配置延迟分配策略时判定为不通过（`passed: false`）
+
+### Changed
+- **超大分片检查说明**：HTML/Word 报告在 shards 尺寸类检查中补充 detail/suggestion——「含主分片与副本，按物理分片条数统计」，与索引级主分片统计口径区分
+- **阈值配置**：`checkpoints_thresholds_complete.yaml` 中 `oversized_primary`、`oversized_single_shard` 等与产品 40GB 口径对齐
+
+### Added
+- **巡检逻辑模块**：`shard_size_check.py`、`segment_check.py`、`nodes_stats_utils.py`、`shard_node_stats.py`、`node_role_utils.py`
+- **单元测试**：`test_oversized_primary_shards.py`、`test_problem2_checks.py`、`test_problem3_shards_check.py`、`test_delayed_allocation_check.py`、`test_node_role_utils.py`
+
+### Technical Details
+- 核心解析与规则：`es_insight/parse_check_result.py`、`es_insight/diagnostic_extractor.py`、`es_insight/parsers/indices_parser.py`
+- 后端报告：`backend/app.py` 中 Word 报告 suggestion 字段读取路径与 HTML 一致
+
 ## [1.0.9] - 2026-05-06
 ### Added
 - **新增 Docker 化部署支持**：实现前后端容器化部署方案

@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    image: elasticlens-backend:1.0.10
     container_name: elasticlens-backend
     ports:
       - "5001:5000"
@@ -36,6 +37,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: elasticlens-frontend:1.0.10
     container_name: elasticlens-frontend
     ports:
       - "8080:80"
